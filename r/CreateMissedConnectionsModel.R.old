@@ -1,0 +1,53 @@
+misconnectionsDataFile <- 
+  "C:/project/data/paxdelay/misconnections/MissedConnectionsData.csv"
+misconnectionsData <- 
+  read.table(misconnectionsDataFile, header = TRUE, sep = ",")
+
+Misconnection_Percent <- misconnectionsData$MisConnPax / 
+  misconnectionsData$Pax
+misconnectionsData <- cbind(misconnectionsData, Misconnection_Percent)
+
+misconnectionsFormula <- "Misconnection_Percent ~ FD25 + FD50 + FD75 + 
+  FD95 + CT05 + CT25 + CT50 + CT75 + CT95"
+
+unweightedModel <- 
+  lm(formula = misconnectionsFormula, data = misconnectionsData, 
+  model = FALSE)
+
+summary(unweightedModel)
+
+weightedModel <- 
+  lm(formula = misconnectionsFormula, data = misconnectionsData, 
+  weights = misconnectionsData$Pax, model = FALSE)
+  
+summary(weightedModel)
+
+FD50_FD25 <- misconnectionsData$FD50 - misconnectionsData$FD25
+FD75_FD50 <- misconnectionsData$FD75 - misconnectionsData$FD50
+FD95_FD75 <- misconnectionsData$FD95 - misconnectionsData$FD75
+
+CT25_CT05 <- misconnectionsData$CT25 - misconnectionsData$CT05
+CT50_CT25 <- misconnectionsData$CT50 - misconnectionsData$CT25
+CT75_CT50 <- misconnectionsData$CT75 - misconnectionsData$CT50
+CT95_CT75 <- misconnectionsData$CT95 - misconnectionsData$CT75
+
+misconnectionsData <- cbind(misconnectionsData, FD50_FD25, FD75_FD50,
+  FD95_FD75, CT25_CT05, CT50_CT25, CT75_CT50, CT95_CT75)
+
+differenceFormula <- "Misconnection_Percent ~ FD25 + FD50_FD25 + 
+  FD75_FD50 + FD95_FD75 + CT05 + CT25_CT05 + CT50_CT25 + CT75_CT50 + 
+  CT95_CT75"
+  
+unweightedDiffModel <- 
+  lm(formula = differenceFormula, data = misconnectionsData, 
+  model = FALSE)
+  
+summary(unweightedDiffModel)
+
+weightedDiffModel <- 
+  lm(formula = differenceFormula, data = misconnectionsData, 
+  weights = misconnectionsData$Pax, model = FALSE)
+  
+summary(weightedDiffModel)
+
+
