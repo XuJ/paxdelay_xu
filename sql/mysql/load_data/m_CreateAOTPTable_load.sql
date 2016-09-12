@@ -87,75 +87,97 @@ partition by list (quarter)
 
 
 
-LOAD DATA INFILE '/export/mysql/import/On_Time_On_Time_Performance_2007.csv'
-INTO TABLE tmp_load_aotp
-FIELDS TERMINATED BY ','
-OPTIONALLY ENCLOSED BY '"'
-LINES TERMINATED BY '\n'
-IGNORE 1 LINES
-(
-	year,
-	quarter,
-	month,
-	day_of_month,
-	day_of_week,
-	flight_date,
-	unique_carrier,
-	airline_id,
-	carrier,
-	tail_number,
-	flight_number,
-		origin_airportid,
-		origin_airportseqid,
-		origin_citymarketid,
-	origin,
-	origin_city_name,
-	origin_state,
-	origin_state_fips,
-	origin_state_name,
-	origin_wac,
-		dest_airportid,
-		dest_airportseqid,
-		dest_citymarketid,
-	destination,
-	destination_city_name,
-	destination_state,
-	destination_state_fips,
-	destination_state_name,
-	destination_wac,
-	planned_departure_time,
-	actual_departure_time,
-	departure_offset,
-	departure_delay,
-	departure_delay_15,
-	departure_delay_group,
-	departure_time_block,
-	taxi_out_duration,
-	wheels_off_time,
-	wheels_on_time,
-	taxi_in_duration,
-	planned_arrival_time,
-	actual_arrival_time,
-	arrival_offset,
-	arrival_delay,
-	arrival_delay_15,
-	arrival_delay_group,
-	arrival_time_block,
-	cancelled,
-	cancellation_code,
-	diverted,
-	planned_elapsed_time,
-	actual_elapsed_time,
-	in_air_duration,
-	number_flights,
-	flight_distance,
-	distance_group,
-	carrier_delay,
-	weather_delay,
-	nas_delay,
-	security_delay,
-	late_aircraft_delay
-);
+
+
+
+
+DECLARE counts INT;
+DECLARE maxNum INT;
+DECLARE fileName varchar(40);
+SET counts=1;
+SET maxNum=12;
+SET fileName='/mdsg/bts_raw_csv/AOTP_2007_#.csv';
+WHILE  counts<=maxNum DO
+	SET fileName = REPLACE(fileName, '#', CONCAT('',counts))
+	LOAD DATA INFILE fileName
+	INTO TABLE tmp_load_aotp
+	FIELDS TERMINATED BY ','
+	OPTIONALLY ENCLOSED BY '"'
+	LINES TERMINATED BY '\n'
+	IGNORE 1 LINES
+	(
+		year,
+		quarter,
+		month,
+		day_of_month,
+		day_of_week,
+		flight_date,
+		unique_carrier,
+		airline_id,
+		carrier,
+		tail_number,
+		flight_number,
+			origin_airportid,
+			origin_airportseqid,
+			origin_citymarketid,
+		origin,
+		origin_city_name,
+		origin_state,
+		origin_state_fips,
+		origin_state_name,
+		origin_wac,
+			dest_airportid,
+			dest_airportseqid,
+			dest_citymarketid,
+		destination,
+		destination_city_name,
+		destination_state,
+		destination_state_fips,
+		destination_state_name,
+		destination_wac,
+		planned_departure_time,
+		actual_departure_time,
+		departure_offset,
+		departure_delay,
+		departure_delay_15,
+		departure_delay_group,
+		departure_time_block,
+		taxi_out_duration,
+		wheels_off_time,
+		wheels_on_time,
+		taxi_in_duration,
+		planned_arrival_time,
+		actual_arrival_time,
+		arrival_offset,
+		arrival_delay,
+		arrival_delay_15,
+		arrival_delay_group,
+		arrival_time_block,
+		cancelled,
+		cancellation_code,
+		diverted,
+		planned_elapsed_time,
+		actual_elapsed_time,
+		in_air_duration,
+		number_flights,
+		flight_distance,
+		distance_group,
+		carrier_delay,
+		weather_delay,
+		nas_delay,
+		security_delay,
+		late_aircraft_delay
+	);
+
+	SET counts=counts+1;
+	SET fileName='/mdsg/bts_raw_csv/AOTP_2007_#.csv';
+END WHILE;
+
+
+
+
+
+
 
 
 insert into aotp
