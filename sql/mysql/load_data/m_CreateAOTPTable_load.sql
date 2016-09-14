@@ -101,7 +101,7 @@ BEGIN
 	SET fileName='/mdsg/bts_raw_csv/AOTP_2007_#.csv';
 	WHILE  counts<=maxNum DO
 		SET fileName = REPLACE(fileName, '#', CONCAT('',counts))
-		LOAD DATA INFILE fileName
+		LOAD DATA LOCAL INFILE fileName
 		INTO TABLE tmp_load_aotp
 		FIELDS TERMINATED BY ','
 		OPTIONALLY ENCLOSED BY '"'
