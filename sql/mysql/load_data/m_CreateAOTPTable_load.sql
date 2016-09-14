@@ -96,13 +96,14 @@ BEGIN
 	DECLARE counts INT;
 	DECLARE maxNum INT;
 	DECLARE fileName varchar(40);
+	DECLARE command varchar(2000);
 	SET counts=1;
 	SET maxNum=12;
 	SET fileName='/mdsg/bts_raw_csv/AOTP_2007_#.csv';
 	WHILE  counts<=maxNum DO
 		SET fileName = REPLACE(fileName, '#', CONCAT('',counts))
-		LOAD DATA LOCAL INFILE fileName
-		INTO TABLE tmp_load_aotp
+
+		SET command= CONCAT("LOAD DATA LOCAL INFILE ",fileName,"INTO TABLE tmp_load_aotp
 		FIELDS TERMINATED BY ','
 		OPTIONALLY ENCLOSED BY '"'
 		LINES TERMINATED BY '\n'
@@ -169,8 +170,9 @@ BEGIN
 			nas_delay,
 			security_delay,
 			late_aircraft_delay
-		);
-
+		)");
+		prepare s1 from command;
+		execute s1;deallocate prepare s1;
 		SET counts=counts+1;
 		SET fileName='/mdsg/bts_raw_csv/AOTP_2007_#.csv';
 	END WHILE;
