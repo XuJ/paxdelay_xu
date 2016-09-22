@@ -9,7 +9,7 @@ airline_id varchar(100),
 unique_carrier varchar(100),
 
 	carrier			char(6) not null,
-	first_year		char(4) not null,
+	year		char(4) not null,
 	serial_number	varchar(12) not null,
 	tail_number		varchar(7) not null,
 	aircraft_status	char(1) not null,
@@ -28,7 +28,7 @@ INTO TABLE tmp_load_airline_inventories
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES
-(first_year,
+(year,
 carrier,
 carrier_name,
 year_of_first_delivery,
@@ -47,12 +47,8 @@ unique_carrier
 );
 
 insert into airline_inventories
-	(carrier, first_year,	serial_number, tail_number,	aircraft_status, operating_status, number_of_seats, manufacturer, model, capacity_in_pounds, acquisition_date)
-select carrier, 
-case when first_year > 40 then 1900 + first_year
-	else 2000 + first_year
-	end as first_year,
-serial_number, tail_number,	aircraft_status, operating_status, number_of_seats, manufacturer, model, capacity_in_pounds, STR_TO_DATE(acquisition_date,'%m/%d/%Y') as acquisition_date
+	(carrier, year,	serial_number, tail_number,	aircraft_status, operating_status, number_of_seats, manufacturer, model, capacity_in_pounds, acquisition_date)
+select carrier, year, serial_number, tail_number,	aircraft_status, operating_status, number_of_seats, manufacturer, model, capacity_in_pounds, STR_TO_DATE(acquisition_date,'%Y/%m/%d') as acquisition_date
 from tmp_load_airline_inventories;
 
 drop table if exists tmp_load_airline_inventories;
