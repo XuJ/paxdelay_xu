@@ -12,12 +12,12 @@ create table itinerary_allocations
   origin char(3) not null,
   destination char(3) not null,
 
-  planned_departure_time_UTC datetime not null,
-  planned_departure_tz char(15),
+  planned_departure_time datetime not null,
+  planned_departure_tz char(25),
   planned_departure_local_hour numeric(2),
 
-  planned_arrival_time_UTC datetime not null,
-  planned_arrival_tz char(15),
+  planned_arrival_time datetime not null,
+  planned_arrival_tz char(25),
   planned_arrival_local_hour numeric(2),
 
   first_flight_id numeric(12) not null,
@@ -37,8 +37,8 @@ select ft1.year as year, ft1.quarter as quarter, ft1.month as month, ft1.day_of_
   1 as num_flights, tia.first_carrier as first_carrier, null as second_carrier, 
   ft1.origin as origin, ft1.destination as destination,
 
-  ft1.planned_departure_time_UTC as planned_departure_time_UTC, ft1.planned_departure_tz as planned_departure_tz, ft1.planned_departure_local_hour as planned_departure_local_hour,
-  ft1.planned_arrival_time_UTC as planned_arrival_time_UTC, ft1.planned_arrival_tz as planned_arrival_tz, ft1.planned_arrival_local_hour as planned_arrival_local_hour,
+  ft1.planned_departure_time as planned_departure_time, ft1.planned_departure_tz as planned_departure_tz, ft1.planned_departure_local_hour as planned_departure_local_hour,
+  ft1.planned_arrival_time as planned_arrival_time, ft1.planned_arrival_tz as planned_arrival_tz, ft1.planned_arrival_local_hour as planned_arrival_local_hour,
 
   tia.first_flight_id as first_flight_id, null as second_flight_id,
   tia.passengers as passengers
@@ -50,8 +50,8 @@ select ft1.year as year, ft1.quarter as quarter, ft1.month as month, ft1.day_of_
   2 as num_flights, tia.first_carrier as first_carrier, tia.second_carrier as second_carrier,
   ft1.origin as origin, ft2.destination as destination, 
 
-  ft1.planned_departure_time_UTC as planned_departure_time_UTC, ft1.planned_departure_tz as planned_departure_tz, ft1.planned_departure_local_hour as planned_departure_local_hour,
-  ft2.planned_arrival_time_UTC as planned_arrival_time_UTC, ft2.planned_arrival_tz as planned_arrival_tz, ft2.planned_arrival_local_hour as planned_arrival_local_hour,
+  ft1.planned_departure_time as planned_departure_time, ft1.planned_departure_tz as planned_departure_tz, ft1.planned_departure_local_hour as planned_departure_local_hour,
+  ft2.planned_arrival_time as planned_arrival_time, ft2.planned_arrival_tz as planned_arrival_tz, ft2.planned_arrival_local_hour as planned_arrival_local_hour,
  
   tia.first_flight_id as first_flight_id, tia.second_flight_id as second_flight_id,
   tia.passengers as passengers

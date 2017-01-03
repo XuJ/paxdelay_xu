@@ -238,8 +238,10 @@ public class ATFMPassengerDelayCalculator extends PassengerDelayCalculator {
 				String aircraftType = rset.getString("icao_aircraft_code");
 				double seatingCapacity = rset.getDouble("seating_capacity");
 				if (seatingCapacity < 1) {
+					//OPHASWONGSE
+					//Remove aircraft type from parameter
 					seatingCapacity = estimateDefaultSeatingCapacity(flightID, carrier,
-							origin, destination, aircraftType);
+							origin, destination);
 				}
 
 				Timestamp plannedDeparture = rset

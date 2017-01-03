@@ -8,7 +8,7 @@ create table airline_inventories
 	tail_number		varchar(7) not null,
 	aircraft_status	char(1) not null,
 	operating_status	char(1) not null,
-	number_of_seats		numeric(3, 0),
+	number_of_seats		numeric(3, 0) not null,
 	manufacturer	varchar(50) not null,
 	model			varchar(16) not null,
 	capacity_in_pounds	numeric(6, 0),

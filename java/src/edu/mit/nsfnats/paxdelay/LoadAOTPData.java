@@ -11,7 +11,7 @@ public class LoadAOTPData {
 	   static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay?allowMultiQueries=true";
 	   //  Database credentials
-	   static final String USER = "anunya";
+	   static final String USER = "saris";
 	   static final String PASS = "paxdelay";
 	   public static void main(String[] args) {
 	   Connection conn = null;
@@ -91,8 +91,8 @@ public class LoadAOTPData {
 	      		"	weather_delay	numeric(4, 0) default 0.00 not null,\n" + 
 	      		"	nas_delay	numeric(4, 0) default 0.00 not null,\n" + 
 	      		"	security_delay	numeric(4, 0) default 0.00 not null,\n" + 
-	      		"	late_aircraft_delay	numeric(4, 0) default 0.00 not null)\n" + 
-	      		" " + 
+	      		"	late_aircraft_delay	numeric(4, 0) default 0.00 not null\n" + 
+	      		") \n" + 
 	      		"ENGINE = MyISAM\n" + 
 	      		"partition by list (quarter)\n" + 
 	      		"(	partition p_q1 values in (1),\n" + 

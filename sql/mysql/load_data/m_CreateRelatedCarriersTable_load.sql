@@ -1,4 +1,4 @@
-LOAD DATA INFILE '/export/mysql/import/RelatedCarriers.csv'
+LOAD DATA LOCAL INFILE '****/RelatedCarriers.csv'
 INTO TABLE related_carriers
 FIELDS TERMINATED BY ','
 OPTIONALLY ENCLOSED BY '"'

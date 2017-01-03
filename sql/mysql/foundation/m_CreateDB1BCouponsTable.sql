@@ -18,7 +18,6 @@ create table db1b_coupons
 	quarter	int not null,
 	origin	char(3) not null,
 	destination	char(3) not null,
-	number_destination_airports	numeric(2, 0) not null,
 	ticketing_carrier	varchar(3) not null,
 	operating_carrier	varchar(3) not null,
 	reporting_carrier	varchar(3) not null,

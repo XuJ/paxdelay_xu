@@ -14,7 +14,7 @@ unique_carrier varchar(100),
 	tail_number		varchar(7) not null,
 	aircraft_status	char(1) not null,
 	operating_status	char(1) not null,
-	number_of_seats		numeric(3, 0),
+	number_of_seats		numeric(3, 0) not null,
 	manufacturer	varchar(50) not null,
 	model			varchar(16) not null,
 	capacity_in_pounds	numeric(6, 0),
@@ -25,7 +25,7 @@ ENGINE = MyISAM;
 
 LOAD DATA INFILE '/export/mysql/import/airline_inventory.csv'
 INTO TABLE tmp_load_airline_inventories
-FIELDS TERMINATED BY ','
+FIELDS TERMINATED BY ',' ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES
 (year,

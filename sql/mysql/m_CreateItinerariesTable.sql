@@ -1,5 +1,7 @@
 drop table if exists itineraries;
-
+--OPHASWONGSE
+--Remove suffix "_UTC" from all column
+--Change data type of planned_departure_tz and planned_arrival_tz from char(15) to char(25)
 create table itineraries
 (
   id integer not null auto_increment, primary key (id),
@@ -18,13 +20,13 @@ create table itineraries
   connection char(3),
   destination char(3) not null,
 
-  planned_departure_time_UTC datetime not null,
-  planned_departure_tz char(15),
+  planned_departure_time datetime not null,
+  planned_departure_tz char(25),
   planned_departure_local_hour numeric(2),
 
 
-  planned_arrival_time_UTC datetime not null,
-  planned_arrival_tz char(15),
+  planned_arrival_time datetime not null,
+  planned_arrival_tz char(25),
   planned_arrival_local_hour numeric(2),
 
   layover_duration numeric(4),
@@ -38,11 +40,11 @@ insert into itineraries
 (
   year, quarter, month, day_of_month, day_of_week, hour_of_day, minutes_of_hour, num_flights, multi_carrier_flag, first_operating_carrier, second_operating_carrier, 
   origin, connection, destination,
-  planned_departure_time_UTC,
+  planned_departure_time,
   planned_departure_tz,
   planned_departure_local_hour,
 
-  planned_arrival_time_UTC,
+  planned_arrival_time,
   planned_arrival_tz,
   planned_arrival_local_hour,
 
@@ -63,11 +65,11 @@ select
 	ft.origin as origin,
 	null as connection,
 	ft.destination as destination,
-	ft.planned_departure_time_UTC as planned_departure_time_UTC,
+	ft.planned_departure_time as planned_departure_time,
 	ft.planned_departure_tz as planned_departure_tz,
 	ft.planned_departure_local_hour as planned_departure_local_hour,
  
-	ft.planned_arrival_time_UTC as planned_arrival_time_UTC,
+	ft.planned_arrival_time as planned_arrival_time,
 	ft.planned_arrival_tz as planned_arrival_tz,
 	ft.planned_arrival_local_hour as planned_arrival_local_hour,
 	null as layover_duration,
@@ -84,11 +86,11 @@ where ti.num_flights = 1;
 insert into itineraries
 (  year, quarter, month, day_of_month, day_of_week, hour_of_day, minutes_of_hour, num_flights, multi_carrier_flag, first_operating_carrier, second_operating_carrier, 
   origin, connection, destination,
-  planned_departure_time_UTC,
+  planned_departure_time,
   planned_departure_tz,
   planned_departure_local_hour,
 
-  planned_arrival_time_UTC,
+  planned_arrival_time,
   planned_arrival_tz,
   planned_arrival_local_hour,
 
@@ -115,15 +117,15 @@ select
 	ft1.destination as connection,
 	ft2.destination as destination, 
 
-	ft1.planned_departure_time_UTC as planned_departure_time_UTC,
+	ft1.planned_departure_time as planned_departure_time,
 	ft1.planned_departure_tz as planned_departure_tz,
 	ft1.planned_departure_local_hour as planned_departure_local_hour,
 
-	ft2.planned_arrival_time_UTC as planned_arrival_time_UTC,
+	ft2.planned_arrival_time as planned_arrival_time,
 	ft2.planned_arrival_tz as planned_arrival_tz,
 	ft2.planned_arrival_local_hour as planned_arrival_local_hour,
 
-	TIMESTAMPDIFF(minute, ft2.planned_departure_time_UTC, ft1.planned_arrival_time_UTC) as layover_duration,
+	TIMESTAMPDIFF(minute, ft2.planned_departure_time, ft1.planned_arrival_time) as layover_duration,
 	ft1.id as first_flight_id, 
 	ft2.id as second_flight_id
 from temp_itineraries ti
@@ -185,11 +187,11 @@ begin
                 ft.hour_of_day, ft.minutes_of_hour, 1, 0, 
                 ft.carrier, ft.origin, ft.destination, 
                 
-                ft.planned_departure_time_UTC   as planned_departure_time_UTC,
+                ft.planned_departure_time   as planned_departure_time,
                 ft.planned_departure_tz         as planned_departure_tz,
                 ft.planned_departure_local_hour as planned_departure_local_hour,
                      
-                ft.planned_arrival_time_UTC     as planned_arrival_time_UTC,
+                ft.planned_arrival_time     as planned_arrival_time,
                 ft.planned_arrival_tz           as planned_arrival_tz,
                 ft.planned_arrival_local_hour   as planned_arrival_local_hour,
                 
@@ -203,11 +205,11 @@ begin
                 hour_of_day, minutes_of_hour, num_flights, multi_carrier_flag,
                 first_operating_carrier, origin, destination, 
                    
-                planned_departure_time_UTC,
+                planned_departure_time,
                 planned_departure_tz,
                 planned_departure_local_hour,
                 
-                planned_arrival_time_UTC,
+                planned_arrival_time,
                 planned_arrival_tz,
                 planned_arrival_local_hour,
                    
@@ -217,11 +219,11 @@ begin
                 ft.hour_of_day, ft.minutes_of_hour, 1, 0, 
                 ft.carrier, ft.origin, ft.destination, 
                 
-                ft.planned_departure_time_UTC,
+                ft.planned_departure_time,
                 ft.planned_departure_tz,
                 ft.planned_departure_local_hour,
                  
-                ft.planned_arrival_time_UTC,
+                ft.planned_arrival_time,
                 ft.planned_arrival_tz,
                 ft.planned_arrival_local_hour,
                 
@@ -242,10 +244,10 @@ begin
                 ft1.hour_of_day                  as ft1_hour_of_day,
                 ft1.minutes_of_hour              as ft1_minutes_of_hour,
                 ft1.carrier                      as ft1_carrier,
-                ft1.planned_departure_time_UTC   as ft1_planned_departure_time_UTC,
+                ft1.planned_departure_time   as ft1_planned_departure_time,
                 ft1.planned_departure_tz         as ft1_planned_departure_tz,
                 ft1.planned_departure_local_hour as ft1_planned_departure_local_hour,
-                ft1.planned_arrival_time_UTC     as ft1_planned_arrival_time_UTC,
+                ft1.planned_arrival_time     as ft1_planned_arrival_time,
                 
                 ucr.second_operating_carrier     as ucr_second_operating_carrier,
                 ucr.origin                       as ucr_origin,
@@ -263,12 +265,12 @@ begin
           and ucr.first_operating_carrier        = op_carrier; 
                 
         alter table temp_iti_ft1ucr
-        add column ft1_planned_arrival_time_UTC_add30 datetime,
-        add column ft1_planned_arrival_time_UTC_add300 datetime;
+        add column ft1_planned_arrival_time_add30 datetime,
+        add column ft1_planned_arrival_time_add300 datetime;
         
         update temp_iti_ft1ucr
-        set ft1_planned_arrival_time_UTC_add30  = date_add(ft1_planned_arrival_time_UTC, interval 30 minute),
-            ft1_planned_arrival_time_UTC_add300 = date_add(ft1_planned_arrival_time_UTC, interval 300 minute);
+        set ft1_planned_arrival_time_add30  = date_add(ft1_planned_arrival_time, interval 30 minute),
+            ft1_planned_arrival_time_add300 = date_add(ft1_planned_arrival_time, interval 300 minute);
             
         create index idx_temp_iti
          on temp_iti_ft1ucr(
@@ -278,10 +280,10 @@ begin
                 ft1_hour_of_day,
                 ft1_id,
                 ft1_month, 
-                ft1_planned_arrival_time_UTC,
-                ft1_planned_arrival_time_UTC_add30,
-                ft1_planned_arrival_time_UTC_add300,
-                ft1_planned_departure_time_UTC,
+                ft1_planned_arrival_time,
+                ft1_planned_arrival_time_add30,
+                ft1_planned_arrival_time_add300,
+                ft1_planned_departure_time,
                 ft1_planned_departure_tz,
                 ft1_quarter,
                 ucr_connection,
@@ -291,15 +293,15 @@ begin
                 
         create table temp_iti_2
         select 
---  year(ttt.ft1_planned_departure_time_UTC) as year, 
-                null as year, 
+ year(ttt.ft1_planned_departure_time) as year, 
+                -- null as year, 
                 ttt.ft1_quarter, 
                 ttt.ft1_month, 
                 ttt.ft1_day_of_month, 
                 ttt.ft1_day_of_week,
                 ttt.ft1_hour_of_day, 
---  minute(ttt.ft1_planned_departure_time_UTC) as minutes_of_hour, 
-                null as minutes_of_hour, 
+ minute(ttt.ft1_planned_departure_time) as minutes_of_hour, 
+                -- null as minutes_of_hour, 
                 2,
                 case when (ft2.day_of_month - ttt.ft1_day_of_month) = 0 then 0 else 1 end as multi_carrier_flag,
                 
@@ -309,17 +311,17 @@ begin
                 ttt.ucr_connection, 
                 ttt.ucr_destination,
                 
-                ttt.ft1_planned_departure_time_UTC as planned_departure_time_UTC,
+                ttt.ft1_planned_departure_time as planned_departure_time,
                 ttt.ft1_planned_departure_tz as planned_departure_tz,
---  ttt.ft1_planned_departure_local_hour as planned_departure_local_hour,
-                null as planned_departure_local_hour,
+ ttt.ft1_planned_departure_local_hour as planned_departure_local_hour,
+                -- null as planned_departure_local_hour,
                 
-                ft2.planned_arrival_time_UTC as planned_arrival_time_UTC,
+                ft2.planned_arrival_time as planned_arrival_time,
                 ft2.planned_arrival_tz as planned_arrival_tz,
---  ft2.planned_arrival_local_hour as planned_arrival_local_hour,
-                null as planned_arrival_local_hour,
+ ft2.planned_arrival_local_hour as planned_arrival_local_hour,
+                -- null as planned_arrival_local_hour,
                 
-                TIMESTAMPDIFF(minute, ft2.planned_departure_time_UTC, ttt.ft1_planned_arrival_time_UTC) as layover_duration,
+                TIMESTAMPDIFF(minute, ft2.planned_departure_time, ttt.ft1_planned_arrival_time) as layover_duration,
                 
                 ttt.ft1_id, 
                 ft2.id as second_flight_id
@@ -328,8 +330,8 @@ begin
                 on ft2.carrier                     = ttt.ucr_second_operating_carrier 
                 and ft2.origin                     = ttt.ucr_connection  
                 and ft2.destination                = ttt.ucr_destination
-                and ft2.planned_departure_time_UTC >= ttt.ft1_planned_arrival_time_UTC_add30
-                and ft2.planned_departure_time_UTC <= ttt.ft1_planned_arrival_time_UTC_add300;          
+                and ft2.planned_departure_time >= ttt.ft1_planned_arrival_time_add30
+                and ft2.planned_departure_time <= ttt.ft1_planned_arrival_time_add300;          
                 
         insert into itineraries (
                 year, 
@@ -349,11 +351,11 @@ begin
                 connection, 
                 destination,
                 
-                planned_departure_time_UTC,
+                planned_departure_time,
                 planned_departure_tz,
                 planned_departure_local_hour,
                 
-                planned_arrival_time_UTC,
+                planned_arrival_time,
                 planned_arrival_tz,
                 planned_arrival_local_hour,       
                 
@@ -378,11 +380,11 @@ begin
                 ft.ucr_connection,
                 ft.ucr_destination,
                 
-                ft.planned_departure_time_UTC,
+                ft.planned_departure_time,
                 ft.planned_departure_tz,
                 ft.planned_departure_local_hour,
                 
-                ft.planned_arrival_time_UTC,
+                ft.planned_arrival_time,
                 ft.planned_arrival_tz,
                 ft.planned_arrival_local_hour,
                 

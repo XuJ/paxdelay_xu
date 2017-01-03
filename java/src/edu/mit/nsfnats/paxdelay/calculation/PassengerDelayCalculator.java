@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,25 +14,24 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
-import java.util.Map.Entry;
-
-import oracle.jdbc.pool.OracleDataSource;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 import edu.mit.nsfnats.paxdelay.InvalidFormatException;
 import edu.mit.nsfnats.paxdelay.util.PropertiesReader;
+import oracle.jdbc.pool.OracleDataSource;
 
 public class PassengerDelayCalculator {
 	public static Logger logger = Logger
@@ -286,9 +286,11 @@ public class PassengerDelayCalculator {
 
 	public void connectToDatabase() {
 		try {
-			m_datasource = new OracleDataSource();
-			m_datasource.setURL(m_jdbcURL);
-			m_dbConnection = m_datasource.getConnection(m_dbUsername,
+//			m_datasource = new OracleDataSource();
+//			m_datasource.setURL(m_jdbcURL);
+//			m_dbConnection = m_datasource.getConnection(m_dbUsername,
+//					m_dbPassword);
+			m_dbConnection = DriverManager.getConnection(m_jdbcURL,m_dbUsername,
 					m_dbPassword);
 		} catch (SQLException e) {
 			exit("Unable to connect to database " + m_jdbcURL
@@ -596,52 +598,71 @@ public class PassengerDelayCalculator {
 			stmt = createStatement();
 			int quarter = getQuarterForMonth(month);
 			StringBuffer disruptionClause = new StringBuffer();
+			//OPHASWONGSE Convert query to MySQL
+//			disruptionClause.append(
+//					"  decode(cancelled_flag, 1, planned_departure_time,")
+//					.append(NEWLINE);
+//			disruptionClause.append(
+//					"    decode(diverted_flag, 1, planned_departure_time,")
+//					.append(NEWLINE);
+//			disruptionClause.append(
+//					"      nvl(actual_arrival_time, planned_arrival_time)))")
+//					.append(NEWLINE);
 			disruptionClause.append(
-					"  decode(cancelled_flag, 1, planned_departure_time,")
+					"  case cancelled_flag when 1 then planned_departure_time")
 					.append(NEWLINE);
 			disruptionClause.append(
-					"    decode(diverted_flag, 1, planned_departure_time,")
+					"      else case diverted_flag when 1 then planned_departure_time")
 					.append(NEWLINE);
 			disruptionClause.append(
-					"      nvl(actual_arrival_time, planned_arrival_time)))")
+					"      else ifnull(actual_arrival_time, planned_arrival_time)")
+					.append(NEWLINE);
+			disruptionClause.append(
+					"      end end")
 					.append(NEWLINE);
 
 			StringBuffer query = new StringBuffer();
 			query.append("select id, carrier, origin, destination,").append(NEWLINE);
-			query.append("  icao_aircraft_code, seating_capacity,").append(NEWLINE);
+			query.append("  seating_capacity,").append(NEWLINE);
 			query.append("  cancelled_flag, diverted_flag,").append(NEWLINE);
 			query.append("  planned_departure_time,").append(NEWLINE);
 			query.append("  planned_arrival_time,").append(NEWLINE);
 			query.append("  actual_departure_time,").append(NEWLINE);
 			query.append("  actual_arrival_time,").append(NEWLINE);
 			query.append(disruptionClause);
-			query.append("    as disruption_time,").append(NEWLINE);
-			query.append("  decode(cancelled_flag, 1,").append(NEWLINE);
-			query.append(
-					"    to_number(to_char(planned_departure_time, 'HH24')),")
-					.append(NEWLINE);
-			query.append("    decode(diverted_flag, 1,").append(NEWLINE);
-			query
-					.append(
-							"      to_number(to_char(planned_departure_time, 'HH24')),")
-					.append(NEWLINE);
-			query
-					.append(
-							"      to_number(to_char(nvl(actual_arrival_time, planned_arrival_time), 'HH24'))))")
-					.append(NEWLINE);
-			query.append("    as local_disruption_hour").append(NEWLINE);
+			query.append("  as disruption_time,").append(NEWLINE);
+//			query.append("  decode(cancelled_flag, 1,").append(NEWLINE);
+//			query.append(
+//					"    to_number(to_char(planned_departure_time, 'HH24')),")
+//					.append(NEWLINE);
+//			query.append("    decode(diverted_flag, 1,").append(NEWLINE);
+//			query
+//					.append(
+//							"      to_number(to_char(planned_departure_time, 'HH24')),")
+//					.append(NEWLINE);
+//			query
+//					.append(
+//							"      to_number(to_char(nvl(actual_arrival_time, planned_arrival_time), 'HH24'))))")
+//					.append(NEWLINE);
+//			query.append("    as local_disruption_hour").append(NEWLINE);
+			query.append(" case cancelled_flag when 1 then  cast(date_format(planned_departure_time, 'HH24') as unsigned)").append(NEWLINE);
+			query.append(" else case diverted_flag when 1 then cast(date_format(planned_departure_time, 'HH24') as unsigned)").append(NEWLINE);
+			query.append("     else cast(date_format(ifnull(actual_arrival_time, planned_arrival_time), 'HH24') as unsigned)").append(NEWLINE);
+			query.append("     end").append(NEWLINE);
+			query.append(" end as local_disruption_hour").append(NEWLINE);
 			query.append("from paxdelay.").append(m_flightsTable).append(NEWLINE);
 			query.append("where year = ").append(m_year).append(NEWLINE);
 			query.append("  and quarter = ").append(quarter).append(NEWLINE);
 			query.append("  and month = ").append(month).append(NEWLINE);
 			query.append("  and day_of_month = ").append(day).append(NEWLINE);
 			query.append("  and carrier in").append(NEWLINE);
-			query.append("    ").append(getCarrierSetString()).append(NEWLINE);
+			query.append("    ").append("(select * from asqp_carriers)").append(NEWLINE);
 			query.append("order by").append(NEWLINE);
 			query.append(disruptionClause);
 
 			logger.trace("Flight data query:");
 			logger.trace(query.toString());
+			System.out.println(query);
 			rset = stmt.executeQuery(query.toString());
 
 			while (rset.next()) {
@@ -649,11 +670,11 @@ public class PassengerDelayCalculator {
 				String carrier = rset.getString("carrier");
 				String origin = rset.getString("origin");
 				String destination = rset.getString("destination");
-				String aircraftType = rset.getString("icao_aircraft_code");
+//				String aircraftType = rset.getString("icao_aircraft_code");
 				double seatingCapacity = rset.getDouble("seating_capacity");
 				if (seatingCapacity < 1) {
 					seatingCapacity = estimateDefaultSeatingCapacity(flightID, carrier,
-							origin, destination, aircraftType);
+							origin, destination);
 				}
 				boolean isCancelled = rset.getBoolean("cancelled_flag");
 				boolean isDiverted = rset.getBoolean("diverted_flag");
@@ -720,9 +741,10 @@ public class PassengerDelayCalculator {
 		m_dailyFlights[1] = m_dailyFlights[2];
 		m_dailyFlights[2] = null;
 	}
-	
+	//OPHASWONGSE
+	//Delete aircraft type from parameter 
 	public double estimateDefaultSeatingCapacity(int flightID, String carrier,
-			String origin, String destination, String aircraftType) {
+			String origin, String destination) {
 		double seatsEstimate = 0.0;
 		SegmentSeats segmentSeats = m_segmentSeatsMap.get(getSegmentKey(carrier,
 				origin, destination));
@@ -737,17 +759,17 @@ public class PassengerDelayCalculator {
 			seatsEstimate = MAXIMUM_DEFAULT_SEATING_CAPACITY;
 		}
 		
-		AircraftFleetSeats aircraftFleetSeats = 
-			m_aircraftFleetSeatsMap.get(getAircraftFleetKey(carrier, aircraftType));
-		if (aircraftFleetSeats != null) {
-			// If we are estimating the seating capacity from T-100, we need
-			// to ensure that the seating capacity estimate is between the 
-			// minimum and maximum seating capacity for the fleet type
-			seatsEstimate = Math.max(seatsEstimate, 
-					aircraftFleetSeats.getMinimumSeatingCapacity());
-			seatsEstimate = Math.min(seatsEstimate, 
-					aircraftFleetSeats.getMaximumSeatingCapacity());
-		}
+//		AircraftFleetSeats aircraftFleetSeats = 
+//			m_aircraftFleetSeatsMap.get(getAircraftFleetKey(carrier, aircraftType));
+//		if (aircraftFleetSeats != null) {
+//			// If we are estimating the seating capacity from T-100, we need
+//			// to ensure that the seating capacity estimate is between the 
+//			// minimum and maximum seating capacity for the fleet type
+//			seatsEstimate = Math.max(seatsEstimate, 
+//					aircraftFleetSeats.getMinimumSeatingCapacity());
+//			seatsEstimate = Math.min(seatsEstimate, 
+//					aircraftFleetSeats.getMaximumSeatingCapacity());
+//		}
 		return seatsEstimate;
 	}
 
@@ -1465,7 +1487,7 @@ public class PassengerDelayCalculator {
 	public void disconnectFromDatabase() {
 		try {
 			m_dbConnection.close();
-			m_datasource.close();
+//			m_datasource.close();
 		} catch (SQLException e) {
 			logger.fatal("Unable to disconnect from database", e);
 		}

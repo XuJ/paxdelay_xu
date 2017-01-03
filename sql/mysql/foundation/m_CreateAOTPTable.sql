@@ -1,7 +1,10 @@
+--OPHASWONGSE
+--Add column id(Auto-Increment)
 drop table if exists aotp;
 
 create table aotp
 ( 
+	id int not null AUTO_INCREMENT,
 	year	numeric(4) not null, 
 	quarter	int not null,
 	month	numeric(2, 0) not null,
@@ -56,7 +59,8 @@ create table aotp
 	weather_delay	numeric(4, 0) default 0.00 not null,
 	nas_delay	numeric(4, 0) default 0.00 not null,
 	security_delay	numeric(4, 0) default 0.00 not null,
-	late_aircraft_delay	numeric(4, 0) default 0.00 not null
+	late_aircraft_delay	numeric(4, 0) default 0.00 not null,
+	primary key(id, quarter)
 ) 
 ENGINE = MyISAM
 partition by list (quarter)

@@ -204,7 +204,7 @@ from tmp_load_aotp;
 drop table if exists tmp_load_aotp;
 
 create index idx_aotp_ymdmcod
-  on aotp(year, month, day_of_month, carrier, origin, destination)
+  on aotp(year, month, day_of_month, carrier, origin, destination, tail_number)
 	using btree;
 
 

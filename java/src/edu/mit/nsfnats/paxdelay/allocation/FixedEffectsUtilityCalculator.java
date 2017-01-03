@@ -1,4 +1,3 @@
-//table A1
 package edu.mit.nsfnats.paxdelay.allocation;
 
 import java.io.BufferedReader;
@@ -46,14 +45,12 @@ public class FixedEffectsUtilityCalculator implements ItineraryUtilityCalculator
 			FileReader fr = new FileReader(new File(parameterFile));
 			BufferedReader in = new BufferedReader(fr);
 			String line = in.readLine();
-			//
 			line = in.readLine(); // To discard the header row
 			while (line != null) {
 				String[] temp = line.split("\t");
 				parameterMap.put(temp[0], Double.parseDouble(temp[1]));
 				line = in.readLine();
 			}
-			System.out.println(parameterMap);
 			in.close();
 			fr.close();
 		} catch (FileNotFoundException e) {
@@ -67,7 +64,6 @@ public class FixedEffectsUtilityCalculator implements ItineraryUtilityCalculator
 		// The first day is not specified, so the coefficient
 		// will remain equal to zero (the default value)
 		for (int dayIndex = 1; dayIndex < 7; ++dayIndex) {
-			System.out.println("BETA_DW" + Integer.toString(dayIndex + 1));
 			m_dayCoefficients[dayIndex] = parameterMap.get("BETA_DW" + Integer.toString(dayIndex + 1));
 		}
 		m_timeCoefficients = new double[6];
@@ -107,7 +103,6 @@ public class FixedEffectsUtilityCalculator implements ItineraryUtilityCalculator
 				parameterName.append(zoneIndicators[zoneIndex]);
 				parameterName.append("_HR");
 				parameterName.append(String.format("%1$02d", timeIndex * 4 + 1));
-				System.out.println(parameterName.toString());
 				Double parameter = parameterMap.get(parameterName.toString());
 				m_deltaZoneTimeCoefficients[zoneIndex][timeIndex] = parameter.doubleValue();
 			}
@@ -127,6 +122,7 @@ public class FixedEffectsUtilityCalculator implements ItineraryUtilityCalculator
 			dayIndex = (dayIndex + 6) % 7;
 			timeIndex = 5;
 		}
+		System.out.println("Day Index:" + dayIndex);
 		double utility = m_dayCoefficients[dayIndex];
 		utility += m_dayCoefficients[timeIndex];
 		utility += m_dayTimeCoefficients[dayIndex][timeIndex];

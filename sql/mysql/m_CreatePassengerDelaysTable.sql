@@ -16,11 +16,11 @@ create table passenger_delays
   planned_connection char(3),
   planned_destination char(3) not null,
 
-  planned_departure_time_UTC date not null,
+  planned_departure_time date not null,
   planned_departure_tz char(15),
   planned_departure_local_hour numeric(2),
 
-  planned_arrival_time_UTC date not null,
+  planned_arrival_time date not null,
   planned_arrival_tz char(15),
   planned_arrival_local_hour numeric(2),
 
@@ -28,7 +28,7 @@ create table passenger_delays
   num_disruptions numeric(1) not null,
   first_disruption_cause numeric(1) not null,
 
-  first_disruption_time_UTC date,
+  first_disruption_time date,
 
   first_disruption_hour numeric(2),
   disruption_origin_sequence varchar(40),
@@ -60,11 +60,11 @@ select
 	null as planned_connection, 
 	ft.destination as planned_destination,
 
-	ft.planned_departure_time_UTC as planned_departure_time_UTC, 
+	ft.planned_departure_time as planned_departure_time, 
 	ft.planned_departure_tz as planned_departure_tz, 
 	ft.planned_departure_local_hour as planned_departure_local_hour,
 	
-	ft.planned_arrival_time_UTC as planned_arrival_time_UTC, 
+	ft.planned_arrival_time as planned_arrival_time, 
 	ft.planned_arrival_tz as planned_arrival_tz, 
 	ft.planned_arrival_local_hour as planned_arrival_local_hour,
 
@@ -73,9 +73,9 @@ select
 	tpd.first_disruption_cause as first_disruption_cause,
 
 	case when tpd.first_disruption_cause = 2
-		then ft.planned_departure_time_UTC
+		then ft.planned_departure_time
 		else null
-		end as first_disruption_time_UTC,
+		end as first_disruption_time,
 
 	tpd.first_disruption_hour as first_disruption_hour,
 	tpd.disruption_origin_sequence as disruption_origin_sequence, 
@@ -106,11 +106,11 @@ select ft1.year as year,
 	ft1.destination as planned_connection,
 	ft2.destination as planned_destination, 
 
-	ft1.planned_departure_time_UTC as planned_departure_time_UTC, 
+	ft1.planned_departure_time as planned_departure_time, 
 	ft1.planned_departure_tz as planned_departure_tz, 
 	ft1.planned_departure_local_hour as planned_departure_local_hour,
 	
-	ft2.planned_arrival_time_UTC as planned_arrival_time_UTC, 
+	ft2.planned_arrival_time as planned_arrival_time, 
 	ft2.planned_arrival_tz as planned_arrival_tz, 
 	ft2.planned_arrival_local_hour as planned_arrival_local_hour,
 
@@ -119,14 +119,14 @@ select ft1.year as year,
 	tpd.first_disruption_cause as first_disruption_cause,
 
 	case	when tpd.first_disruption_cause = 1 
-			then ft1.actual_arrival_time_UTC
+			then ft1.actual_arrival_time
 		when tpd.first_disruption_cause = 2 
 			then case when (ft1.cancelled_flag + ft1.diverted_flag) = 0 
-					then greatest(ft1.actual_arrival_time_UTC, ft2.planned_departure_time_UTC)
-					else ft1.planned_departure_time_UTC
+					then greatest(ft1.actual_arrival_time, ft2.planned_departure_time)
+					else ft1.planned_departure_time
 				end
 			else null
-	end as first_disruption_time_UTC,
+	end as first_disruption_time,
   tpd.first_disruption_hour as first_disruption_hour,
   tpd.disruption_origin_sequence as disruption_origin_sequence, tpd.disruption_cause_sequence as disruption_cause_sequence,
   tpd.last_flown_flight_id as last_flown_flight_id, tpd.trip_delay as trip_delay

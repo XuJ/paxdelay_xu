@@ -1,6 +1,3 @@
-//SUKITJANUPARP
-//create t100_segments table
-
 package edu.mit.nsfnats.paxdelay;
 
 import java.sql.Connection;
@@ -10,23 +7,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class LoadT100SegmentData {
-		// JDBC driver name and database URL
+	// JDBC driver name and database URL
 	   static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	   
-	   //SUKITJANUPARP
-	   //input link to database here
 	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay?allowMultiQueries=true";
-	   
 	   //  Database credentials
-	   //SUKITJANUPARP
-	   //input username and password here
-	   static final String USER = "anunya";
+	   static final String USER = "saris";
 	   static final String PASS = "paxdelay";
-	   
-	   //SUKITJANUPARP
-	   //change the value of int year if want to run the data from other year
 	   static int year = 2007;
-	   
 	   public static void main(String[] args) {
 	   Connection conn = null;
 	   Statement stmt = null;
@@ -42,9 +29,6 @@ public class LoadT100SegmentData {
 	      System.out.println("Creating statement...");
 	      stmt = conn.createStatement();
 	      ArrayList<String> sql = new ArrayList<String>();
-	      
-	      //SUKITJANUPARP
-	      //input path to the csv file here
 	      String filename = "/mdsg/bts_raw_csv/T100_SEGMENTS_"+year+".csv";
 	      stmt.execute("LOAD DATA LOCAL INFILE '"+filename+"'\n" + 
 	      		"INTO TABLE t100_segments\n" + 
@@ -111,11 +95,26 @@ public class LoadT100SegmentData {
 	      sql.add("create index idx_t100_segments_cymod\n" + 
 	      		"  on t100_segments(carrier, year, month, origin, destination)\n" + 
 	      		"	using btree;\n");
-	      
 	      for(Object s:sql){
 	    	  stmt.addBatch(s.toString());
 	      }
-	      stmt.executeBatch();      
+	      stmt.executeBatch();
+	      //STEP 5: Extract data from result set
+//	      while(rs.next()){
+//	         //Retrieve by column name
+//	         int id  = rs.getInt("id");
+//	         int age = rs.getInt("age");
+//	         String first = rs.getString("first");
+//	         String last = rs.getString("last");
+//
+//	         //Display values
+//	         System.out.print("ID: " + id);
+//	         System.out.print(", Age: " + age);
+//	         System.out.print(", First: " + first);
+//	         System.out.println(", Last: " + last);
+//	      }
+	      //STEP 6: Clean-up environment
+	      //rs.close();
 	      stmt.close();
 	      conn.close();
 	   }catch(SQLException se){
@@ -138,10 +137,6 @@ public class LoadT100SegmentData {
 	         se.printStackTrace();
 	      }//end finally try
 	   }//end try
-	   
-	   //SUKITJANUPARP
-	   //the message "Goodbye!" will be shown in the console after all queries finished
 	   System.out.println("Goodbye!");
-	   
 	}//end main
 }
