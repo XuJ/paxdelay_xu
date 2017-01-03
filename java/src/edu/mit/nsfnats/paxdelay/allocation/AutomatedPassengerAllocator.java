@@ -1,3 +1,8 @@
+//SUKITJANUPARP 
+//to generate .txt file that will be used in CreateItineraryLoad_Alldata.java
+//need to add properties file in arguments before start running: AutomatedPassengerAllocator and DefaultLogger
+//this code was modified from the original version by changing from sql syntax to mysql syntax
+
 package edu.mit.nsfnats.paxdelay.allocation;
 
 import java.io.File;
@@ -5,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -28,7 +34,7 @@ import edu.mit.nsfnats.paxdelay.util.RandomValuesComparator;
 
 import oracle.jdbc.pool.OracleDataSource;
 
-//The allocation will be done one month at a time
+
 public class AutomatedPassengerAllocator {
 	public static Logger logger = Logger
 			.getLogger(AutomatedPassengerAllocator.class);
@@ -177,7 +183,7 @@ public class AutomatedPassengerAllocator {
 		logger.trace("Connected to database");
 		pa.loadASQPCarriers();
 		logger.trace("Loaded list of ASQP carriers");
-		pa.loadAircraftFleetTypes();
+		//pa.loadAircraftFleetTypes();
 		logger.trace("Loaded aircraft fleet types");
 		pa.loadOneStopScalingFactors();
 		logger.trace("Loaded one stop scaling factors");
@@ -197,6 +203,7 @@ public class AutomatedPassengerAllocator {
 				DEFAULT_ALLOCATION_YEAR);
 		m_carriers = PropertiesReader.readStrings(properties,
 				PROPERTY_ALLOCATION_CARRIER_PREFIX);
+		System.out.println("m_carriers**");
 		m_firstMonth = PropertiesReader.readInt(properties,
 				PROPERTY_ALLOCATION_FIRST_MONTH);
 		m_lastMonth = PropertiesReader.readInt(properties,
@@ -212,7 +219,7 @@ public class AutomatedPassengerAllocator {
 				DEFAULT_FLIGHTS_TABLE);
 		m_itinerariesTable = properties.getProperty(PROPERTY_ITINERARIES_TABLE,
 				DEFAULT_ITINERARIES_TABLE);
-		
+		System.out.println("m_segmentDemandTable= "+m_segmentDemandTable);
 		String seedString = properties.getProperty(PROPERTY_ALLOCATION_RANDOM_SEED);
 		if (seedString != null) {
 			long allocationSeed = Long.parseLong(seedString);
@@ -256,11 +263,13 @@ public class AutomatedPassengerAllocator {
 
 	public void connectToDatabase() {
 		try {
-			m_datasource = new OracleDataSource();
-			m_datasource.setURL(m_jdbcURL);
-			m_dbConnection = m_datasource.getConnection(m_dbUsername,
+			//m_datasource = new OracleDataSource();
+			//m_datasource.setURL(m_jdbcURL);
+//			m_dbConnection = m_datasource.getConnection(m_dbUsername,
+//					m_dbPassword);
+			m_dbConnection = DriverManager.getConnection(m_jdbcURL,m_dbUsername,
 					m_dbPassword);
-
+			
 		} catch (SQLException e) {
 			exit("Unable to connect to database " + m_jdbcURL
 					+ " using username " + m_dbUsername + " and password "
@@ -334,7 +343,9 @@ public class AutomatedPassengerAllocator {
 				
 				InternalAircraftFleet aircraftFleet =
 					getInternalAircraftFleet(carrier, aircraftType);
+				System.out.println("aircraftFleet: "+ aircraftFleet);
 				if (aircraftFleet == null) {
+					System.out.println("call createInternalAircraftFleet");
 					aircraftFleet = createInternalAircraftFleet(carrier, aircraftType);
 				}
 				aircraftFleet.registerSeatingCapacity(numSeats);
@@ -383,7 +394,7 @@ public class AutomatedPassengerAllocator {
 			query.append("join (").append(NEWLINE);
 			query
 					.append(
-							" select quarter, sum(decode(num_flights, 2, 2, 0) * passengers)")
+							" select quarter, sum(IF(num_flights= 2, 2, 0) * passengers)")
 					.append(NEWLINE);
 			query.append(
 					"   / sum(num_flights * passengers) as percent_one_stop")
@@ -407,7 +418,7 @@ public class AutomatedPassengerAllocator {
 			query.append("on scaled_db1b.quarter = seg.quarter")
 					.append(NEWLINE);
 			query.append("order by seg.quarter");
-
+            System.out.println(query);
 			logger.trace("Scaling factors query:");
 			logger.trace(query.toString());
 			rset = stmt.executeQuery(query.toString());
@@ -450,8 +461,10 @@ public class AutomatedPassengerAllocator {
 			loadSegmentDemands(month);
 
 			// First, allocate passengers to the multiple carrier itineraries
+			System.out.println("size: "+m_carriers.length);
 			for (int i = 0; i < m_carriers.length; ++i) {
 				String carrierCode = m_carriers[i];
+				System.out.println(i+"----"+carrierCode+"###");
 				InternalRouteSet routeSet = queryMonthlyItineraries(month,
 						carrierCode, true);
 				loadOneStopRouteDemands(month, carrierCode, true);
@@ -465,8 +478,13 @@ public class AutomatedPassengerAllocator {
 			// Next, allocate passengers to the single carrier itineraries
 			for (int i = 0; i < m_carriers.length; ++i) {
 				String carrierCode = m_carriers[i];
+				System.out.println(i+"----"+carrierCode+"***");
+				System.out.println("check "+queryMonthlyItineraries(month,
+						carrierCode, false));
 				InternalRouteSet routeSet = queryMonthlyItineraries(month,
 						carrierCode, false);
+				System.out.println("size routeset***"+routeSet.numRoutes());
+				System.out.println("***"+routeSet);
 				loadOneStopRouteDemands(month, carrierCode, false);
 				int numPassengers = allocateRouteSetPassengers(routeSet, 
 						Integer.toString(month), carrierCode, false);
@@ -561,15 +579,15 @@ public class AutomatedPassengerAllocator {
 			StringBuffer query = new StringBuffer();
 			query.append("select id, carrier, month, day_of_month,").append(
 					NEWLINE);
-			query.append("  origin, destination, icao_aircraft_code, seating_capacity,").append(
+			query.append("  origin, destination,  seating_capacity,").append(
 					NEWLINE);
 			query
 					.append(
-							"  to_char(planned_departure_time, 'HH24:MI:SS') as departure_time,")
+							"  DATE_FORMAT(planned_departure_time, '%h:%i:%s') as departure_time,")
 					.append(NEWLINE);
 			query
 					.append(
-							"  to_char(planned_arrival_time, 'HH24:MI:SS') as arrival_time,")
+							"  DATE_FORMAT(planned_arrival_time, '%h:%i:%s') as arrival_time,")
 					.append(NEWLINE);
 			query.append("  cancelled_flag").append(NEWLINE);
 			query.append("from paxdelay.").append(m_flightsTable).append(NEWLINE);
@@ -582,15 +600,15 @@ public class AutomatedPassengerAllocator {
 				query.append("union all").append(NEWLINE);
 				query.append("select id, carrier, month, day_of_month,")
 						.append(NEWLINE);
-				query.append("  origin, destination, icao_aircraft_code, seating_capacity,")
+				query.append("  origin, destination,  seating_capacity,")
 						.append(NEWLINE);
 				query
 						.append(
-								"  to_char(planned_departure_time, 'HH24:MI:SS') as departure_time,")
+								"  DATE_FORMAT(planned_departure_time, '%h:%i:%s') as departure_time,")
 						.append(NEWLINE);
 				query
 						.append(
-								"  to_char(planned_arrival_time, 'HH24:MI:SS') as arrival_time,")
+								"  DATE_FORMAT(planned_arrival_time, '%h:%i:%s') as arrival_time,")
 						.append(NEWLINE);
 				query.append("  cancelled_flag").append(NEWLINE);
 				query.append("from paxdelay.").append(m_flightsTable).append(NEWLINE);
@@ -600,7 +618,7 @@ public class AutomatedPassengerAllocator {
 				query.append("  and month = ").append(month + 1);
 				query.append("  and day_of_month = 1");
 			}
-
+			
 			logger.trace("Flight seating capacities query:");
 			logger.trace(query.toString());
 			rset = stmt.executeQuery(query.toString());
@@ -626,7 +644,8 @@ public class AutomatedPassengerAllocator {
 					newRolloverFlights.add(flight);
 				}
 
-				String aircraftType = rset.getString("icao_aircraft_code");
+				//String aircraftType = rset.getString("icao_aircraft_code");
+				String aircraftType = "";
 				double seats = rset.getDouble("seating_capacity");
 				double modelSeats = seats;
 				double allocationSeats = seats;
@@ -799,8 +818,8 @@ public class AutomatedPassengerAllocator {
 					.append(
 							"  day_of_week, hour_of_day, minutes_of_hour, layover_duration,")
 					.append(NEWLINE);
-			query.append("  extract(timezone_hour from planned_departure_time) as origin_tz, ").append(NEWLINE);
-			query.append("  extract(timezone_hour from planned_arrival_time) as destination_tz ").append(NEWLINE);
+			query.append(" HOUR(planned_departure_time) as origin_tz, ").append(NEWLINE);
+			query.append(" HOUR(planned_arrival_time) as destination_tz ").append(NEWLINE);
 			query.append("from paxdelay.").append(m_itinerariesTable).append(NEWLINE);
 			query.append("where year = ").append(m_year).append(NEWLINE);
 			query.append("  and quarter = ").append(quarter).append(NEWLINE);
@@ -1394,7 +1413,7 @@ public class AutomatedPassengerAllocator {
 	public void disconnectFromDatabase() {
 		try {
 			m_dbConnection.close();
-			m_datasource.close();
+			//m_datasource.close();
 		} catch (SQLException e) {
 			logger.fatal("Unable to disconnect from database", e);
 		}
@@ -1443,6 +1462,8 @@ public class AutomatedPassengerAllocator {
 			String aircraftType) {
 		InternalAircraftFleet aircraftFleet = new InternalAircraftFleet(carrier, aircraftType);
 		String fleetKey = getAircraftFleetKey(carrier, aircraftType);
+		System.out.println("###put###");
+		System.out.println("key:"+fleetKey+" fleet"+ aircraftFleet);
 		m_aircraftFleetMap.put(fleetKey, aircraftFleet);
 		return aircraftFleet;
 	}

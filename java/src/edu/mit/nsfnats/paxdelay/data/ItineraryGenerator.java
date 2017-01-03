@@ -1,3 +1,7 @@
+//SUKITJANUPARP
+//create GeneratedItineraries.csv
+//change value in the properties file before running (ItineraryGeneratorTest and DefaultLogger)
+
 package edu.mit.nsfnats.paxdelay.data;
 
 import java.io.File;
@@ -5,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,18 +25,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import oracle.jdbc.pool.OracleDataSource;
-
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 import edu.mit.nsfnats.paxdelay.InvalidFormatException;
 import edu.mit.nsfnats.paxdelay.util.PropertiesReader;
+import oracle.jdbc.pool.OracleDataSource;
 
 public class ItineraryGenerator {
 	public static Logger logger = Logger.getLogger(ItineraryGenerator.class);
 
-	public static final String PROPERTY_JDBC_URL = "JDBC_URL";
+	public static final String PROPERTY_JDBC_URL = ""
+			+ "JDBC_URL";
 	public static final String PROPERTY_DATABASE_USERNAME = "DATABASE_USERNAME";
 	public static final String PROPERTY_DATABASE_PASSWORD = "DATABASE_PASSWORD";
 
@@ -136,6 +141,7 @@ public class ItineraryGenerator {
 	public static void main(Properties properties) {
 		ItineraryGenerator generator = new ItineraryGenerator();
 		try {
+			System.out.println("properties "+properties);
 			generator.initialize(properties);
 		} catch (InvalidFormatException e) {
 			exit(
@@ -159,7 +165,9 @@ public class ItineraryGenerator {
 
 	public void initialize(Properties properties) throws InvalidFormatException {
 		m_jdbcURL = properties.getProperty(PROPERTY_JDBC_URL);
+		System.out.println("url "+m_jdbcURL);
 		m_dbUsername = properties.getProperty(PROPERTY_DATABASE_USERNAME);
+		System.out.println("username "+m_dbUsername);
 		m_dbPassword = properties.getProperty(PROPERTY_DATABASE_PASSWORD);
 
 		m_flightsTable = properties.getProperty(PROPERTY_FLIGHTS_TABLE, DEFAULT_FLIGHTS_TABLE);
@@ -186,7 +194,8 @@ public class ItineraryGenerator {
 		m_carriers = PropertiesReader.readStrings(properties,
 				PROPERTY_CARRIER_PREFIX);
 		m_outputDirectory = properties.getProperty(PROPERTY_OUTPUT_DIRECTORY);
-
+        System.out.println(m_outputDirectory);
+        System.out.println(PROPERTY_OUTPUT_DIRECTORY);
 		try {
 			String filename = m_outputDirectory + File.separator
 					+ properties.getProperty(PROPERTY_OUTPUT_FILENAME, 
@@ -462,6 +471,8 @@ public class ItineraryGenerator {
 	public InternalItinerary[] buildFeasibleItineraries(
 			Timestamp lastArrivalTime) {
 		List<InternalItinerary> itineraryList = new ArrayList<InternalItinerary>();
+		System.out.println("size "+m_flights.length+" index: "+m_currentFlightIndex);
+		m_currentFlightIndex = 0;
 		InternalFlight currentFlight = m_flights[m_currentFlightIndex];
 		m_currentArrivalTime = currentFlight.getPlannedArrival();
 		while (!m_currentArrivalTime.after(lastArrivalTime)) {
@@ -476,6 +487,7 @@ public class ItineraryGenerator {
 			if (m_currentFlightIndex >= m_flights.length) {
 				break;
 			}
+			
 			currentFlight = m_flights[m_currentFlightIndex];
 			m_currentArrivalTime = currentFlight.getPlannedArrival();
 		}
@@ -559,16 +571,66 @@ public class ItineraryGenerator {
 	}
 
 	protected void connectToDatabase() {
-		try {
-			m_datasource = new OracleDataSource();
-			m_datasource.setURL(m_jdbcURL);
-			m_dbConnection = m_datasource.getConnection(m_dbUsername,
-					m_dbPassword);
-		} catch (SQLException e) {
-			exit("Unable to connect to database " + m_jdbcURL
-					+ " using username " + m_dbUsername + " and password "
-					+ m_dbPassword, e, -1);
-		}
+		//SUKITJANUPARP
+		//changed from oraqle to mysql
+		
+//		try {
+//			m_datasource = new OracleDataSource();
+//			m_datasource.setURL(m_jdbcURL);
+//			m_dbConnection = m_datasource.getConnection(m_dbUsername,
+//					m_dbPassword);
+//		} catch (SQLException e) {
+//			exit("Unable to connect to database " + m_jdbcURL
+//					+ " using username " + m_dbUsername + " and password "
+//					+ m_dbPassword, e, -1);
+//		}
+		
+		Connection conn = null;
+		   Statement stmt = null;
+		   try{
+		      //STEP 2: Register JDBC driver
+		      try {
+				Class.forName("com.mysql.jdbc.Driver");
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		      //STEP 3: Open a connection
+		      System.out.println("Connecting to database...");
+		      System.out.println(m_jdbcURL);
+		      conn = DriverManager.getConnection(m_jdbcURL,m_dbUsername,m_dbPassword);
+              
+		      m_dbConnection=conn;
+		     } catch (SQLException e) {
+				exit("Unable to connect to database " + m_jdbcURL
+						+ " using username " + m_dbUsername + " and password "
+						+ m_dbPassword, e, -1);
+			}
+		      
+//		      //STEP 4: Execute a query
+//		      System.out.println("Creating statement...");
+//		      stmt = conn.createStatement();
+//		      ArrayList<String> sql = new ArrayList<String>();
+//		      
+//		      sql.add("drop table if exists asqp_carriers");
+//		      sql.add("create table asqp_carriers\n" + 
+//		      		"select distinct carrier as code\n" + 
+//		      		"from aotp");
+//		      sql.add("alter table asqp_carriers convert to character set latin1 collate latin1_general_cs");
+//		    
+//		     
+//		     for(Object s:sql){
+//		    	  stmt.addBatch(s.toString());
+//		    	  System.out.println("hey");
+//		      }
+//		      stmt.executeBatch();
+//		      stmt.clearBatch();
+//		      sql.clear();
+//		   
+		      
+		     
+		      
 	}
 
 	protected Statement createStatement() {
@@ -586,7 +648,7 @@ public class ItineraryGenerator {
 	protected void disconnectFromDatabase() {
 		try {
 			m_dbConnection.close();
-			m_datasource.close();
+			//m_datasource.close();
 		} catch (SQLException e) {
 			logger.fatal("Unable to disconnect from database", e);
 		}
@@ -672,7 +734,9 @@ class InternalItinerary {
 	public InternalItinerary(InternalFlight flight) {
 		m_numFlights = 1;
 		m_firstFlight = flight;
-		m_secondFlight = null;
+		//SUKITJANUPARP
+		//changed from m_secondFlight = null
+		m_secondFlight = new InternalFlight(0, "", "", "", new Timestamp(0), new Timestamp(0));
 	}
 
 	public InternalItinerary(InternalFlight firstFlight,
