@@ -1,3 +1,4 @@
+use paxdelay;
 drop table if exists airports;
 
 create table airports

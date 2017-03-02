@@ -1,3 +1,6 @@
+-- XuJiao022017
+-- Remove all _UTC
+
 drop table if exists pax_delay_analysis;
 
 create table pax_delay_analysis
@@ -18,19 +21,19 @@ create table pax_delay_analysis
   planned_layover_duration numeric(4),
   actual_layover_duration numeric(4),
 
-	planned_departure_time_UTC date,
+	planned_departure_time date,
 	planned_departure_tz char(19),
 	planned_departure_local_hour numeric(2),
 
-	planned_connection_time_UTC date,
+	planned_connection_time date,
 	planned_connection_tz char(19),	
 	planned_connection_local_hour numeric(2),
 
-	actual_connection_time_UTC date,
+	actual_connection_time date,
 	actual_connection_tz char(19),
 	actual_connection_local_hour numeric(2),
 
-	planned_arrival_time_UTC date,
+	planned_arrival_time date,
 	planned_arrival_tz char(19),
 	planned_arrival_local_hour numeric(2),
 
@@ -38,7 +41,7 @@ create table pax_delay_analysis
   num_disruptions numeric(1) not null,
   first_disruption_cause numeric(1) not null,
 
-	first_disruption_time_UTC date,
+	first_disruption_time date,
   first_disruption_hour numeric(2),
   disruption_origin_sequence varchar(40),
   disruption_cause_sequence varchar(20),
@@ -60,33 +63,33 @@ select pd.year, pd.quarter, pd.month, pd.day_of_month,
   pd.planned_first_carrier, pd.planned_second_carrier,
   pd.planned_origin, pd.planned_connection, pd.planned_destination,
 
-	case when ft2.planned_departure_time_UTC is null then null
-		else TIMESTAMPDIFF(minute, ft2.planned_departure_time_UTC, ft1.planned_arrival_time_UTC)
+	case when ft2.planned_departure_time is null then null
+		else TIMESTAMPDIFF(minute, ft2.planned_departure_time, ft1.planned_arrival_time)
 		end as planned_layover_duration,
 
-	case when ft2.actual_departure_time_UTC is null then null
-			else TIMESTAMPDIFF(minute, ft2.actual_departure_time_UTC, ft1.actual_arrival_time_UTC)
+	case when ft2.actual_departure_time is null then null
+			else TIMESTAMPDIFF(minute, ft2.actual_departure_time, ft1.actual_arrival_time)
 			end as actual_layover_duration,
 
-	pd.planned_departure_time_UTC as planned_departure_time_UTC,
+	pd.planned_departure_time as planned_departure_time,
 	pd.planned_departure_tz as planned_departure_tz,
 	pd.planned_departure_local_hour as planned_departure_local_hour ,
 
-	ft2.planned_departure_time_UTC as planned_connection_time_UTC,
+	ft2.planned_departure_time as planned_connection_time,
 	ft2.planned_departure_tz as planned_connection_tz,
 	ft2.planned_departure_local_hour as planned_connection_local_hour,
 
 
-	ft2.actual_departure_time_UTC as actual_connection_time_UTC,
+	ft2.actual_departure_time as actual_connection_time,
 	ft2.actual_departure_tz as actual_connection_tz,
 	ft2.actual_departure_local_hour as actual_connection_local_hour,
 
-	pd.planned_arrival_time_UTC as planned_arrival_time_UTC,
+	pd.planned_arrival_time as planned_arrival_time,
 	pd.planned_arrival_tz as planned_arrival_tz,
 	pd.planned_arrival_local_hour as planned_arrival_local_hour,
 
   pd.num_passengers, pd.num_disruptions,
-  pd.first_disruption_cause, pd.first_disruption_time_UTC,
+  pd.first_disruption_cause, pd.first_disruption_time,
   pd.first_disruption_hour, pd.disruption_origin_sequence,
   pd.disruption_cause_sequence, pd.last_flown_flight_id,
   pd.trip_delay

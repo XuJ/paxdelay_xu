@@ -1,3 +1,10 @@
+-- use paxdelay;
+-- XuJiao 022317
+-- add set sql_mode="";
+-- That took 7 min
+
+set sql_mode="";
+
 drop table if exists temp_1;
 create table temp_1
 (

@@ -1,4 +1,4 @@
-LOAD DATA INFILE '/export/mysql/import/ProcessedItineraryDelays.csv'
+LOAD DATA LOCAL INFILE '/mdsg/paxdelay_general_Xu/ProcessedItineraryDelays.csv'
 INTO TABLE temp_passenger_delays
 FIELDS TERMINATED BY ','
 OPTIONALLY ENCLOSED BY '"'

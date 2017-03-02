@@ -1,8 +1,15 @@
---OPHASWONGSE
---Modified to exclude the use of offerings table
+-- OPHASWONGSE
+-- Modified to exclude the use of offerings table
+-- Go to Edit -> Preferences -> SQL Editor and set DBMS connection read time out: 86400 to solve "Lost Connection to MySQL Server"
+-- set sql_mode=''; in my.conf file because the default mysql mode is set to strick mode (requires the use of date in Date-Time objects)
+-- set innodb_buffer_pool_size = 256MB to solve “the total number of locks exceeds the lock table size”
+-- XuJiao022717
+-- That took 94 minutes
+-- have backup table called flights_no_seats_backup created 022816 12:54am
+
 drop table if exists temp_flights_aotp;
 
-set sql_mode = '';
+-- set sql_mode = '';
 
 create table temp_flights_aotp
 (

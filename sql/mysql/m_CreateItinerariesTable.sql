@@ -1,7 +1,10 @@
 drop table if exists itineraries;
---OPHASWONGSE
---Remove suffix "_UTC" from all column
---Change data type of planned_departure_tz and planned_arrival_tz from char(15) to char(25)
+-- OPHASWONGSE
+-- Remove suffix "_UTC" from all column
+-- Change data type of planned_departure_tz and planned_arrival_tz from char(15) to char(25)
+-- Lost Connection to MySQL Server Solution:
+-- Go to Edit -> Preferences -> SQL Editor and set DBMS connection read time out: 86400
+
 create table itineraries
 (
   id integer not null auto_increment, primary key (id),
@@ -141,8 +144,8 @@ create table itineraries_status (
 	start_time datetime
 );
 
---- PROCEDURE
---- It is extremely reccomended to use command line to run this query!
+-- PROCEDURE
+-- It is extremely reccomended to use command line to run this query!
 drop procedure if exists populate_itineraries;
 
 SHOW PROCEDURE STATUS;
@@ -179,7 +182,7 @@ begin
         insert into itineraries_status
         values (null, now());        
          
---STEP 1
+-- STEP 1
 -- Create the non-stop itineraries
         create table temp_iti_1
         select 
@@ -229,9 +232,9 @@ begin
                 
                 ft.id as first_flight_id
         from temp_iti_1 ft;
---!STEP 1
+-- !STEP 1
 
---STEP 2
+-- STEP 2
 -- Create the one stop itineraries
         create table temp_iti_ft1ucr
         select 
@@ -392,7 +395,7 @@ begin
                 ft.ft1_id,
                 ft.second_flight_id
         from temp_iti_2 ft;
---!STEP 2
+-- !STEP 2
           
         drop table if exists temp_iti_1;
         drop table if exists temp_iti_2;
@@ -409,8 +412,8 @@ call populate_itineraries();
 
 drop procedure if exists populate_itineraries;
 
----
---- !PROCEDURE
+-- 
+-- - !PROCEDURE
 
 -- General indices for querying itineraries
 create index idx_itineraries_ft1ft2

@@ -1,11 +1,17 @@
---OPHASWONGSE
---Modified to use only needed information
+-- OPHASWONGSE
+-- Modified to use only needed information
+-- XuJiao030117
+-- That took 9.7 hours
+
+-- use paxdelay;
+-- SET sql_mode = '';
 alter table flights_no_seats convert to character set latin1 collate latin1_general_cs;
 alter table airline_inventories convert to character set latin1 collate latin1_general_cs;
 
+-- If running for the second time, remember to commment this:
 create index idx_ai_ct
  on airline_inventories(carrier, tail_number);
- 
+
 alter table flights_no_seats add planned_departure_time_local 	datetime;
 alter table flights_no_seats add year_local 					integer;
 alter table flights_no_seats add month_local 					integer;
@@ -30,31 +36,31 @@ create index idx_flights_icfodepphm
   on flights_no_seats(id, carrier, flight_number, origin, destination, exponent_planned_departure_time_local,
   planned_departure_time_local, hour_of_day, minutes_of_hour);
 
-alter table t100_seats convert to character set latin1 collate latin1_general_cs;
-
-drop table if exists temp_t100_flight_seats;
-create table temp_t100_flight_seats
-select 
-fto.id as flight_id, t100s.seats_mean as seats, t100s.seats_coeff_var as coeff_var
-from t100_seats t100s
-join flights_no_seats fto
-  on fto.year_local = t100s.year
-  and fto.month_local = t100s.month
-  and fto.carrier = t100s.carrier
-  and fto.origin = t100s.origin
-  and fto.destination = t100s.destination; 
--- 7455217
-
-
-drop table if exists temp_flight_seats;
-create table temp_flight_seats
-select distinct fns.id as flight_id,
-  ai.number_of_seats
-from flights_no_seats fns
-join airline_inventories ai
-  on ai.carrier = fns.carrier
-  and ai.tail_number = fns.tail_number
-where number_of_seats is not null;
+-- alter table t100_seats convert to character set latin1 collate latin1_general_cs;
+-- 
+-- drop table if exists temp_t100_flight_seats;
+-- create table temp_t100_flight_seats
+-- select 
+-- fto.id as flight_id, t100s.seats_mean as seats, t100s.seats_coeff_var as coeff_var
+-- from t100_seats t100s
+-- join flights_no_seats fto
+--   on fto.year_local = t100s.year
+--   and fto.month_local = t100s.month
+--   and fto.carrier = t100s.carrier
+--   and fto.origin = t100s.origin
+--   and fto.destination = t100s.destination; 
+-- -- 7455217
+-- 
+-- 
+-- drop table if exists temp_flight_seats;
+-- create table temp_flight_seats
+-- select distinct fns.id as flight_id,
+--   ai.number_of_seats
+-- from flights_no_seats fns
+-- join airline_inventories ai
+--   on ai.carrier = fns.carrier
+--   and ai.tail_number = fns.tail_number
+-- where number_of_seats is not null;
 
 alter table t100_seats convert to character set latin1 collate latin1_general_cs;
 
@@ -213,6 +219,8 @@ order by dups.flight_id;
 delete
 from flights
 where planned_arrival_time is null;
+
+
 -- -- Statements from file UpdateFlightsTable.sql 
 
 -- -- create temp_flight_icao
