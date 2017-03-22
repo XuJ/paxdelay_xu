@@ -1,5 +1,8 @@
 //SUKITJANUPARP
 //load data into table temp_itineraries
+//XuJiao
+//That took 19 minutes
+
 
 package edu.mit.nsfnats.paxdelay;
 
@@ -15,7 +18,7 @@ public class CreateTempItinerariesTable_load {
 	   
 	   //SUKITJANUPARP
 	   //input link to database here
-	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay?allowMultiQueries=true";
+	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay_xu?allowMultiQueries=true";
 	   
 	   //  Database credentials
 	   //SUKITJANUPARP
@@ -24,6 +27,7 @@ public class CreateTempItinerariesTable_load {
 	   static final String PASS = "paxdelay";
 	   
 	   public static void main(String[] args) {
+	   long startTime = System.nanoTime();
 	   Connection conn = null;
 	   Statement stmt = null;
 	   try{
@@ -41,7 +45,7 @@ public class CreateTempItinerariesTable_load {
 	      
 		   //SUKITJANUPARP
 		   //change the path to GeneratedItineraries.csv here
-	      sql.add("LOAD DATA LOCAL INFILE '/thayerfs/home/f002s5d/workspace/paxdelay/output/GeneratedItineraries.csv'\n" + 
+	      sql.add("LOAD DATA LOCAL INFILE '/mdsg/paxdelay_general_Xu/GeneratedItineraries.csv'\n" + 
 	      		"INTO TABLE temp_itineraries\n" + 
 	      		"FIELDS TERMINATED BY ','\n" + 
 	      		"OPTIONALLY ENCLOSED BY '\"'\n" + 
@@ -90,6 +94,11 @@ public class CreateTempItinerariesTable_load {
 	   //SUKITJANUPARP
 	   //the message "Goodbye!" will be shown in the console after all queries finished
 	   System.out.println("Goodbye!");
+	   
+	   long endTime = System.nanoTime();
+	   long duration = (endTime - startTime)/1000000/1000/60;
+	   System.out.println("That took " + duration + " minutes ");
+	   
 	}//end main
 
 }

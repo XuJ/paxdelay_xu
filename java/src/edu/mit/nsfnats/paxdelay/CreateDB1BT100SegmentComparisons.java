@@ -1,5 +1,7 @@
 //SUKITJANUPARP
 //create table db1b_t100_segment_comparisons
+//XuJiao
+//That took 0 minute 
 
 package edu.mit.nsfnats.paxdelay;
 
@@ -15,15 +17,16 @@ public class CreateDB1BT100SegmentComparisons {
 	   
 	   //SUKITJANUPARP
 	   //input link to database here
-	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay?allowMultiQueries=true";
+	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay_xu?allowMultiQueries=true";
 	   
 	   //  Database credentials
 	   //SUKITJANUPARP
 	   //input username and password here
-	   static final String USER = "anunya";
+	   static final String USER = "root";
 	   static final String PASS = "paxdelay";
 	   
 	   public static void main(String[] args) {
+	   long startTime = System.nanoTime();
 	   Connection conn = null;
 	   Statement stmt = null;
 	   try{
@@ -38,7 +41,7 @@ public class CreateDB1BT100SegmentComparisons {
 	      System.out.println("Creating statement...");
 	      stmt = conn.createStatement();
 	      ArrayList<String> sql = new ArrayList<String>();
-	      
+	           
 	      sql.add("drop table if exists db1b_t100_segment_comparisons");
 	      sql.add("create table db1b_t100_segment_comparisons\n" + 
 	      		"(\n" + 
@@ -96,6 +99,7 @@ public class CreateDB1BT100SegmentComparisons {
 	      		"where num_flights = 2\n" + 
 	      		"group by year, quarter, second_operating_carrier, origin, destination\n");
 	      //748,700
+	      //748,252 XuJiao
 	      
 	      for(Object s:sql){
 	    	  stmt.addBatch(s.toString());
@@ -116,6 +120,8 @@ public class CreateDB1BT100SegmentComparisons {
 	      		"from temp_three_union \n" + 
 	      		"group by year, quarter, carrier, origin, destination\n");
 	      //102,785
+	      //102,715 XuJiao
+	      
 	      for(Object s:sql){
 	    	  stmt.addBatch(s.toString());
 	    	  System.out.println("hey ei");
@@ -139,6 +145,8 @@ public class CreateDB1BT100SegmentComparisons {
 	      		"from t100_segments\n" + 
 	      		"group by year, quarter, month, carrier, origin, destination\n");
 	      //237,560
+	      //299,235 XuJiao
+	      
 	      for(Object s:sql){
 	    	  stmt.addBatch(s.toString());
 	    	  System.out.println("hey");
@@ -176,7 +184,7 @@ public class CreateDB1BT100SegmentComparisons {
 	      sql.add("drop table temp_three_union\n");
 	      sql.add("drop table temp_db1b_1\n");
 	      sql.add("drop table temp_t100_1\n");
-	      sql.add("select count(*) from db1b_t100_segment_comparisons;\n");
+//	      sql.add("select count(*) from db1b_t100_segment_comparisons;\n");
 	      
 	     for(Object s:sql){
 	    	  stmt.addBatch(s.toString());
@@ -211,6 +219,9 @@ public class CreateDB1BT100SegmentComparisons {
 	   //SUKITJANUPARP
 	   //the message "Goodbye!" will be shown in the console after all queries finished
 	   System.out.println("Goodbye!");
+	   long endTime = System.nanoTime();
+	   long duration = (endTime - startTime)/1000000/1000/60;
+	   System.out.println("That took " + duration + " minutes ");
 	}//end main
 
 

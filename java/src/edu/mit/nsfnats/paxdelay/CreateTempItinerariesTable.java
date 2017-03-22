@@ -1,6 +1,8 @@
 //SUKITJANUPARP
 //create table temp_itineraries
 
+
+
 package edu.mit.nsfnats.paxdelay;
 
 import java.sql.Connection;
@@ -16,7 +18,7 @@ public class CreateTempItinerariesTable {
 	   
 	   //SUKITJANUPARP
 	   //input link to database here
-	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay?allowMultiQueries=true";
+	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay_xu?allowMultiQueries=true";
 	   
 	   //  Database credentials
 	   //SUKITJANUPARP

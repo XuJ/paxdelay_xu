@@ -1,5 +1,5 @@
---OPHASWONGSE
---Add column id(Auto-Increment)
+-- OPHASWONGSE
+-- Add column id(Auto-Increment)
 drop table if exists aotp;
 
 create table aotp

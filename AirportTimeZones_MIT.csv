@@ -1,0 +1,949 @@
+CODE,CITY,STATE,TIMEZONE_REGION
+A07,Selawik,AK,America/Anchorage
+A29,Kiluda Bay,AK,America/Anchorage
+A36,Deep Bay,AK,America/Anchorage
+A37,Kako,AK,America/Anchorage
+A40,Cape Simpson,AK,America/Anchorage
+ABE,Allentown,PA,America/New_York
+ABI,Abilene,TX,America/Chicago
+ABL,Ambler,AK,America/Anchorage
+ABQ,Albuquerque,NM,America/Denver
+ABR,Aberdeen,SD,America/Chicago
+ABY,Albany,GA,America/New_York
+ACK,Nantucket,MA,America/New_York
+ACT,Waco,TX,America/Chicago
+ACV,Arcata,CA,America/Los_Angeles
+ACY,Atlantic City,NJ,America/New_York
+ADK,Adak Island,AK,America/Adak
+ADM,Ardmore,OK,America/Chicago
+ADQ,Kodiak,AK,America/Anchorage
+ADS,Dallas,TX,America/Chicago
+ADW,Camp Springs,MD,America/New_York
+AET,Allakaket,AK,America/Anchorage
+AEX,Alexandria,LA,America/Chicago
+AFW,Fort Worth,TX,America/Chicago
+AGN,Angoon,AK,America/Anchorage
+AGS,Augusta,GA,America/New_York
+AHN,Athens,GA,America/New_York
+AIA,Alliance,NE,America/Denver
+AID,Anderson,IN,America/New_York
+AIN,Wainwright,AK,America/Anchorage
+AKB,Atka,AK,America/Adak
+AKI,Akiak,AK,America/Anchorage
+AKK,Akhiok,AK,America/Anchorage
+AKN,King Salmon,AK,America/Anchorage
+AKP,Anaktuvuk,AK,America/Anchorage
+ALB,Albany,NY,America/New_York
+ALM,Alamogordo,NM,America/Denver
+ALO,Waterloo,IA,America/Chicago
+ALS,Alamosa,CO,America/Denver
+ALW,Walla walla,WA,America/Los_Angeles
+ALZ,Alitak,AK,America/Anchorage
+AMA,Amarillo,TX,America/Chicago
+AMK,Durango,CO,America/Denver
+ANB,Anniston,AL,America/Chicago
+ANC,Anchorage,AK,America/Anchorage
+AND,Anderson,SC,America/New_York
+ANI,Aniak,AK,America/Anchorage
+ANV,Anvik,AK,America/Anchorage
+AOO,Altoona,PA,America/New_York
+AOS,Amook,AK,America/Anchorage
+APF,Naples,FL,America/New_York
+APN,Alpena,MI,America/New_York
+ARA,New Iberia,LA,America/Chicago
+ARC,Arctic Village,AK,America/Anchorage
+ART,Watertown,NY,America/New_York
+ASE,Aspen,CO,America/Denver
+AST,Astoria,OR,America/Los_Angeles
+ATK,Atqasuk,AK,America/Anchorage
+ATL,Atlanta,GA,America/New_York
+ATT,Atmautluak,AK,America/Anchorage
+ATW,Appleton,WI,America/Chicago
+ATY,Watertown,SD,America/Chicago
+AUG,Augusta,ME,America/New_York
+AUK,Alakanuk,AK,America/Anchorage
+AUS,Austin,TX,America/Chicago
+AUW,Wausau,WI,America/Chicago
+AVL,Asheville,NC,America/New_York
+AVP,Wilkes-Barre,PA,America/New_York
+AXN,Alexandria,MN,America/Chicago
+AZA,Messa,AZ,US/Arizona
+AZO,Kalamazoo,MI,America/New_York
+BAD,Shreveport,LA,America/Chicago
+BAF,Westfield,MA,America/New_York
+BCT,Boca Raton,FL,America/New_York
+BDL,Hartford,CT,America/New_York
+BDR,Bridgeport,CT,America/New_York
+BED,Bedford/Hanscom,MA,America/New_York
+BET,Bethel,AK,America/Anchorage
+BFD,Bradford,PA,America/New_York
+BFF,Scottsbluff,NE,America/Denver
+BFI,Seattle,WA,America/Los_Angeles
+BFL,Bakersfield,CA,America/Los_Angeles
+BFM,Mobile,AL,America/Chicago
+BFT,Beaufort,SC,America/New_York
+BGM,Binghamton,NY,America/New_York
+BGR,Bangor,ME,America/New_York
+BHB,Bar Harbor,ME,America/New_York
+BHM,Birmingham,AL,America/Chicago
+BID,Block Island,RI,America/New_York
+BIF,El paso,TX,America/Denver
+BIG,Big Delta,AK,America/Anchorage
+BIH,Bishop,CA,America/Los_Angeles
+BIL,Billings,MT,America/Denver
+BIS,Bismarck,ND,America/Chicago
+BJI,Bemidji,MN,America/Chicago
+BKC,Buckland,AK,America/Anchorage
+BKL,Cleveland,OH,America/New_York
+BKW,Beckley,WV,America/New_York
+BLF,Bluefield,WV,America/New_York
+BLI,Bellingham,WA,America/Los_Angeles
+BLM,Belmar,NJ,America/New_York
+BLV,Belleville,IL,America/Chicago
+BMG,Bloomington,IN,America/New_York
+BMI,Bloomington-Normal,IL,America/Chicago
+BNA,Nashville,TN,America/Chicago
+BOI,Boise,ID,America/Denver
+BOK,Brookings,OR,America/Los_Angeles
+BOS,Boston,MA,America/New_York
+BPT,Beaumont,TX,America/Chicago
+BQK,Brunswick,GA,America/New_York
+BQN,Aguadilla,PR,America/Puerto_Rico
+BRD,Brainerd,MN,America/Chicago
+BRL,Burlington,IA,America/Chicago
+BRO,Brownsville,TX,America/Chicago
+BRW,Barrow,AK,America/Anchorage
+BTI,Barter Island,AK,America/Anchorage
+BTL,Battle Creek,MI,America/New_York
+BTM,Butte,MT,America/Denver
+BTR,Baton Rouge,LA,America/Chicago
+BTT,Bettles,AK,America/Anchorage
+BTV,Burlington,VT,America/New_York
+BUF,Buffalo,NY,America/New_York
+BUR,Burbank,CA,America/Los_Angeles
+BVD,Beaver Inlet,AK,America/Anchorage
+BVU,Beluga,AK,America/Anchorage
+BWD,Brownwood,TX,America/Chicago
+BWG,Bowling Green,KY,America/Chicago
+BWI,Baltimore,MD,America/New_York
+BZN,Bozeman,MT,America/Denver
+CAD,Cadillac,MI,America/New_York
+CAE,Columbia,SC,America/New_York
+CAK,Akron/Canton,OH,America/New_York
+CBE,Cumberland,MD,America/New_York
+CDB,Cold Bay,AK,America/Anchorage
+CDC,Cedar City,UT,America/Denver
+CDR,Chadron,NE,America/Denver
+CDV,Cordova,AK,America/Anchorage
+CEC,Crescent City,CA,America/Los_Angeles
+CEF,Springfield,MA,America/New_York
+CEM,Central,AK,America/Anchorage
+CEZ,Cortez,CO,America/Denver
+CFA,Coffee Point,AK,America/Anchorage
+CGA,Craig,AK,America/Anchorage
+CGI,Cape Girardeau,MO,America/Chicago
+CHA,Chattanooga,TN,America/New_York
+CHO,Charlottesville,VA,America/New_York
+CHS,Charleston,SC,America/New_York
+CHU,Chuathbaluk,AK,America/Anchorage
+CIC,Chico,CA,America/Los_Angeles
+CID,Cedar Rapids,IA,America/Chicago
+CIK,Chalkyitsik,AK,America/Anchorage
+CIN,Carroll,IA,America/Chicago
+CIU,Sault Ste. Marie,MI,America/New_York
+CKB,Clarksburg,WV,America/New_York
+CKD,Crooked Creek,AK,America/Anchorage
+CKX,Chicken,AK,America/Anchorage
+CLD,San Diego,CA,America/Los_Angeles
+CLE,Cleveland,OH,America/New_York
+CLL,College Station,TX,America/Chicago
+CLM,Port Angeles,WA,America/Los_Angeles
+CLP,Clarks Point,AK,America/Anchorage
+CLT,Charlotte,NC,America/New_York
+CLU,Columbus,IN,America/New_York
+CMH,Columbus,OH,America/New_York
+CMI,Champaign,IL,America/Chicago
+CMX,Hancock,MI,America/New_York
+CNM,Carlsbad,NM,America/Denver
+CNY,Moab,UT,America/Denver
+CO3,Marina,CA,America/Los_Angeles
+COD,Cody,WY,America/Denver
+COS,Colorado Springs,CO,America/Denver
+COU,Columbia,MO,America/Chicago
+CPR,Casper,WY,America/Denver
+CRP,Corpus Christi,TX,America/Chicago
+CRW,Charleston,WV,America/New_York
+CSG,Columbus,GA,America/New_York
+CSM,Clinton,OK,America/Chicago
+CTH,Coatesville,PA,America/New_York
+CVG,Hebron,KY,America/New_York
+CVN,Clovis,NM,America/Denver
+CVO,Albany,OR,America/Los_Angeles
+CWA,Wausau,WI,America/Chicago
+CXF,Coldfoot,AK,America/Anchorage
+CYF,Chefornak,AK,America/Anchorage
+CYM,Chatham,AK,America/Anchorage
+CYS,Cheyenne,WY,America/Denver
+CZF,Cape Romanzof,AK,America/Anchorage
+CZN,Chisana,AK,America/Anchorage
+DAB,Daytona Beach,FL,America/New_York
+DAL,Dallas,TX,America/Chicago
+DAY,Dayton,OH,America/New_York
+DBQ,Dubuque,IA,America/Chicago
+DCA,Washington,DC,America/New_York
+DCU,Decatur,AL,America/Chicago
+DDC,Dodge City,KS,America/Chicago
+DEC,Decatur,IL,America/Chicago
+DEN,Denver,CO,America/Denver
+DET,Detroit,MI,America/New_York
+DFW,Dallas,TX,America/Chicago
+DGB,Danger Bay,AK,America/Anchorage
+DHN,Dothan,AL,America/Chicago
+DIK,Dickinson,ND,America/Denver
+DJN,Delta Junction,AK,America/Anchorage
+DLG,Dillingham,AK,America/Anchorage
+DLH,Duluth,MN,America/Chicago
+DNE,Dallas,TX,America/Chicago
+DOV,Dover-Cheswold,DE,America/New_York
+DPA,Chicago,IL,America/Chicago
+DQH,Douglas,GA,America/New_York
+DQK,Fort Drum,NY,America/New_York
+DQN,New Smyrna Beach,FL,America/New_York
+DQP,Georgetown,KY,America/New_York
+DQR,Peach Springs,AZ,US/Arizona
+DRF,Drift River,AK,America/Anchorage
+DRG,Deering,AK,America/Anchorage
+DRO,Durango,CO,America/Denver
+DRT,Del Rio,TX,America/Chicago
+DSM,Des Moines,IA,America/Chicago
+DTW,Detroit,MI,America/New_York
+DUJ,Dubois,PA,America/New_York
+DUT,Dutch Harbor,AK,America/Anchorage
+DVL,Devils Lake,ND,America/Chicago
+DXR,Danbury,CT,America/New_York
+DYS,Abilene,TX,America/Chicago
+EAA,Eagle,AK,America/Anchorage
+EAR,Kearney,NE,America/Chicago
+EAT,Wenatchee,WA,America/Los_Angeles
+EAU,Eau Claire,WI,America/Chicago
+EDA,Edna Bay,AK,America/Anchorage
+EDF,Anchorage,AK,America/Anchorage
+EEK,Eek,AK,America/Anchorage
+EFD,Houston,TX,America/Chicago
+EFK,Newport,VT,America/New_York
+EGE,Vail,CO,America/Denver
+EGX,Egegik,AK,America/Anchorage
+EHM,Cape Newenham,AK,America/Anchorage
+EIL,Fairbanks,AK,America/Anchorage
+EKA,Eureka,CA,America/Los_Angeles
+EKO,Elko,NV,America/Los_Angeles
+ELD,El Dorado,AR,America/Chicago
+ELI,Elim,AK,America/Anchorage
+ELM,Elmira,NY,America/New_York
+ELP,El Paso,TX,America/Denver
+ELV,Elfin Cove,AK,America/Anchorage
+ELY,Ely,NV,America/Los_Angeles
+EMK,Emmonak,AK,America/Anchorage
+ENA,Kenai,AK,America/Anchorage
+ENN,Nenana,AK,America/Anchorage
+ENV,Wendover,UT,America/Denver
+EPH,Ephrata,WA,America/Los_Angeles
+ERI,Erie,PA,America/New_York
+ESC,Escanaba,MI,America/New_York
+ESD,Eastsound,WA,America/Los_Angeles
+EUG,Eugene,OR,America/Los_Angeles
+EVV,Evansville,IN,America/Chicago
+EWB,New Bedford,MA,America/New_York
+EWN,New Bern,NC,America/New_York
+EWR,Newark,NJ,America/New_York
+EXI,Excursion Inlet,AK,America/Anchorage
+EYW,Key West,FL,America/New_York
+FAI,Fairbanks,AK,America/Anchorage
+FAR,Fargo,ND,America/Chicago
+FAT,Fresno,CA,America/Los_Angeles
+FAY,Fayetteville,NC,America/New_York
+FCA,Kalispell,MT,America/Denver
+FDY,Findlay,OH,America/New_York
+FFO,Dayton,OH,America/New_York
+FHU,Sierra Vista,AZ,US/Arizona
+FKL,Franklin,PA,America/New_York
+FLG,Grand Canyon,AZ,US/Arizona
+FLL,Fort Lauderdale,FL,America/New_York
+FLO,Florence,SC,America/New_York
+FMN,Farmington,NM,America/Denver
+FNL,Fort Collins/Loveland,CO,America/Denver
+FNR,Funter Bay,AK,America/Anchorage
+FNT,Flint,MI,America/New_York
+FOD,Fort Dodge,IA,America/Chicago
+FOE,Topeka,KS,America/Chicago
+FQW,Fort Glenn,AK,America/Anchorage
+FRD,Friday Harbor,WA,America/Los_Angeles
+FRG,Farmingdale,NY,America/New_York
+FSD,Sioux Falls,SD,America/Chicago
+FSM,Fort Smith,AR,America/Chicago
+FTW,Fort Worth,TX,America/Chicago
+FTY,Atlanta,GA,America/New_York
+FVQ,Donlin Creek,AK,America/Anchorage
+FWA,Fort Wayne,IN,America/New_York
+FYU,Fort Yukon,AK,America/Anchorage
+FYV,Fayettesville,AR,America/Chicago
+GAL,Galena,AK,America/Anchorage
+GAM,Gambell,AK,America/Anchorage
+GBD,Great Bend,KS,America/Chicago
+GBH,Galbraith Lake,AK,America/Anchorage
+GCC,Gillette,WY,America/Denver
+GCK,Garden City,KS,America/Chicago
+GCN,Grand Canyon,AZ,US/Arizona
+GDV,Glendive,MT,America/Denver
+GEG,Spokane,WA,America/Los_Angeles
+GFK,Grand Forks,ND,America/Chicago
+GGG,Longview,TX,America/Chicago
+GGW,Glasgow,MT,America/Chicago
+GJT,Grand Junction,CO,America/Denver
+GKN,Gulkana,AK,America/Anchorage
+GLH,Greenville,MS,America/Chicago
+GLR,Gaylord,MI,America/New_York
+GLV,Golovin,AK,America/Anchorage
+GNU,Goodnews Bay,AK,America/Anchorage
+GNV,Gainesville,FL,America/New_York
+GON,New London,CT,America/New_York
+GPT,Gulfport,MS,America/Chicago
+GRB,Green Bay,WI,America/Chicago
+GRI,Grand Island,NE,America/Chicago
+GRK,Killeen,TX,America/Chicago
+GRR,Grand Rapids,MI,America/New_York
+GSB,Goldsboro,NC,America/New_York
+GSH,Goshen,IN,America/New_York
+GSO,Greensboro/High Point,NC,America/New_York
+GSP,Greenville,SC,America/New_York
+GST,Gustavus,AK,America/Anchorage
+GTF,Great Falls,MT,America/Denver
+GTR,Columbus,MS,America/Chicago
+GUC,Gunnison,CO,America/Denver
+GUM,Guam,GU,Pacific/Guam
+GUP,Gallup,NM,America/Denver
+GYR,Goodyear,AZ,US/Arizona
+GYY,Gary,IN,America/Chicago
+HAE,Havasupai,AZ,US/Arizona
+HCR,Holy Cross,AK,America/Anchorage
+HDN,Hayden,CO,America/Denver
+HGR,Hagerstown,MD,America/New_York
+HGZ,Hogatza,AK,America/Anchorage
+HHH,Hilton Head,SC,America/New_York
+HIB,Hibbing,MN,America/Chicago
+HIF,Ogden,UT,America/Denver
+HII,Lake Havasu City,AZ,US/Arizona
+HIK,Honolulu,HI,Pacific/Honolulu
+HKB,Healy Lake,AK,America/Anchorage
+HKY,Hickory,NC,America/New_York
+HLM,Holland,MI,America/New_York
+HLN,Helena,MT,America/Denver
+HNH,Hoonah,AK,America/Anchorage
+HNL,Honolulu,HI,Pacific/Honolulu
+HNM,Hana,HI,Pacific/Honolulu
+HNS,Haines,AK,America/Anchorage
+HOB,Hobbs,NM,America/Denver
+HOM,Homer,AK,America/Anchorage
+HON,Huron,SD,America/Chicago
+HOP,Hopkinsville,KY,America/Chicago
+HOT,Hot Springs,AR,America/Chicago
+HOU,Houston,TX,America/Chicago
+HPB,Hooper Bay,AK,America/Anchorage
+HPN,Westchester County,NY,America/New_York
+HRL,Harlingen,TX,America/Chicago
+HRO,Harrison,AR,America/Chicago
+HSL,Huslia,AK,America/Anchorage
+HSV,Huntsville,AL,America/Chicago
+HTO,East Hampton,NY,America/New_York
+HTS,Huntington,WV,America/New_York
+HUF,Terre Haute,IN,America/New_York
+HUS,Hughes,AK,America/Anchorage
+HVN,New Haven,CT,America/New_York
+HVR,Havre,MT,America/Denver
+HYA,Hyannis,MA,America/New_York
+HYG,Hydaburg,AK,America/Anchorage
+HYL,Hollis,AK,America/Anchorage
+HYS,Hays,KS,America/Chicago
+IA1,Shenandoah,IA,America/Chicago
+IAB,Wichita,KS,America/Chicago
+IAD,Washington,DC,America/New_York
+IAG,Niagara Falls,NY,America/New_York
+IAH,Houston,TX,America/Chicago
+IAN,Kiana,AK,America/Anchorage
+ICT,Wichita,KS,America/Chicago
+IDA,Idaho Falls,ID,America/Denver
+IFP,Bullhead City,AZ,US/Arizona
+IGG,Igiugig,AK,America/Anchorage
+IGM,Kingman,AZ,US/Arizona
+IKO,Nikolski,AK,America/Anchorage
+ILG,Wilmington,DE,America/New_York
+ILI,Iliamna,AK,America/Anchorage
+ILM,Wilmington,NC,America/New_York
+ILN,Wilmington,OH,America/New_York
+IMT,Iron Mountain,MI,America/Chicago
+IND,Indianapolis,IN,America/New_York
+INL,International Falls,MN,America/Chicago
+INT,Winston-Salem,NC,America/New_York
+IPL,Imperial,CA,America/Los_Angeles
+IPT,Williamsport,PA,America/New_York
+IRC,Circle,AK,America/Anchorage
+IRK,Kirksville,MO,America/Chicago
+ISM,Kissimmee,FL,America/New_York
+ISN,Williston,ND,America/Chicago
+ISO,Kinston,NC,America/New_York
+ISP,Islip,NY,America/New_York
+ISS,Wiscasset,ME,America/New_York
+ITH,Ithaca,NY,America/New_York
+ITO,Hilo,HI,Pacific/Honolulu
+IWD,Ironwood,MI,America/Chicago
+IYK,Inyokern,CA,America/Los_Angeles
+JAC,Jackson,WY,America/Denver
+JAN,Jackson,MS,America/Chicago
+JAX,Jacksonville,FL,America/New_York
+JBR,Jonesboro,AR,America/Chicago
+JFK,New York,NY,America/New_York
+JGC,Grand Canyon,AZ,US/Arizona
+JHM,Kapalua,HI,Pacific/Honolulu
+JHW,Jamestown,NY,America/New_York
+JLN,Joplin,MO,America/Chicago
+JMS,Jamestown,ND,America/Chicago
+JNU,Juneau,AK,America/Anchorage
+JQF,Concord,NC,America/New_York
+JRA,New York,NY,America/New_York
+JRB,New York,NY,America/New_York
+JST,Johnstown,PA,America/New_York
+JVL,Janesville,WI,America/Chicago
+JZE,Trading Bay,AK,America/Anchorage
+JZT,Arlington,TX,America/Chicago
+KAE,Kake,AK,America/Anchorage
+KAL,Kaltag,AK,America/Anchorage
+KBC,Birch Creek,AK,America/Anchorage
+KCC,Coffman Cove,AK,America/Anchorage
+KCG,Chignik,AK,America/Anchorage
+KCL,Chignik,AK,America/Anchorage
+KCQ,Chignik,AK,America/Anchorage
+KEB,English Bay,AK,America/Anchorage
+KEK,Ekwok,AK,America/Anchorage
+KFP,False Pass,AK,America/Anchorage
+KGK,New Koliganek,AK,America/Anchorage
+KGX,Grayling,AK,America/Anchorage
+KKA,Koyuk,AK,America/Anchorage
+KKB,Kitui Bay,AK,America/Anchorage
+KKH,Kongiganak,AK,America/Anchorage
+KKI,Akiachak,AK,America/Anchorage
+KKL,Karluk Lake,AK,America/Anchorage
+KLG,Kalskag,AK,America/Anchorage
+KLL,Levelock,AK,America/Anchorage
+KLN,Larsen Bay,AK,America/Anchorage
+KLW,Klawock,AK,America/Anchorage
+KMO,Manokotak,AK,America/Anchorage
+KMY,Moder Bay,AK,America/Anchorage
+KNK,Kakhonak,AK,America/Anchorage
+KNW,New Stuyahok,AK,America/Anchorage
+KOA,Kona,HI,Pacific/Honolulu
+KOT,Kotlik,AK,America/Anchorage
+KOY,Olga Bay,AK,America/Anchorage
+KOZ,Ouzinkie,AK,America/Anchorage
+KPB,Point Baker,AK,America/Anchorage
+KPC,Port Clarence,AK,America/Anchorage
+KPM,Napamute,AK,America/Anchorage
+KPN,Kipnuk,AK,America/Anchorage
+KPR,Port Williams,AK,America/Anchorage
+KPV,Perryville,AK,America/Anchorage
+KPY,Port Bailey,AK,America/Anchorage
+KQA,Akutan,AK,America/Anchorage
+KSM,Saint Mary's,AK,America/Anchorage
+KTB,Thorne Bay,AK,America/Anchorage
+KTN,Ketchikan,AK,America/Anchorage
+KTS,Teller Mission,AK,America/Anchorage
+KUK,Kasigluk,AK,America/Anchorage
+KVC,King Cove,AK,America/Anchorage
+KVL,Kivalina,AK,America/Anchorage
+KWK,Kwigillingok,AK,America/Anchorage
+KWN,Quinhagak,AK,America/Anchorage
+KWP,West Point,AK,America/Anchorage
+KWT,Kwethluk,AK,America/Anchorage
+KYK,Karluk,AK,America/Anchorage
+KYU,Koyukuk,AK,America/Anchorage
+KZB,Zachar Bay,AK,America/Anchorage
+LAF,Lafayette,LA,America/Chicago
+LAL,Lakeland,FL,America/New_York
+LAN,Lansing,MI,America/New_York
+LAR,Laramie,WY,America/Denver
+LAS,Las Vegas,NV,America/Los_Angeles
+LAW,Lawton,OK,America/Chicago
+LAX,Los Angeles,CA,America/Los_Angeles
+LBB,Lubbock,TX,America/Chicago
+LBE,Latrobe,PA,America/New_York
+LBF,North Platte,NE,America/Chicago
+LBL,Liberal,KS,America/Chicago
+LCH,Lake Charles,LA,America/Chicago
+LCK,Columbus,OH,America/New_York
+LEB,Lebanon,NH,America/New_York
+LEX,Lexington,KY,America/New_York
+LFI,Hampton,VA,America/New_York
+LFT,Lafayette,LA,America/Chicago
+LGA,New York,NY,America/New_York
+LGB,Long Beach,CA,America/Los_Angeles
+LGD,La Grande,OR,America/Los_Angeles
+LIH,Kauai Island,HI,Pacific/Honolulu
+LIJ,Long Island,AK,America/Anchorage
+LIT,Little Rock,AR,America/Chicago
+LJN,Lake Jackson,TX,America/Chicago
+LKE,Seattle,WA,America/Los_Angeles
+LMA,Lake Minchumina,AK,America/Anchorage
+LMT,Klamath Falls,OR,America/Los_Angeles
+LNK,Lincoln,NE,America/Chicago
+LNS,Lancaster,PA,America/New_York
+LNY,Lanai,HI,Pacific/Honolulu
+LPS,Lopez Island,WA,America/Los_Angeles
+LRD,Laredo,TX,America/Chicago
+LRU,Las Cruces,NM,America/Denver
+LSE,La Crosse,WI,America/Chicago
+LSF,Fort Benning,GA,America/New_York
+LSV,Las Vegas,NV,America/Los_Angeles
+LTS,Altus,OK,America/Chicago
+LUK,Cincinnati,OH,America/New_York
+LUP,Kalaupapa,HI,Pacific/Honolulu
+LUR,Cape Lisburne,AK,America/Anchorage
+LVD,Lime Village,AK,America/Anchorage
+LWB,Lewisburg,WV,America/New_York
+LWM,Lawrence,MA,America/New_York
+LWS,Lewiston,ID,America/Los_Angeles
+LWT,Lewistown,MT,America/Denver
+LYH,Lynchburg,VA,America/New_York
+LZU,Lawrenceville,GA,America/New_York
+MAE,Madera,CA,America/Los_Angeles
+MAF,Midland/Odessa,TX,America/Chicago
+MAZ,Mayaguez,PR,America/Puerto_Rico
+MBL,Manistee,MI,America/New_York
+MBS,Saginaw,MI,America/New_York
+MCC,Sacramento,CA,America/Los_Angeles
+MCE,Merced,CA,America/Los_Angeles
+MCF,Tampa,FL,America/New_York
+MCG,McGrath,AK,America/Anchorage
+MCI,Kansas City,MO,America/Chicago
+MCK,McCook,NE,America/Chicago
+MCN,Macon,GA,America/New_York
+MCO,Orlando,FL,America/New_York
+MCW,Mason City,IA,America/Chicago
+MDT,Harrisburg,PA,America/New_York
+MDW,Chicago,IL,America/Chicago
+MDY,Midway Island,UM,Pacific/Samoa
+MEI,Meridian,MS,America/Chicago
+MEM,Memphis,TN,America/Chicago
+MEO,Manteo,NC,America/New_York
+MER,Merced,CA,America/Los_Angeles
+MFE,McAllen,TX,America/Chicago
+MFR,Medford,OR,America/Los_Angeles
+MGM,Montgomery,AL,America/Chicago
+MGW,Morgantown,WV,America/New_York
+MHK,Manhattan,KS,America/Chicago
+MHM,Minchumina,AK,America/Anchorage
+MHR,Sacramento,CA,America/Los_Angeles
+MHT,Manchester,NH,America/New_York
+MHV,Mojave,CA,America/Los_Angeles
+MIA,Miami,FL,America/New_York
+MIE,Muncie,IN,America/New_York
+MIT,Shafter,CA,America/Los_Angeles
+MKC,Kansas City,MO,America/Chicago
+MKE,Milwaukee,WI,America/Chicago
+MKG,Muskegon,MI,America/New_York
+MKK,Hoolehua,HI,Pacific/Honolulu
+MKL,Jackson,TN,America/Chicago
+MLB,Melbourne,FL,America/New_York
+MLI,Moline,IL,America/Chicago
+MLL,Marshall,AK,America/Anchorage
+MLS,Miles City,MT,America/Denver
+MLU,Monroe,LA,America/Chicago
+MLY,Manley Hot Springs,AK,America/Anchorage
+MMI,Athens,TN,America/New_York
+MMU,Morristown,NJ,America/New_York
+MNM,Menominee,MI,America/Denver
+MNT,Minto,AK,America/Anchorage
+MOB,Mobile,AL,America/Chicago
+MOD,Modesto,CA,America/Los_Angeles
+MOT,Minot,ND,America/Chicago
+MOU,Mountain Village,AK,America/Anchorage
+MPR,McPherson,KS,America/Chicago
+MQT,Marquette,MI,America/New_York
+MQY,Smyrna,TN,America/Chicago
+MRC,Columbia,TN,America/Chicago
+MRI,Anchorage,AK,America/Anchorage
+MRY,Monterey,CA,America/Los_Angeles
+MSC,Mesa,AZ,US/Arizona
+MSL,Muscle Shoals,AL,America/Chicago
+MSN,Madison,WI,America/Chicago
+MSO,Missoula,MT,America/Denver
+MSP,Minneapolis,MN,America/Chicago
+MSS,Massena,NY,America/New_York
+MSY,New Orlins,LA,America/Chicago
+MTC,Mount Clemens,MI,America/New_York
+MTH,Marathon,FL,America/New_York
+MTJ,Montrose,CO,America/Denver
+MTM,Metlakatla,AK,America/Anchorage
+MTN,Baltimore,MD,America/New_York
+MTO,Mattoon,IL,America/Chicago
+MUE,Kamuela,HI,Pacific/Honolulu
+MUO,Mountain Home,ID,America/Denver
+MVL,Stowe,VT,America/New_York
+MVN,Mount Vernon,IL,America/Chicago
+MVW,Mount Vernon,WA,America/Los_Angeles
+MVY,Martha's Vineyard,MA,America/New_York
+MWA,Marion,IL,America/Chicago
+MWH,Moses Lake,WA,America/Los_Angeles
+MXY,McCarthy,AK,America/Anchorage
+MYK,May Creek,AK,America/Anchorage
+MYR,Myrtle Beach,SC,America/New_York
+MYU,Mekoryuk,AK,America/Anchorage
+MZJ,Marana,AZ,US/Arizona
+NCN,New Chenega,AK,America/Anchorage
+NEW,New Orleans,LA,America/Chicago
+NGF,Kaneohe Bay,HI,Pacific/Honolulu
+NGU,Norfolk,VA,America/New_York
+NIB,Nikolai,AK,America/Anchorage
+NIP,Jacksonville,FL,America/New_York
+NJK,El Centro,CA,America/Los_Angeles
+NKI,Naukiti,AK,America/Anchorage
+NKT,Cherry Point,NC,America/New_York
+NKX,San Diego,CA,America/Los_Angeles
+NLG,Nelson Lagoon,AK,America/Anchorage
+NME,Nightmute,AK,America/Anchorage
+NNK,Naknek,AK,America/Anchorage
+NNL,Nondalton,AK,America/Anchorage
+NPT,Newport,RI,America/New_York
+NQA,Memphis,TN,America/Chicago
+NQX,Key West,FL,America/New_York
+NUI,Nuiqsut,AK,America/Anchorage
+NUL,Nulato,AK,America/Anchorage
+NUP,Nunapitchuk,AK,America/Anchorage
+NZC,Jacksonville,FL,America/New_York
+NZY,San Diego,CA,America/Los_Angeles
+OAJ,Jacksonville,NC,America/New_York
+OAK,Oakland,CA,America/Los_Angeles
+OBU,Kobuk,AK,America/Anchorage
+OCF,Ocala,FL,America/New_York
+ODW,Oak Harbor,WA,America/Los_Angeles
+OFK,Norfolk,NE,America/Chicago
+OGD,Ogden,UT,America/Denver
+OGG,Kahului,HI,Pacific/Honolulu
+OGS,Ogdensburg,NY,America/New_York
+OKC,Oklahoma City,OK,America/Chicago
+OKK,Kokomo,IN,America/New_York
+OLF,Wolf Point,MT,America/Denver
+OLH,Old Harbor,AK,America/Anchorage
+OMA,Omaha,NE,America/Chicago
+OME,Nome,AK,America/Anchorage
+OMK,Omak,WA,America/Los_Angeles
+ONP,Newport,OR,America/Los_Angeles
+ONT,Ontario,CA,America/Los_Angeles
+OOK,Toksook Bay,AK,America/Anchorage
+OPF,Miami,FL,America/New_York
+OQQ,Point Alsworth,AK,America/Anchorage
+ORD,Chicago,IL,America/Chicago
+ORF,Norfolk,VA,America/New_York
+ORH,Worcester,MA,America/New_York
+ORI,Port Lions,AK,America/Anchorage
+ORT,Northway,AK,America/Anchorage
+ORV,Noorvik,AK,America/Anchorage
+OSC,Oscoda,MI,America/New_York
+OTH,North Bend,OR,America/Los_Angeles
+OTS,Anacortes,WA,America/Los_Angeles
+OTZ,Kotzebue,AK,America/Anchorage
+OWB,Owensboro,KY,America/Chicago
+OXC,Oxford,CT,America/New_York
+OXR,Oxnard,CA,America/Los_Angeles
+PA2,Bedford,PA,America/New_York
+PAE,Everett,WA,America/Los_Angeles
+PAH,Paducah,KY,America/Chicago
+PAM,Panama City,FL,America/Chicago
+PBG,Plattsburgh,NY,America/New_York
+PBI,West Palm Beach,FL,America/New_York
+PCA,Portage Creek,AK,America/Anchorage
+PDB,Pedro Bay,AK,America/Anchorage
+PDK,Atlanta,GA,America/New_York
+PDT,Pendleton,OR,America/Los_Angeles
+PDX,Portland,OR,America/Los_Angeles
+PEC,Pelican,AK,America/Anchorage
+PFN,Panama City,FL,America/Chicago
+PGA,Page,AZ,US/Arizona
+PGM,Port Graham,AK,America/Anchorage
+PGV,Pitt Greenville,NC,America/New_York
+PHF,Newport News,VA,America/New_York
+PHL,Philadelphia,PA,America/New_York
+PHN,Port Huron,MI,America/New_York
+PHO,Point Hope,AK,America/Anchorage
+PHX,Phoenix,AZ,US/Arizona
+PIA,Peoria,IL,America/Chicago
+PIB,Laurel,MS,America/Chicago
+PIE,Saint Petersburg,FL,America/New_York
+PIH,Pocatello,ID,America/Denver
+PIP,Pilot Point,AK,America/Anchorage
+PIR,Pierre,SD,America/Chicago
+PIT,Pittsburgh,PA,America/New_York
+PIZ,Point Lay,AK,America/Anchorage
+PKA,Napaskiak,AK,America/Anchorage
+PKB,Parkersburgh,WV,America/New_York
+PLB,Plattsburgh,NY,America/New_York
+PLN,Pellston,MI,America/New_York
+PMD,Palmdale,CA,America/Los_Angeles
+PML,Port Moller,AK,America/Anchorage
+PNE,Philadelphia,PA,America/New_York
+PNS,Pensacola,FL,America/Chicago
+POB,Fayetteville,NC,America/New_York
+PPC,Prospect Creek,AK,America/Anchorage
+PPG,Pago Pago,AS,Pacific/Samoa
+PPV,Port Protection,AK,America/Anchorage
+PQI,Presque Isle,ME,America/New_York
+PQS,Pilot Station,AK,America/Anchorage
+PRC,Prescott,AZ,US/Arizona
+PSC,Pasco,WA,America/Los_Angeles
+PSE,Ponce,PR,America/Puerto_Rico
+PSF,Pittsfield,MA,America/New_York
+PSG,Petersburg,AK,America/Anchorage
+PSM,Portsmouth,NH,America/New_York
+PSP,Palm Springs,CA,America/Los_Angeles
+PTA,Port Alsworth,AK,America/Anchorage
+PTD,Port Alexander,AK,America/Anchorage
+PTH,Port Heiden,AK,America/Anchorage
+PTK,Pontiac,MI,America/New_York
+PTU,Platinum,AK,America/Anchorage
+PTV,Porterville,CA,America/Los_Angeles
+PUB,Pueblo,CO,America/Denver
+PUW,Pullman,WA,America/Los_Angeles
+PVC,Provincetown,MA,America/New_York
+PVD,Providence,RI,America/New_York
+PVU,Provo,UT,America/Denver
+PVY,Pope Vanoy,AK,America/Anchorage
+PWK,Chicago,IL,America/Chicago
+PWM,Portland,ME,America/New_York
+QKV,Kona Village,HI,Pacific/Honolulu
+QQB,Keyes Point,AK,America/Anchorage
+RAP,Rapid City,SD,America/Denver
+RBG,Roseburg,OR,America/Los_Angeles
+RBY,Ruby,AK,America/Anchorage
+RCA,Rapid City,SD,America/Denver
+RCE,Roche Harbor,WA,America/Los_Angeles
+RDB,Red Dog,AK,America/Anchorage
+RDD,Redding,CA,America/Los_Angeles
+RDG,Reading,PA,America/New_York
+RDM,Redmond,OR,America/Los_Angeles
+RDU,Raleigh/Durham,NC,America/New_York
+RDV,Red Devil,AK,America/Anchorage
+RFD,Rockford,IL,America/Chicago
+RHI,Rhinelander,WI,America/Chicago
+RIC,Richmond,VA,America/New_York
+RIV,Riverside,CA,America/Los_Angeles
+RIW,Riverton,WY,America/Denver
+RKD,Rockland,ME,America/New_York
+RKS,Rock Springs,WY,America/Denver
+RME,Rome,NY,America/New_York
+RMP,Rampart,AK,America/Anchorage
+RNO,Reno,NV,America/Los_Angeles
+ROA,Roanoke,VA,America/New_York
+ROC,Rochester,NY,America/New_York
+ROP,Rota,MP,Pacific/Saipan
+ROW,Roswell,NM,America/Denver
+RQI,Nixon Fork Mine,AK,America/Anchorage
+RQZ,Mary Esther,FL,America/Chicago
+RSH,Russian Mission,AK,America/Anchorage
+RSJ,Rosario,WA,America/Los_Angeles
+RST,Rochester,MN,America/Chicago
+RSW,Fort Myers,FL,America/New_York
+RUI,Ruidoso,NM,America/Denver
+RUT,Rutland,VT,America/New_York
+RWI,Rocky Mount/Wilson,NC,America/New_York
+SAF,Santa Fe,NM,America/Denver
+SAN,San Diego,CA,America/Los_Angeles
+SAT,San Antonio,TX,America/Chicago
+SAV,Savannah,GA,America/New_York
+SBA,Santa Barbara,CA,America/Los_Angeles
+SBN,South Bend,IN,America/New_York
+SBP,San Luis Obispo,CA,America/Los_Angeles
+SBY,Salisbury-Ocean City,MD,America/New_York
+SCC,Prudhoe Bay/Deadhorse,AK,America/Anchorage
+SCE,State College,PA,America/New_York
+SCH,Schenectady,NY,America/New_York
+SCK,Stockton,CA,America/Los_Angeles
+SCM,Scammon Bay,AK,America/Anchorage
+SDF,Louisville,KY,America/New_York
+SDM,San Diego,CA,America/Los_Angeles
+SDP,Sand Point,AK,America/Anchorage
+SDY,Sidney,MT,America/Denver
+SEA,Seattle,WA,America/Los_Angeles
+SFB,Orlando,FL,America/New_York
+SFO,San Francisco,CA,America/Los_Angeles
+SFZ,Smithfield,RI,America/New_York
+SGF,Springfield,MO,America/Chicago
+SGU,Saint George,UT,America/Denver
+SGY,Skagway,AK,America/Anchorage
+SHD,Staunton,VA,America/New_York
+SHG,Shungnak,AK,America/Anchorage
+SHH,Shishmaref,AK,America/Anchorage
+SHR,Sheridan,WY,America/Denver
+SHV,Shreveport,LA,America/Chicago
+SHX,Shageluk,AK,America/Anchorage
+SIG,San Juan,PR,America/Puerto_Rico
+SIT,Sitka,AK,America/Anchorage
+SJC,San Jose,CA,America/Los_Angeles
+SJT,San Angelo,TX,America/Chicago
+SJU,San Juan,PR,America/Puerto_Rico
+SKK,Shaktoolik,AK,America/Anchorage
+SKW,Skwentna,AK,America/Anchorage
+SLC,Salt Lake City,UT,America/Denver
+SLE,Salem,OR,America/Los_Angeles
+SLK,Saranac Lake,NY,America/New_York
+SLN,Salina,KS,America/Chicago
+SLQ,Sleetmute,AK,America/Anchorage
+SMF,Sacramento,CA,America/Los_Angeles
+SMK,Saint Michael,AK,America/Anchorage
+SMX,Santa Maria,CA,America/Los_Angeles
+SNA,Santa Ana,CA,America/Los_Angeles
+SNP,Saint Paul Island,AK,America/Anchorage
+SOP,Southern Pines,NC,America/New_York
+SOV,Seldovia,AK,America/Anchorage
+SOW,Show Low,AZ,US/Arizona
+SPB,Saint Thomas,VI,America/Virgin
+SPI,Springfield,IL,America/Chicago
+SPN,Saipan,MP,Pacific/Saipan
+SPS,Wichita Falls,TX,America/Chicago
+SQV,Sequim,WA,America/Los_Angeles
+SRQ,Sarasota,FL,America/New_York
+SRV,Stony River,AK,America/Anchorage
+SSB,Saint Croix,VI,America/Virgin
+SSC,Sumter,SC,America/New_York
+STC,Saint Cloud,MN,America/Chicago
+STG,Saint George Island,AK,America/Anchorage
+STJ,Saint Joseph,MO,America/Chicago
+STL,Saint Louis,MO,America/Chicago
+STS,Santa Rosa,CA,America/Los_Angeles
+STT,Saint Thomas,VI,America/Virgin
+STX,Saint Croix,VI,America/Virgin
+SUA,Stuart,FL,America/New_York
+SUN,Sun Valley,ID,America/Denver
+SUS,Saint Louis,MO,America/Chicago
+SUU,Fairfield,CA,America/Los_Angeles
+SUX,Sioux City,IA,America/Chicago
+SVA,Savoonga,AK,America/Anchorage
+SVC,Silver City,NM,America/Denver
+SVN,Savannah,GA,America/New_York
+SVS,Stevens College,AK,America/Anchorage
+SVW,Sparrevohn,AK,America/Anchorage
+SWF,Newburgh,NY,America/New_York
+SWO,Stillwater,OK,America/Chicago
+SWW,Sweetwater,TX,America/Chicago
+SXP,Sheldon Point,AK,America/Anchorage
+SYB,Seal Bay,AK,America/Anchorage
+SYR,Syracuse,NY,America/New_York
+SZL,Warrensburg,MO,America/Chicago
+TAL,Tanana,AK,America/Anchorage
+TBN,Fort Leonard Wood,MO,America/Chicago
+TCL,Tuscaloosa,AL,America/Chicago
+TCM,Tacoma,WA,America/Los_Angeles
+TCT,Takotna,AK,America/Anchorage
+TDF,Roxboro,NC,America/New_York
+TEB,Teterboro,NJ,America/New_York
+TEK,Tatitlek,AK,America/Anchorage
+TEX,Telluride,CO,America/Denver
+THV,York,PA,America/New_York
+TIK,Oklahoma City,OK,America/Chicago
+TIQ,Tinian,MP,Pacific/Saipan
+TKE,Tenakee Springs,AK,America/Anchorage
+TKJ,Tok,AK,America/Anchorage
+TLA,Teller,AK,America/Anchorage
+TLF,Telida,AK,America/Anchorage
+TLH,Tallahassee,FL,America/New_York
+TLJ,Tatalina,AK,America/Anchorage
+TLT,Tuluksak,AK,America/Anchorage
+TMB,Tamiami,FL,America/New_York
+TN2,Sparta,TN,America/Chicago
+TN6,Dyersburg,TN,America/Chicago
+TNC,Tin City,AK,America/Anchorage
+TNK,Tununak,AK,America/Anchorage
+TOG,Togiak Village,AK,America/Anchorage
+TOL,Toledo,OH,America/New_York
+TPA,Tampa,FL,America/New_York
+TRI,Bristol/Johnson City/Kingsport,TN,America/New_York
+TSP,Tehachapi,CA,America/Los_Angeles
+TSS,New York,NY,America/New_York
+TTN,Trenton,NJ,America/New_York
+TUL,Tulsa,OK,America/Chicago
+TUP,Tupelo,MS,America/New_York
+TUS,Tucson,AZ,US/Arizona
+TVC,Traverse City,MI,America/New_York
+TVF,Thief River Falls,MN,America/Chicago
+TWA,Twin Hills,AK,America/Anchorage
+TWF,Twin Falls,ID,America/Denver
+TXK,Texarkana,AR,America/Chicago
+TYE,Tyonek,AK,America/Anchorage
+TYR,Tyler,TX,America/Chicago
+TYS,Knoxville,TN,America/New_York
+UAM,Guam,GU,Pacific/Guam
+UGB,Pilot Point,AK,America/Anchorage
+UGI,Uganik,AK,America/Anchorage
+UGS,Ugashik,AK,America/Anchorage
+UIN,Quincy,IL,America/Chicago
+UKI,Ukiah,CA,America/Los_Angeles
+UMT,Umiat,AK,America/Anchorage
+UNK,Unalakleet,AK,America/Anchorage
+UST,Saint Augustine,FL,America/New_York
+UTM,Tunica,MS,America/Chicago
+UTO,Utopia Creek,AK,America/Anchorage
+UUK,Kuparuk,AK,America/Anchorage
+UXO,Fitchburg,MA,America/New_York
+VAD,Valdosta,GA,America/New_York
+VAK,Chevak,AK,America/Anchorage
+VCT,Victoria,TX,America/Chicago
+VCV,Victorville,CA,America/Los_Angeles
+VDZ,Valdez,AK,America/Anchorage
+VEE,Venetie,AK,America/Anchorage
+VEL,Vernal,UT,America/Denver
+VIS,Visalia,CA,America/Los_Angeles
+VLD,Valdosta,GA,America/New_York
+VOK,Camp Douglas,WI,America/Chicago
+VPS,Valparaiso,FL,America/Chicago
+VPZ,Valparaiso,IN,America/Chicago
+VQS,Vieques,PR,America/Puerto_Rico
+VRB,Vero Beach,FL,America/New_York
+VWL,Bemidji,MN,America/Chicago
+WA4,Medical Lake,WA,America/Los_Angeles
+WAA,Wales,AK,America/Anchorage
+WBB,Stebbins,AK,America/Anchorage
+WBQ,Beaver,AK,America/Anchorage
+WBR,Big Rapids,MI,America/New_York
+WCR,Chandalar,AK,America/Anchorage
+WFB,Ketchikan,AK,America/Anchorage
+WHD,Hyder,AK,America/Anchorage
+WKK,Aleknagik,AK,America/Anchorage
+WLK,Selawik,AK,America/Anchorage
+WMO,White Mountain,AK,America/Anchorage
+WNA,Napakiak,AK,America/Anchorage
+WOW,Willow,AK,America/Anchorage
+WRB,Macon,GA,America/New_York
+WRG,Wrangell,AK,America/Anchorage
+WRI,Fort Dix,NJ,America/New_York
+WRL,Worland,WY,America/Denver
+WSN,South Naknek,AK,America/Anchorage
+WST,Westerly,RI,America/New_York
+WSX,Westsound,WA,America/Los_Angeles
+WTK,Noatak,AK,America/Anchorage
+WTL,Tuntutuliak,AK,America/Anchorage
+WVI,Watsonville,CA,America/Los_Angeles
+WWP,Whale Pass,AK,America/Anchorage
+WWT,Newtok,AK,America/Anchorage
+WYS,West Yellostone,MT,America/Denver
+XNA,Bentonville,AR,America/Chicago
+XWA,Granite Point,AK,America/Anchorage
+XWF,Jerome,ID,America/Denver
+XWL,Blackfoot,ID,America/Denver
+XXP,Lakeport,CA,America/Los_Angeles
+XXU,Ashland,OR,America/Los_Angeles
+XXV,Decatur Shores,WA,America/Los_Angeles
+YAK,Yakutat,AK,America/Anchorage
+YIP,Detroit,MI,America/New_York
+YKM,Yakima,WA,America/Los_Angeles
+YNG,Youngstown,OH,America/New_York
+YUM,Yuma,AZ,US/Arizona
+ZXH,Chomondely Sound,AK,America/Anchorage
+ZXK,Lancaster Cove,AK,America/Anchorage
+ZXT,Baku,AZ,US/Arizona

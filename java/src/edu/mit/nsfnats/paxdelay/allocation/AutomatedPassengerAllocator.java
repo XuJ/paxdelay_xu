@@ -139,15 +139,39 @@ public class AutomatedPassengerAllocator {
 	}
 
 	public static void main(String[] args) {
-		if (args.length != 2) {
-			System.err
-					.println("Usage: java edu.mit.nsfnats.paxdelay.choice.AutomatedPassengerAllocator "
-							+ "<logger_properties_file> <allocation_properties_file>");
-			System.exit(-1);
-		}
+		long startTime = System.nanoTime();
+//		if (args.length != 2) {
+//			System.err
+//					.println("Usage: java edu.mit.nsfnats.paxdelay.choice.AutomatedPassengerAllocator "
+//							+ "<logger_properties_file> <allocation_properties_file>");
+//			System.exit(-1);
+//		}
+//		Properties loggerProperties = null;
+//		try {
+//			loggerProperties = PropertiesReader.loadProperties(args[0]);
+//		} catch (FileNotFoundException e) {
+//			exit("Logger properties file not found.", e, -1);
+//		} catch (IOException e) {
+//			exit("Received IO exception while reading logger properties file.",
+//					e, -1);
+//		}
+//		PropertyConfigurator.configure(loggerProperties);
+//
+//		Properties allocationProperties = null;
+//		try {
+//			allocationProperties = PropertiesReader.loadProperties(args[1]);
+//		} catch (FileNotFoundException e) {
+//			exit("Allocation properties file not found.", e, -1);
+//		} catch (IOException e) {
+//			exit(
+//					"Received IO exception while reading allocation properties file.",
+//					e, -1);
+//		}
+//		main(allocationProperties);
+		
 		Properties loggerProperties = null;
 		try {
-			loggerProperties = PropertiesReader.loadProperties(args[0]);
+			loggerProperties = PropertiesReader.loadProperties("resources/config/desktop/DefaultLogger.properties");
 		} catch (FileNotFoundException e) {
 			exit("Logger properties file not found.", e, -1);
 		} catch (IOException e) {
@@ -158,7 +182,7 @@ public class AutomatedPassengerAllocator {
 
 		Properties allocationProperties = null;
 		try {
-			allocationProperties = PropertiesReader.loadProperties(args[1]);
+			allocationProperties = PropertiesReader.loadProperties("resources/config/desktop/AutomatedPassengerAllocator.properties");
 		} catch (FileNotFoundException e) {
 			exit("Allocation properties file not found.", e, -1);
 		} catch (IOException e) {
@@ -167,6 +191,9 @@ public class AutomatedPassengerAllocator {
 					e, -1);
 		}
 		main(allocationProperties);
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000/1000/60;
+		System.out.println("That took " + duration + " minutes ");
 	}
 
 	public static void main(Properties properties) {
@@ -262,6 +289,11 @@ public class AutomatedPassengerAllocator {
 	}
 
 	public void connectToDatabase() {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}      
 		try {
 			//m_datasource = new OracleDataSource();
 			//m_datasource.setURL(m_jdbcURL);

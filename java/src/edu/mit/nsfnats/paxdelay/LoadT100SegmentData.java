@@ -1,20 +1,21 @@
+//XuJiao
+//That took 0 minutes
+
 package edu.mit.nsfnats.paxdelay;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class LoadT100SegmentData {
 	// JDBC driver name and database URL
 	   static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay?allowMultiQueries=true";
+	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay_xu?allowMultiQueries=true";
 	   //  Database credentials
-	   static final String USER = "saris";
+	   static final String USER = "root";
 	   static final String PASS = "paxdelay";
 	   static int year = 2007;
 	   public static void main(String[] args) {
+	   long startTime = System.nanoTime();
 	   Connection conn = null;
 	   Statement stmt = null;
 	   try{
@@ -29,6 +30,68 @@ public class LoadT100SegmentData {
 	      System.out.println("Creating statement...");
 	      stmt = conn.createStatement();
 	      ArrayList<String> sql = new ArrayList<String>();
+	      sql.add("drop table if exists t100_segments\n");
+	      sql.add("create table if not exists t100_segments\n"+
+	    		  "(\n" + 
+		      		"	departures_scheduled	numeric(4, 0) not null,\n" + 
+		      		"	departures_performed	numeric(4, 0) not null,\n" + 
+		      		"	payload	numeric(10, 0) not null,\n" + 
+		      		"	seats	numeric(6, 0) not null,\n" + 
+		      		"	passengers	numeric(6, 0) not null,\n" + 
+		      		"	freight	numeric(8, 0) not null,\n" + 
+		      		"	mail	numeric(8, 0) not null,\n" + 
+		      		"	distance	numeric(4, 0) not null,\n" + 
+		      		"	ramp_to_ramp	numeric(6, 0) not null,\n" + 
+		      		"	air_time	numeric(6, 0) not null,\n" + 
+		      		"	unique_carrier	varchar(6) not null,\n" + 
+		      		"	airline_id	numeric(6, 0) not null,\n" + 
+		      		"	unique_carrier_name	varchar(100) not null,\n" + 
+		      		"	unique_carrier_entity	varchar(6) not null,\n" + 
+		      		"	region	char(1) not null,\n" + 
+		      		"	carrier	char(6) not null,\n" + 
+		      		"	carrier_name	varchar(100) not null,\n" + 
+		      		"	carrier_group	numeric(2, 0) not null,\n" + 
+		      		"	carrier_group_new	numeric(2, 0) not null,\n" + 
+		      		"	origin	char(3) not null,\n" + 
+		      		"	origin_city_name	varchar(50) not null,\n" + 
+		      		"	origin_airport_id int,\n" + 
+		      		"	origin_airport_seq_id int,\n" + 
+		      		"	origin_city_code	numeric(6, 0) not null,\n" + 
+		      		"	origin_state	char(2) not null,\n" + 
+		      		"	origin_state_fips	numeric(2, 0) not null,\n" + 
+		      		"	origin_state_name	varchar(50) not null,\n" + 
+		      		"	origin_country	  char(2),\n" + 
+		      		"	origin_country_name    varchar(50),\n" + 
+		      		"	origin_wac	numeric(4, 0) not null,\n" + 
+		      		"	destination	char(3) not null,\n" + 
+		      		"	destination_city_name	varchar(50) not null,\n" + 
+		      		"	dest_airport_id int,\n" + 
+		      		"	dest_airport_seq_id int,\n" + 
+		      		"	destination_city_code	numeric(6, 0) not null,\n" + 
+		      		"	destination_state	char(2) not null,\n" + 
+		      		"	destination_state_fips	numeric(2, 0) not null,\n" + 
+		      		"	destination_state_name	varchar(50) not null,\n" + 
+		      		"	destination_country    char(2),\n" + 
+		      		"	destination_country_name	varchar(50),\n" + 
+		      		"	destination_wac	numeric(4, 0) not null,\n" + 
+		      		"	aircraft_group	numeric(2, 0) not null,\n" + 
+		      		"	aircraft_type	numeric(4, 0) not null,\n" + 
+		      		"	aircraft_config	numeric(1, 0) not null,\n" + 
+		      		"	year	numeric(4) not null,\n" + 
+		      		"	quarter	numeric(1, 0) not null,\n" + 
+		      		"	month	numeric(2, 0) not null,\n" + 
+		      		"	distance_group	numeric(2, 0) not null,\n\n" + 
+					"	service_class	char(1) not null\n" + 
+		      		")\n"+
+					"ENGINE = MyISAM");
+
+	      for(Object s:sql){
+	    	  stmt.addBatch(s.toString());
+	      }
+	      stmt.executeBatch();
+	      stmt.clearBatch();
+	      sql.clear();
+	      
 	      String filename = "/mdsg/bts_raw_csv/T100_SEGMENTS_"+year+".csv";
 	      stmt.execute("LOAD DATA LOCAL INFILE '"+filename+"'\n" + 
 	      		"INTO TABLE t100_segments\n" + 
@@ -86,20 +149,21 @@ public class LoadT100SegmentData {
 	      		"distance_group,\n" + 
 	      		"service_class);");
 		   
+	      
 	      sql.add("update t100_segments\n" + 
 	      		"set carrier = 'US'\n" + 
 	      		"where carrier = 'HP'");
 	      sql.add("create index idx_t100_segments_cym\n" + 
 	      		"	on t100_segments(carrier, year, month)\n" + 
-	      		"	using btree;");
+	      		"	using btree");
 	      sql.add("create index idx_t100_segments_cymod\n" + 
 	      		"  on t100_segments(carrier, year, month, origin, destination)\n" + 
-	      		"	using btree;\n");
+	      		"	using btree\n");
 	      for(Object s:sql){
 	    	  stmt.addBatch(s.toString());
 	      }
 	      stmt.executeBatch();
-	      //STEP 5: Extract data from result set
+////	      STEP 5: Extract data from result set
 //	      while(rs.next()){
 //	         //Retrieve by column name
 //	         int id  = rs.getInt("id");
@@ -113,8 +177,8 @@ public class LoadT100SegmentData {
 //	         System.out.print(", First: " + first);
 //	         System.out.println(", Last: " + last);
 //	      }
-	      //STEP 6: Clean-up environment
-	      //rs.close();
+////	      STEP 6: Clean-up environment
+//	      rs.close();
 	      stmt.close();
 	      conn.close();
 	   }catch(SQLException se){
@@ -138,5 +202,8 @@ public class LoadT100SegmentData {
 	      }//end finally try
 	   }//end try
 	   System.out.println("Goodbye!");
+	   long endTime = System.nanoTime();
+	   long duration = (endTime - startTime)/1000000/1000/60;
+	   System.out.println("That took " + duration + " minutes ");
 	}//end main
 }

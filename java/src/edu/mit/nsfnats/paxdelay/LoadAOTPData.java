@@ -1,3 +1,6 @@
+//XuJiao
+//That took 1 minutes 
+
 package edu.mit.nsfnats.paxdelay;
 
 import java.sql.Connection;
@@ -9,11 +12,12 @@ import java.util.ArrayList;
 public class LoadAOTPData {
 	// JDBC driver name and database URL
 	   static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay?allowMultiQueries=true";
+	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay_xu?allowMultiQueries=true";
 	   //  Database credentials
-	   static final String USER = "saris";
+	   static final String USER = "root";
 	   static final String PASS = "paxdelay";
 	   public static void main(String[] args) {
+	   long startTime = System.nanoTime();
 	   Connection conn = null;
 	   Statement stmt = null;
 	   try{
@@ -179,6 +183,75 @@ public class LoadAOTPData {
 			   		"		);");
 		   }
 		   
+		   
+		  sql.add("drop table if exists aotp");
+		  sql.add("create table aotp\n" +
+				  "(\n" + 
+						"id int not null AUTO_INCREMENT,\n" +
+						"year	numeric(4) not null,\n" + 
+						"quarter	int not null,\n" +
+						"month	numeric(2, 0) not null,\n" +
+						"day_of_month	numeric(2, 0) not null,\n" +
+						"day_of_week	numeric(1, 0) not null,\n" +
+						"flight_date	date not null,\n" +
+						"unique_carrier	char(2) not null,\n" +
+						"airline_id	numeric(10, 0) not null,\n" +
+						"carrier	char(6) not null,\n" +
+						"tail_number	varchar(10),\n" +
+						"flight_number	varchar(6) not null,\n" +
+						"origin	varchar(5) not null,\n" +
+						"origin_city_name	varchar(50),\n" +
+						"origin_state	char(2),\n" +
+						"origin_state_fips	varchar(4),\n" +
+						"origin_state_name	varchar(25),\n" +
+						"origin_wac	numeric(4, 0),\n" +
+						"destination	varchar(5) not null,\n" +
+						"destination_city_name	varchar(50),\n" +
+						"destination_state	char(2),\n" +
+						"destination_state_fips	numeric(2, 0),\n" +
+						"destination_state_name	varchar(25),\n" +
+						"destination_wac	numeric(4, 0),\n" +
+						"planned_departure_time	char(4) not null,\n" +
+						"actual_departure_time	char(4),\n" +
+						"departure_offset	numeric(4, 0),\n" +
+						"departure_delay	numeric(4, 0),\n" +
+						"departure_delay_15	numeric(2, 0),\n" +
+						"departure_delay_group	numeric(2, 0),\n" +
+						"departure_time_block	char(9),\n" +
+						"taxi_out_duration	numeric(4, 0),\n" +
+						"wheels_off_time	char(4),\n" +
+						"wheels_on_time	char(4),\n" +
+						"taxi_in_duration	numeric(4, 0),\n" +
+						"planned_arrival_time	char(4) not null,\n" +
+						"actual_arrival_time	char(4),\n" +
+						"arrival_offset	numeric(4, 0),\n" +
+						"arrival_delay	numeric(4, 0),\n" +
+						"arrival_delay_15	numeric(2, 0),\n" +
+						"arrival_delay_group	numeric(2, 0),\n" +
+						"arrival_time_block	char(9),\n" +
+						"cancelled	numeric(1, 0) not null,\n" +
+						"cancellation_code	char(1),\n" +
+						"diverted	numeric(1, 0) not null,\n" +
+						"planned_elapsed_time	numeric(4, 0),\n" +
+						"actual_elapsed_time	numeric(4, 0),\n" +
+						"in_air_duration	numeric(4, 0),\n" +
+						"number_flights	numeric(1, 0),\n" +
+						"flight_distance	numeric(5, 0),\n" +
+						"distance_group	numeric(2, 0),\n" +
+						"carrier_delay	numeric(4, 0) default 0.00 not null,\n" +
+						"weather_delay	numeric(4, 0) default 0.00 not null,\n" +
+						"nas_delay	numeric(4, 0) default 0.00 not null,\n" +
+						"security_delay	numeric(4, 0) default 0.00 not null,\n" +
+						"late_aircraft_delay	numeric(4, 0) default 0.00 not null,\n" +
+						"primary key(id, quarter)\n" +
+					") \n" +
+					"ENGINE = MyISAM\n" +
+					"partition by list (quarter)\n" +
+					"(	partition p_q1 values in (1),\n" +
+						"partition p_q2 values in (2),\n" +
+						"partition p_q3 values in (3),\n" +
+						"partition p_q4 values in (4)\n" +
+					")"); 
 	      sql.add("insert into aotp\n" + 
 	      		"(year, quarter, month, day_of_month, day_of_week, flight_date, unique_carrier, airline_id, carrier, tail_number, flight_number, origin, origin_city_name, origin_state, origin_state_fips, origin_state_name,\n" + 
 	      		"origin_wac, destination, destination_city_name, destination_state, destination_state_fips, destination_state_name, destination_wac, planned_departure_time, actual_departure_time, departure_offset,\n" + 
@@ -238,5 +311,8 @@ public class LoadAOTPData {
 	      }//end finally try
 	   }//end try
 	   System.out.println("Goodbye!");
+	   long endTime = System.nanoTime();
+	   long duration = (endTime - startTime)/1000000/1000/60;
+	   System.out.println("That took " + duration + " minutes ");
 	}//end main
 }

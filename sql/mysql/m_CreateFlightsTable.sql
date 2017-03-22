@@ -1,14 +1,14 @@
 -- OPHASWONGSE
 -- Modified to use only needed information
--- XuJiao030117
--- That took 9.7 hours
+-- XuJiao
+-- That took 92 minutes
 
 -- use paxdelay;
 -- SET sql_mode = '';
 alter table flights_no_seats convert to character set latin1 collate latin1_general_cs;
 alter table airline_inventories convert to character set latin1 collate latin1_general_cs;
 
--- If running for the second time, remember to commment this:
+-- If running for the second time, remember to comment this:
 create index idx_ai_ct
  on airline_inventories(carrier, tail_number);
 
@@ -202,6 +202,9 @@ on flights(carrier, origin, destination, planned_departure_time);
 
 create index idx_flights_3_coddtt
 on flights(carrier, origin, destination, planned_departure_time, planned_arrival_time);
+
+create index idx_flights_4_id 
+on flights(id);
 
 
 select dups.flight_id, tfs.number_of_seats

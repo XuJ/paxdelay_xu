@@ -2,8 +2,8 @@ drop table if exists itineraries;
 -- OPHASWONGSE
 -- Remove suffix "_UTC" from all column
 -- Change data type of planned_departure_tz and planned_arrival_tz from char(15) to char(25)
--- Lost Connection to MySQL Server Solution:
--- Go to Edit -> Preferences -> SQL Editor and set DBMS connection read time out: 86400
+-- XuJiao
+-- That took 
 
 create table itineraries
 (
@@ -148,7 +148,7 @@ create table itineraries_status (
 -- It is extremely reccomended to use command line to run this query!
 drop procedure if exists populate_itineraries;
 
-SHOW PROCEDURE STATUS;
+-- SHOW PROCEDURE STATUS;
 
 delimiter $$
 

@@ -1,5 +1,7 @@
 //SUKITJANUPARP
 //create db1b_coupons table
+//XuJiao
+//That took 11 minutes 
 
 package edu.mit.nsfnats.paxdelay;
 
@@ -15,12 +17,12 @@ public class LoadDB1BCoupons {
 	   
 	   //SUKITJANUPARP
 	   //input link to database here
-	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay?allowMultiQueries=true";
+	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay_xu?allowMultiQueries=true";
 	   
 	   //  Database credentials
 	   //SUKITJANUPARP
 	   //input username and password here
-	   static final String USER = "anunya";
+	   static final String USER = "root";
 	   static final String PASS = "paxdelay";
 	   
 	   //SUKITJANUPARP
@@ -28,6 +30,7 @@ public class LoadDB1BCoupons {
 	   static int year = 2007;
 	   
 	   public static void main(String[] args) {
+	   long startTime = System.nanoTime();
 		   
 	   Connection conn = null;
 	   Statement stmt = null;
@@ -115,8 +118,8 @@ public class LoadDB1BCoupons {
 	      
 		   for(int i = 1;i<=4;i++){
 			   //SUKITJANUPARP
-			   //input path to the csv file here
-			   String filename = "/thayerfs/home/f002s5d/Downloads/DB1B_COUPONS_"+year+"_Q"+i+".csv";
+			   //input path to the csv file here /mdsg/bts_raw_csv/
+			   String filename = "/mdsg/bts_raw_csv/DB1B_COUPONS_"+year+"_Q"+i+".csv";
 			   stmt.execute("LOAD DATA LOCAL INFILE '"+filename+"'\n" + 
 			   		"		INTO TABLE tmp_load_db1b_coupons\n" +
 			   		"		FIELDS TERMINATED BY ','\n" + 
@@ -231,6 +234,8 @@ public class LoadDB1BCoupons {
 	   //SUKITJANUPARP
 	   //the message "Goodbye!" will be shown in the console after all queries finished
 	   System.out.println("Goodbye!");
-	   
+	   long endTime = System.nanoTime();
+	   long duration = (endTime - startTime)/1000000/1000/60;
+	   System.out.println("That took " + duration + " minutes ");
 	}//end main
 }

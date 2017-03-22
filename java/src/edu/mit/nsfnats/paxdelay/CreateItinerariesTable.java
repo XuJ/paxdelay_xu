@@ -29,7 +29,8 @@ public class CreateItinerariesTable {
 	      stmt = conn.createStatement();
 	      ArrayList<String> sql = new ArrayList<String>();
 	      
-	      sql.add("drop table if exists itineraries");
+	     
+	      sql.add("drop table if exists itineraries\n");
 	      sql.add("create table itineraries\n" + 
 	      		"(\n" + 
 	      		"  id integer not null auto_increment, primary key (id),\n" + 
@@ -170,7 +171,7 @@ public class CreateItinerariesTable {
 	      		"    declare op_quarter int;\n" + 
 	      		"    declare op_carrier char(6);\n" + 
 	      		"    \n" + 
-	      		"    -- 277 rows\n" + 
+//	      		"    -- 277 rows\n" + 
 	      		"    declare rdcursor cursor for     select rd.year, rd.quarter, rd.first_operating_carrier\n" + 
 	      		"                        from route_demands rd\n" + 
 	      		"                        group by rd.year, rd.quarter, rd.first_operating_carrier\n" + 
@@ -188,12 +189,12 @@ public class CreateItinerariesTable {
 	      		"        drop table if exists temp_iti_2;\n" + 
 	      		"        drop table if exists temp_iti_ft1ucr;\n" + 
 	      		"        \n" + 
-	      		"-- Log iteration start time\n" + 
+//	      		"-- Log iteration start time\n" + 
 	      		"        insert into itineraries_status\n" + 
 	      		"        values (null, now());        \n" + 
 	      		"         \n" + 
-	      		"--STEP 1\n" + 
-	      		"-- Create the non-stop itineraries\n" + 
+//	      		"-- STEP 1\n" + 
+//	      		"-- Create the non-stop itineraries\n" + 
 	      		"        create table temp_iti_1\n" + 
 	      		"        select \n" + 
 	      		"                ft.year, ft.quarter, ft.month, ft.day_of_month, ft.day_of_week,\n" + 
@@ -242,10 +243,10 @@ public class CreateItinerariesTable {
 	      		"                \n" + 
 	      		"                ft.id as first_flight_id\n" + 
 	      		"        from temp_iti_1 ft;\n" + 
-	      		"--!STEP 1\n" + 
+//	      		"-- !STEP 1\n" + 
 	      		"\n" + 
-	      		"--STEP 2\n" + 
-	      		"-- Create the one stop itineraries\n" + 
+//	      		"-- STEP 2\n" + 
+//	      		"-- Create the one stop itineraries\n" + 
 	      		"        create table temp_iti_ft1ucr\n" + 
 	      		"        select \n" + 
 	      		"                ft1.id                           as ft1_id,\n" + 
@@ -306,14 +307,14 @@ public class CreateItinerariesTable {
 	      		"                \n" + 
 	      		"        create table temp_iti_2\n" + 
 	      		"        select \n" + 
-	      		"--  year(ttt.ft1_planned_departure_time) as year, \n" + 
+//	      		"-- year(ttt.ft1_planned_departure_time) as year, \n" + 
 	      		"                null as year, \n" + 
 	      		"                ttt.ft1_quarter, \n" + 
 	      		"                ttt.ft1_month, \n" + 
 	      		"                ttt.ft1_day_of_month, \n" + 
 	      		"                ttt.ft1_day_of_week,\n" + 
 	      		"                ttt.ft1_hour_of_day, \n" + 
-	      		"--  minute(ttt.ft1_planned_departure_time) as minutes_of_hour, \n" + 
+//	      		"-- minute(ttt.ft1_planned_departure_time) as minutes_of_hour, \n" + 
 	      		"                null as minutes_of_hour, \n" + 
 	      		"                2,\n" + 
 	      		"                case when (ft2.day_of_month - ttt.ft1_day_of_month) = 0 then 0 else 1 end as multi_carrier_flag,\n" + 
@@ -326,12 +327,12 @@ public class CreateItinerariesTable {
 	      		"                \n" + 
 	      		"                ttt.ft1_planned_departure_time as planned_departure_time,\n" + 
 	      		"                ttt.ft1_planned_departure_tz as planned_departure_tz,\n" + 
-	      		"--  ttt.ft1_planned_departure_local_hour as planned_departure_local_hour,\n" + 
+//	      		"-- ttt.ft1_planned_departure_local_hour as planned_departure_local_hour,\n" + 
 	      		"                null as planned_departure_local_hour,\n" + 
 	      		"                \n" + 
 	      		"                ft2.planned_arrival_time as planned_arrival_time,\n" + 
 	      		"                ft2.planned_arrival_tz as planned_arrival_tz,\n" + 
-	      		"--  ft2.planned_arrival_local_hour as planned_arrival_local_hour,\n" + 
+//	      		"-- ft2.planned_arrival_local_hour as planned_arrival_local_hour,\n" + 
 	      		"                null as planned_arrival_local_hour,\n" + 
 	      		"                \n" + 
 	      		"                TIMESTAMPDIFF(minute, ft2.planned_departure_time, ttt.ft1_planned_arrival_time) as layover_duration,\n" + 
@@ -405,7 +406,7 @@ public class CreateItinerariesTable {
 	      		"                ft.ft1_id,\n" + 
 	      		"                ft.second_flight_id\n" + 
 	      		"        from temp_iti_2 ft;\n" + 
-	      		"--!STEP 2\n" + 
+//	      		"-- !STEP 2\n" + 
 	      		"          \n" + 
 	      		"        drop table if exists temp_iti_1;\n" + 
 	      		"        drop table if exists temp_iti_2;\n" + 
@@ -417,6 +418,7 @@ public class CreateItinerariesTable {
 	      		"end$$\n" + 
 	      		"\n" + 
 	      		"delimiter ");
+	      
 	      sql.add("call populate_itineraries()");
 	      sql.add("drop procedure if exists populate_itineraries");
 	      sql.add("create index idx_itineraries_ft1ft2\n" + 
@@ -434,7 +436,7 @@ public class CreateItinerariesTable {
 	      sql.add("create index bmx_itineraries_ymdm\n" + 
 	      		"  on itineraries(year, month, day_of_month)");
 	      
-	      
+	      System.out.println(sql);
 	     
 	     
 	     for(Object s:sql){

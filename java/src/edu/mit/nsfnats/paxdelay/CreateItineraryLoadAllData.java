@@ -8,13 +8,16 @@ import java.util.Scanner;
 
 public class CreateItineraryLoadAllData {
 	public static void main(String[] args) {
+		
+		long startTime = System.nanoTime();
+		
 		String[] carriers = {"YV","XE","WN","US","UA","OO","OH","NW","MQ","HA","FL","F9","EV","DL","CO","B6","AS","AQ","AA","9E"};
 		String[] prefixes = {"Load", "External"};
 		String[] ms = {"Multiple","Single"};
 		boolean first = true;
 		FileWriter fw = null;
 		try {
-			fw = new FileWriter("output/ItineraryLoad_AllData.csv");
+			fw = new FileWriter("/mdsg/paxdelay_general_Xu/ItineraryLoad_AllData.csv");
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -79,5 +82,9 @@ public class CreateItineraryLoadAllData {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		System.out.println("That took " + duration + " milliseconds");
 	}
 }

@@ -15,12 +15,12 @@ public class LoadScheduleB43Data {
 	   
 	   //SUKITJANUPARP
 	   //input link to database here
-	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay?allowMultiQueries=true";
+	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay_xu?allowMultiQueries=true";
 	   
 	   //  Database credentials
 	   //SUKITJANUPARP
 	   //input username and password here
-	   static final String USER = "anunya";
+	   static final String USER = "root";
 	   static final String PASS = "paxdelay";
 	   
 	   //SUKITJANUPARP
@@ -28,6 +28,7 @@ public class LoadScheduleB43Data {
 	   static int year = 2007;
 	   
 	   public static void main(String[] args) {
+	   long startTime = System.nanoTime();
 	   Connection conn = null;
 	   Statement stmt = null;
 	   try{
@@ -95,7 +96,24 @@ public class LoadScheduleB43Data {
 	      		"airline_id,\n" + 
 	      		"unique_carrier\n" + 
 	      		");");
-		   
+		  
+	      sql.add("drop table if exists airline_inventories");
+	      sql.add("create table airline_inventories\n" +
+				"(\n" +
+					"carrier			char(6) not null,\n" +
+					"year		numeric(4) not null,\n" +
+					"serial_number	varchar(12) not null,\n" +
+					"tail_number		varchar(7) not null,\n" +
+					"aircraft_status	char(1) not null,\n" +
+					"operating_status	char(1) not null,\n" +
+					"number_of_seats		numeric(3, 0) not null,\n" +
+					"manufacturer	varchar(50) not null,\n" +
+					"model			varchar(16) not null,\n" +
+					"capacity_in_pounds	numeric(6, 0),\n" +
+					"acquisition_date	date not null\n" +
+				")\n" +
+				"ENGINE = MyISAM\n");
+		
 	      sql.add("insert into airline_inventories\n" + 
 	      		"	(carrier, year,	serial_number, tail_number,	aircraft_status, operating_status, number_of_seats, manufacturer, model, capacity_in_pounds, acquisition_date)\n" + 
 	      		"select carrier, year, serial_number, tail_number,	aircraft_status, operating_status, number_of_seats, manufacturer, model, capacity_in_pounds, STR_TO_DATE(acquisition_date,'%Y-%m-%d') as acquisition_date\n" + 
@@ -132,5 +150,8 @@ public class LoadScheduleB43Data {
 	   //SUKITJANUPARP
 	   //the message "Goodbye!" will be shown in the console after all queries finished
 	   System.out.println("Goodbye!");
+	   long endTime = System.nanoTime();
+	   long duration = (endTime - startTime)/1000000/1000/60;
+	   System.out.println("That took " + duration + " minutes ");
 	}//end main
 }

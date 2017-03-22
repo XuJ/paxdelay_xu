@@ -1,5 +1,7 @@
 //SUKITJANUPARP
 //create table db1b_ticketed_route_demands, db1b_route_demands
+//XuJiao
+//That took 12 minutes
 
 package edu.mit.nsfnats.paxdelay;
 
@@ -15,15 +17,16 @@ public class CreateDB1BRouteDemandsTable {
 	   
 	   //SUKITJANUPARP
 	   //input link to database here
-	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay?allowMultiQueries=true";
+	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay_xu?allowMultiQueries=true";
 	   
 	   //  Database credentials
 	   //SUKITJANUPARP
 	   //input username and password here
-	   static final String USER = "anunya";
+	   static final String USER = "root";
 	   static final String PASS = "paxdelay";
 	   
 	   public static void main(String[] args) {
+	   long startTime = System.nanoTime();
 	   Connection conn = null;
 	   Statement stmt = null;
 	   try{
@@ -172,7 +175,7 @@ public class CreateDB1BRouteDemandsTable {
 	      sql.add("drop table if exists temp_db1b_route_demands\n");
 	      
 	      
-	      
+//	      System.out.println(sql);
 	      
 	     
 	     for(Object s:sql){
@@ -209,6 +212,9 @@ public class CreateDB1BRouteDemandsTable {
 	   //SUKITJANUPARP
 	   //the message "Goodbye!" will be shown in the console after all queries finished
 	   System.out.println("Goodbye!");
+	   long endTime = System.nanoTime();
+	   long duration = (endTime - startTime)/1000000/1000/60;
+	   System.out.println("That took " + duration + " minutes ");
 	}//end main
 
 }

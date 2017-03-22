@@ -1,6 +1,9 @@
 //SUKITJANUPARP
 //create GeneratedItineraries.csv
 //change value in the properties file before running (ItineraryGeneratorTest and DefaultLogger)
+//XuJiao
+//That took 44 minutes
+
 
 package edu.mit.nsfnats.paxdelay.data;
 
@@ -104,15 +107,52 @@ public class ItineraryGenerator {
 	}
 
 	public static void main(String[] args) {
-		if (args.length != 2) {
-			System.err
-					.println("Usage: java edu.mit.nsfnats.paxdelay.data.ItineraryGenerator "
-							+ "<logger_properties_file> <generator_properties_file>");
-			System.exit(-1);
-		}
+		
+		long startTime = System.nanoTime();
+		
+//		if (args.length != 2) {
+//			System.err
+//					.println("Usage: java edu.mit.nsfnats.paxdelay.data.ItineraryGenerator "
+//							+ "<logger_properties_file> <generator_properties_file>");
+//			System.exit(-1);
+//		}
+//		Properties loggerProperties = null;
+//		try {
+//			loggerProperties = PropertiesReader.loadProperties(args[0]);
+//		} catch (FileNotFoundException e) {
+//			exit("Logger properties file not found.", e, -1);
+//		} catch (IOException e) {
+//			exit("Received IO exception while reading logger properties file.",
+//					e, -1);
+//		}
+//		PropertyConfigurator.configure(loggerProperties);
+		
+//		Properties generatorProperties = null;
+//		try {
+////			generatorProperties = PropertiesReader.loadProperties(args[1]);
+//			generatorProperties = PropertiesReader.loadProperties("ItineraryGeneratorTest.properties");
+//		} catch (FileNotFoundException e) {
+//			exit("Itinerary generator properties file not found.", e, -1);
+//		} catch (IOException e) {
+//			exit(
+//					"Received IO exception while reading itinerary generator properties file.",
+//					e, -1);
+//		}
+//		logger
+//				.info("Beginning ItineraryGenerator.main(Properties properties) execution");
+//		main(generatorProperties);
+//		logger
+//				.info("Execution of ItineraryGenerator.main(Properties properties) complete");
+//	}
+		
+		
+		
+		
+		
+		
 		Properties loggerProperties = null;
 		try {
-			loggerProperties = PropertiesReader.loadProperties(args[0]);
+			loggerProperties = PropertiesReader.loadProperties("resources/config/desktop/DebugLogger.properties");
 		} catch (FileNotFoundException e) {
 			exit("Logger properties file not found.", e, -1);
 		} catch (IOException e) {
@@ -123,7 +163,7 @@ public class ItineraryGenerator {
 
 		Properties generatorProperties = null;
 		try {
-			generatorProperties = PropertiesReader.loadProperties(args[1]);
+			generatorProperties = PropertiesReader.loadProperties("resources/config/desktop/ItineraryGeneratorTest.properties");
 		} catch (FileNotFoundException e) {
 			exit("Itinerary generator properties file not found.", e, -1);
 		} catch (IOException e) {
@@ -136,6 +176,11 @@ public class ItineraryGenerator {
 		main(generatorProperties);
 		logger
 				.info("Execution of ItineraryGenerator.main(Properties properties) complete");
+		
+		   
+			long endTime = System.nanoTime();
+			long duration = (endTime - startTime)/1000000/1000/60;
+			System.out.println("That took " + duration + " minutes ");
 	}
 
 	public static void main(Properties properties) {
@@ -348,7 +393,7 @@ public class ItineraryGenerator {
 					NEWLINE);
 			query.append("  planned_departure_time, planned_arrival_time")
 					.append(NEWLINE);
-			query.append("from paxdelay.").append(m_flightsTable).append(NEWLINE);
+			query.append("from paxdelay_xu.").append(m_flightsTable).append(NEWLINE);
 			query.append("where year = ").append(m_year).append(NEWLINE);
 			query.append("  and quarter = ").append(quarter).append(NEWLINE);
 			query.append("  and month = ").append(month).append(NEWLINE);

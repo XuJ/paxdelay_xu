@@ -15,15 +15,16 @@ public class CreateAircraftCodeMappingsTable_load {
 	   
 	   //SUKITJANUPARP
 	   //input link to database here
-	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay?allowMultiQueries=true";
+	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay_xu?allowMultiQueries=true";
 	   
 	   //  Database credentials
 	   //SUKITJANUPARP
 	   //input username and password here
-	   static final String USER = "anunya";
+	   static final String USER = "root";
 	   static final String PASS = "paxdelay";
 	   
 	   public static void main(String[] args) {
+	   long startTime = System.nanoTime();  
 	   Connection conn = null;
 	   Statement stmt = null;
 	   try{
@@ -42,7 +43,7 @@ public class CreateAircraftCodeMappingsTable_load {
 	    //SUKITJANUPARP
 	    //do not forget to change the path to AircraftCodeMappings.csv
 	    //changed the original code from load data infile to load data local infile
-	      sql.add("LOAD DATA LOCAL INFILE 'output/AircraftCodeMappings.csv'\n" + 
+	      sql.add("LOAD DATA LOCAL INFILE '/mdsg/paxdelay_general_Xu/AircraftCodeMappings.csv'\n" + 
 	      		"INTO TABLE aircraft_code_mappings\n" + 
 	      		"FIELDS TERMINATED BY ','\n" + 
 	      		"LINES TERMINATED BY '\\n'\n" + 
@@ -91,5 +92,8 @@ public class CreateAircraftCodeMappingsTable_load {
 	   //SUKITJANUPARP
 	   //the message "Goodbye!" will be shown in the console after all queries finished
 	   System.out.println("Goodbye!");
+	   long endTime = System.nanoTime();
+	   long duration = (endTime - startTime)/1000000/1000/60;
+	   System.out.println("That took " + duration + " minutes ");
 	}//end main
 }

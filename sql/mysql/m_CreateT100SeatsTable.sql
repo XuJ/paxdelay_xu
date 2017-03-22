@@ -1,9 +1,8 @@
--- use paxdelay;
--- XuJiao 022317
--- add set sql_mode="";
--- That took 7 min
+-- use paxdelay_xu;
+-- XuJiao
+-- That took 0 min
 
-set sql_mode="";
+-- set sql_mode="";
 
 drop table if exists temp_1;
 create table temp_1
@@ -84,10 +83,10 @@ create index idx_t100_seats_cym
   on t100_seats(carrier, year, month);
 
 
-select carrier, origin, destination, year, quarter, month
-from t100_seats
-group by carrier, origin, destination, year, quarter, month
-having count(*) > 2;
+-- select carrier, origin, destination, year, quarter, month
+-- from t100_seats
+-- group by carrier, origin, destination, year, quarter, month
+-- having count(*) > 2;
 
 drop table if exists temp_1;
 drop table if exists temp_2;

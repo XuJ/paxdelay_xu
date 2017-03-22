@@ -1,3 +1,6 @@
+//Xu Jiao 02202017
+//Remember add the following sql syntax before running loadaircraftfleet()
+//ALTER TABLE airline_inventories CONVERT TO CHARACTER SET latin1 COLLATE 'latin1_swedish_ci'
 package edu.mit.nsfnats.paxdelay.calculation;
 
 import java.io.File;
@@ -146,15 +149,43 @@ public class PassengerDelayCalculator {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		if (args.length != 3) {
-			System.err
-					.println("Usage: java edu.mit.nsfnats.paxdelay.calculation.PassengerDelayCaculator "
-							+ "<logger_properties_file> <calculator_properties_file> <output_directory");
-			System.exit(-1);
-		}
+//		if (args.length != 3) {
+//			System.err
+//					.println("Usage: java edu.mit.nsfnats.paxdelay.calculation.PassengerDelayCaculator "
+//							+ "<logger_properties_file> <calculator_properties_file> <output_directory");
+//			System.exit(-1);
+//		}
+//		Properties loggerProperties = null;
+//		try {
+//			loggerProperties = PropertiesReader.loadProperties(args[0]);
+//		} catch (FileNotFoundException e) {
+//			exit("Logger properties file not found.", e, -1);
+//		} catch (IOException e) {
+//			exit("Received IO exception while reading logger properties file.",
+//					e, -1);
+//		}
+//		PropertyConfigurator.configure(loggerProperties);
+//
+//		Properties calculatorProperties = null;
+//		try {
+//			calculatorProperties = PropertiesReader.loadProperties(args[1]);
+//		} catch (FileNotFoundException e) {
+//			exit("Delay calculator properties file not found.", e, -1);
+//		} catch (IOException e) {
+//			exit(
+//					"Received IO exception while reading delay calculator properties file.",
+//					e, -1);
+//		}
+//		String outputDirectory = args[2];
+//		logger
+//				.info("Beginning PassengerDelayCalculator.main(Properties properties) execution");
+//		main(calculatorProperties, outputDirectory);
+//		logger
+//				.info("Execution of PassengerDelayCalculator.main(Properties properties) complete");
+		
 		Properties loggerProperties = null;
 		try {
-			loggerProperties = PropertiesReader.loadProperties(args[0]);
+			loggerProperties = PropertiesReader.loadProperties("resources/config/desktop/DefaultLogger.properties");
 		} catch (FileNotFoundException e) {
 			exit("Logger properties file not found.", e, -1);
 		} catch (IOException e) {
@@ -165,7 +196,7 @@ public class PassengerDelayCalculator {
 
 		Properties calculatorProperties = null;
 		try {
-			calculatorProperties = PropertiesReader.loadProperties(args[1]);
+			calculatorProperties = PropertiesReader.loadProperties("resources/config/desktop/PassengerDelayCalculatorTest.properties");
 		} catch (FileNotFoundException e) {
 			exit("Delay calculator properties file not found.", e, -1);
 		} catch (IOException e) {
@@ -173,7 +204,7 @@ public class PassengerDelayCalculator {
 					"Received IO exception while reading delay calculator properties file.",
 					e, -1);
 		}
-		String outputDirectory = args[2];
+		String outputDirectory = "/mdsg/paxdelay_general_Xu/";
 		logger
 				.info("Beginning PassengerDelayCalculator.main(Properties properties) execution");
 		main(calculatorProperties, outputDirectory);
@@ -285,6 +316,11 @@ public class PassengerDelayCalculator {
 	}
 
 	public void connectToDatabase() {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 		try {
 //			m_datasource = new OracleDataSource();
 //			m_datasource.setURL(m_jdbcURL);
@@ -426,6 +462,7 @@ public class PassengerDelayCalculator {
 		try {
 			stmt = createStatement();
 			StringBuffer query = new StringBuffer();
+//			query.append("ALTER TABLE airline_inventories CONVERT TO CHARACTER SET latin1 COLLATE 'latin1_swedish_ci';").append(NEWLINE);
 			query.append("select distinct ai.carrier, acm.icao_code,").append(NEWLINE);
 			query.append("  ai.number_of_seats").append(NEWLINE);
 			query.append("from airline_inventories ai").append(NEWLINE);
@@ -437,10 +474,14 @@ public class PassengerDelayCalculator {
 			query.append("where ai.number_of_seats is not null").append(NEWLINE);
 			query.append("order by ai.carrier, acm.icao_code");
 			
+
+//			System.out.println(query);
+			
 			logger.trace("Aircraft fleet types query:");
 			logger.trace(query.toString());
 			
 			rset = stmt.executeQuery(query.toString());
+
 	
 			while (rset.next()) {
 				String carrier = rset.getString("carrier");
@@ -662,7 +703,7 @@ public class PassengerDelayCalculator {
 
 			logger.trace("Flight data query:");
 			logger.trace(query.toString());
-			System.out.println(query);
+//			System.out.println(query);
 			rset = stmt.executeQuery(query.toString());
 
 			while (rset.next()) {
