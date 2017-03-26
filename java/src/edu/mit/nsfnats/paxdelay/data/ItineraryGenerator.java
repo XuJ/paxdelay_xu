@@ -393,7 +393,7 @@ public class ItineraryGenerator {
 					NEWLINE);
 			query.append("  planned_departure_time, planned_arrival_time")
 					.append(NEWLINE);
-			query.append("from paxdelay_xu.").append(m_flightsTable).append(NEWLINE);
+			query.append("from paxdelay.").append(m_flightsTable).append(NEWLINE);
 			query.append("where year = ").append(m_year).append(NEWLINE);
 			query.append("  and quarter = ").append(quarter).append(NEWLINE);
 			query.append("  and month = ").append(month).append(NEWLINE);

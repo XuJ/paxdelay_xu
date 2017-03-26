@@ -145,7 +145,7 @@ create table itineraries_status (
 );
 
 -- PROCEDURE
--- It is extremely reccomended to use command line to run this query!
+-- It is extremely recommended to use command line to run this query!
 drop procedure if exists populate_itineraries;
 
 -- SHOW PROCEDURE STATUS;
