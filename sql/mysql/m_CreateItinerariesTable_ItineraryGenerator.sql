@@ -3,7 +3,9 @@ drop table if exists itineraries;
 -- Remove suffix "_UTC" from all column
 -- Change data type of planned_departure_tz and planned_arrival_tz from char(15) to char(25)
 -- XuJiao
--- That took 3 days
+-- This file uses ItineraryGenerator.java, CreateTempItinerariesTable.java, 
+-- and CreateItinerariesTable_load.java to create itineraries tabla
+-- That took 45 minutes
 
 create table itineraries
 (
@@ -144,6 +146,9 @@ create table itineraries_status (
 	start_time datetime
 );
 
+
+-- The following stored procedure is another way to create itineraries table without temp_itineraries table and ItineraryGenerator
+/*
 -- PROCEDURE
 -- It is extremely recommended to use command line to run this query!
 drop procedure if exists populate_itineraries;
@@ -275,7 +280,7 @@ begin
         set ft1_planned_arrival_time_add30  = date_add(ft1_planned_arrival_time, interval 30 minute),
             ft1_planned_arrival_time_add300 = date_add(ft1_planned_arrival_time, interval 300 minute);
             
-        /* create index idx_temp_iti
+         create index idx_temp_iti
          on temp_iti_ft1ucr(
                 ft1_carrier, 
                 ft1_day_of_month,
@@ -292,17 +297,7 @@ begin
                 ucr_connection,
                 ucr_destination,
                 ucr_origin,
-                ucr_second_operating_carrier); */
-
-	create index idx_temp_iti
-         on temp_iti_ft1ucr
-		(
-                ucr_second_operating_carrier,
-		ucr_connection,
-                ucr_destination,
-                ft1_planned_arrival_time_add30,
-                ft1_planned_arrival_time_add300
-                );
+                ucr_second_operating_carrier); 
                 
         create table temp_iti_2
         select 
@@ -423,7 +418,8 @@ call populate_itineraries();
 drop procedure if exists populate_itineraries;
 
 -- 
--- - !PROCEDURE
+-- !PROCEDURE
+*/
 
 -- General indices for querying itineraries
 create index idx_itineraries_ft1ft2

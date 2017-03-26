@@ -38,6 +38,10 @@ create table itineraries
 );
 
 
+-- The non-stop and one-stop insert statements from flights and temp_itineraries
+-- are identical to the strored procedure populate_itineraries ()
+
+/*
 -- Insert all non-stop itineraries
 insert into itineraries
 (
@@ -136,6 +140,7 @@ join flights ft1 on ft1.id = ti.first_flight_id
 join flights ft2 on ft2.id = ti.second_flight_id
 where ti.num_flights = 2;
 -- 161848110
+*/
 
 -- Status tracking table
 drop table if exists itineraries_status;
@@ -190,13 +195,12 @@ begin
                 ft.hour_of_day, ft.minutes_of_hour, 1, 0, 
                 ft.carrier, ft.origin, ft.destination, 
                 
-                ft.planned_departure_time   as planned_departure_time,
-                ft.planned_departure_tz         as planned_departure_tz,
-                ft.planned_departure_local_hour as planned_departure_local_hour,
-                     
-                ft.planned_arrival_time     as planned_arrival_time,
-                ft.planned_arrival_tz           as planned_arrival_tz,
-                ft.planned_arrival_local_hour   as planned_arrival_local_hour,
+                ft.planned_departure_time   /*as planned_departure_time*/,
+                ft.planned_departure_tz         /*as planned_departure_tz*/,
+                ft.planned_departure_local_hour /*as planned_departure_local_hour*/,                     
+                ft.planned_arrival_time     /*as planned_arrival_time*/,
+                ft.planned_arrival_tz           /*as planned_arrival_tz*/,
+                ft.planned_arrival_local_hour   /*as planned_arrival_local_hour*/,
                 
                 ft.id
           
@@ -218,20 +222,20 @@ begin
                    
                 first_flight_id)
         select 
-                ft.year, ft.quarter, ft.month, ft.day_of_month, ft.day_of_week,
-                ft.hour_of_day, ft.minutes_of_hour, 1, 0, 
-                ft.carrier, ft.origin, ft.destination, 
+                ti1.year, ti1.quarter, ti1.month, ti1.day_of_month, ti1.day_of_week,
+                ti1.hour_of_day, ti1.minutes_of_hour, 1, 0, 
+                ti1.carrier, ti1.origin, ti1.destination, 
                 
-                ft.planned_departure_time,
-                ft.planned_departure_tz,
-                ft.planned_departure_local_hour,
+                ti1.planned_departure_time,
+                ti1.planned_departure_tz,
+                ti1.planned_departure_local_hour,
                  
-                ft.planned_arrival_time,
-                ft.planned_arrival_tz,
-                ft.planned_arrival_local_hour,
+                ti1.planned_arrival_time,
+                ti1.planned_arrival_tz,
+                ti1.planned_arrival_local_hour,
                 
-                ft.id as first_flight_id
-        from temp_iti_1 ft;
+                ti1.id as first_flight_id
+        from temp_iti_1 ti1;
 -- !STEP 1
 
 -- STEP 2
@@ -251,7 +255,6 @@ begin
                 ft1.planned_departure_tz         as ft1_planned_departure_tz,
                 ft1.planned_departure_local_hour as ft1_planned_departure_local_hour,
                 ft1.planned_arrival_time     as ft1_planned_arrival_time,
-                
                 ucr.second_operating_carrier     as ucr_second_operating_carrier,
                 ucr.origin                       as ucr_origin,
                 ucr.connection                   as ucr_connection,
@@ -407,10 +410,10 @@ begin
         from temp_iti_2 ft;
 -- !STEP 2
           
-        drop table if exists temp_iti_1;
+/*        drop table if exists temp_iti_1;
         drop table if exists temp_iti_2;
         drop table if exists temp_iti_ft1ucr;
-  
+*/  
     end loop;
     
     close rdcursor;
@@ -421,9 +424,8 @@ delimiter ;
 call populate_itineraries();
 
 drop procedure if exists populate_itineraries;
-
--- 
--- - !PROCEDURE
+ 
+-- !PROCEDURE
 
 -- General indices for querying itineraries
 create index idx_itineraries_ft1ft2
