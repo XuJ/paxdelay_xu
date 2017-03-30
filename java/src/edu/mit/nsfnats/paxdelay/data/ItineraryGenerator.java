@@ -2,7 +2,9 @@
 //create GeneratedItineraries.csv
 //change value in the properties file before running (ItineraryGeneratorTest and DefaultLogger)
 //XuJiao
-//That took 44 minutes
+//That took 27 minutes
+//Change the name of the output file and comment the maximum_connections_time
+// and maximum_number_connections in the property files
 
 
 package edu.mit.nsfnats.paxdelay.data;
