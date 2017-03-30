@@ -1,9 +1,13 @@
-drop table if exists itineraries;
 -- OPHASWONGSE
 -- Remove suffix "_UTC" from all column
 -- Change data type of planned_departure_tz and planned_arrival_tz from char(15) to char(25)
 -- XuJiao
 -- That took 3 days
+-- Include time calculation
+
+select now();
+
+drop table if exists itineraries;
 
 create table itineraries
 (
@@ -179,7 +183,7 @@ begin
         fetch rdcursor into op_year, op_quarter, op_carrier;
         if done then leave cursor_loop; end if;
 
-        drop table if exists temp_iti_1;
+--         drop table if exists temp_iti_1;
         drop table if exists temp_iti_2;
         drop table if exists temp_iti_ft1ucr;
         
@@ -189,18 +193,22 @@ begin
          
 -- STEP 1
 -- Create the non-stop itineraries
-        create table temp_iti_1
+        
+-- There is no need to create temp_iti_1
+-- insert into itineraries directly from flights
+/*
+	create table temp_iti_1
         select 
                 ft.year, ft.quarter, ft.month, ft.day_of_month, ft.day_of_week,
                 ft.hour_of_day, ft.minutes_of_hour, 1, 0, 
                 ft.carrier, ft.origin, ft.destination, 
                 
-                ft.planned_departure_time   /*as planned_departure_time*/,
-                ft.planned_departure_tz         /*as planned_departure_tz*/,
-                ft.planned_departure_local_hour /*as planned_departure_local_hour*/,                     
-                ft.planned_arrival_time     /*as planned_arrival_time*/,
-                ft.planned_arrival_tz           /*as planned_arrival_tz*/,
-                ft.planned_arrival_local_hour   /*as planned_arrival_local_hour*/,
+                ft.planned_departure_time,
+                ft.planned_departure_tz,
+                ft.planned_departure_local_hour,                     
+                ft.planned_arrival_time,
+                ft.planned_arrival_tz,
+                ft.planned_arrival_local_hour,
                 
                 ft.id
           
@@ -236,10 +244,43 @@ begin
                 
                 ti1.id as first_flight_id
         from temp_iti_1 ti1;
+*/	
+	insert into itineraries (
+                year, quarter, month, day_of_month, day_of_week,
+                hour_of_day, minutes_of_hour, num_flights, multi_carrier_flag,
+                first_operating_carrier, origin, destination,
+
+                planned_departure_time,
+                planned_departure_tz,
+                planned_departure_local_hour,
+
+                planned_arrival_time,
+                planned_arrival_tz,
+                planned_arrival_local_hour,
+
+                first_flight_id)
+        select
+                ft.year, ft.quarter, ft.month, ft.day_of_month, ft.day_of_week,
+                ft.hour_of_day, ft.minutes_of_hour, 1, 0,
+                ft.carrier, ft.origin, ft.destination,
+
+                ft.planned_departure_time,
+                ft.planned_departure_tz,
+                ft.planned_departure_local_hour,
+
+                ft.planned_arrival_time,
+                ft.planned_arrival_tz,
+                ft.planned_arrival_local_hour,
+
+                ft.id as first_flight_id
+        from flights ft
+	where ft.year = op_year and ft.quarter = op_quarter and ft.carrier = op_carrier;
+
 -- !STEP 1
 
 -- STEP 2
 -- Create the one stop itineraries
+
         create table temp_iti_ft1ucr
         select 
                 ft1.id                           as ft1_id,
@@ -268,7 +309,7 @@ begin
           and ft1.quarter                        = op_quarter 
           and ft1.carrier                        = op_carrier 
           and ucr.year                           = op_year 
-          and ucr.first_operating_carrier        = op_carrier; 
+          /*and ucr.first_operating_carrier        = op_carrier*/; 
                 
         alter table temp_iti_ft1ucr
         add column ft1_planned_arrival_time_add30 datetime,
@@ -277,7 +318,9 @@ begin
         update temp_iti_ft1ucr
         set ft1_planned_arrival_time_add30  = date_add(ft1_planned_arrival_time, interval 30 minute),
             ft1_planned_arrival_time_add300 = date_add(ft1_planned_arrival_time, interval 300 minute);
-            
+           
+ 
+-- Remove unnecessary indexes and list necessary indexes in order
         /* create index idx_temp_iti
          on temp_iti_ft1ucr(
                 ft1_carrier, 
@@ -306,41 +349,39 @@ begin
                 ft1_planned_arrival_time_add30,
                 ft1_planned_arrival_time_add300
                 );
-                
+
+-- Small Adjustment on alias and format to make codes readable
+-- Alter the error on multi_carrier_flag                
         create table temp_iti_2
         select 
- year(ttt.ft1_planned_departure_time) as year, 
-                -- null as year, 
+ 		ttt.ft1_year, 
                 ttt.ft1_quarter, 
                 ttt.ft1_month, 
                 ttt.ft1_day_of_month, 
                 ttt.ft1_day_of_week,
                 ttt.ft1_hour_of_day, 
- minute(ttt.ft1_planned_departure_time) as minutes_of_hour, 
-                -- null as minutes_of_hour, 
-                2,
-                case when (ft2.day_of_month - ttt.ft1_day_of_month) = 0 then 0 else 1 end as multi_carrier_flag,
-                
+                ttt.ft1_minutes_of_hour,
+		2,
+--                 case when (ft2.day_of_month - ttt.ft1_day_of_month) = 0 then 0 else 1 end as multi_carrier_flag,
+                case when ft2.carrier <> ttt.ft1_carrier then 1 else 0 end as multi_carrier_flag,
                 ttt.ft1_carrier, 
-                ft2.carrier,
+                ft2.carrier as ft2_carrier,
                 ttt.ucr_origin, 
                 ttt.ucr_connection, 
                 ttt.ucr_destination,
                 
-                ttt.ft1_planned_departure_time as planned_departure_time,
+		ttt.ft1_planned_departure_time as planned_departure_time,
                 ttt.ft1_planned_departure_tz as planned_departure_tz,
- ttt.ft1_planned_departure_local_hour as planned_departure_local_hour,
-                -- null as planned_departure_local_hour,
+ 		ttt.ft1_planned_departure_local_hour as planned_departure_local_hour,
                 
                 ft2.planned_arrival_time as planned_arrival_time,
                 ft2.planned_arrival_tz as planned_arrival_tz,
- ft2.planned_arrival_local_hour as planned_arrival_local_hour,
-                -- null as planned_arrival_local_hour,
+ 		ft2.planned_arrival_local_hour as planned_arrival_local_hour,
                 
                 TIMESTAMPDIFF(minute, ft2.planned_departure_time, ttt.ft1_planned_arrival_time) as layover_duration,
                 
                 ttt.ft1_id, 
-                ft2.id as second_flight_id
+                ft2.id as ft2_id
         from flights ft2
         join temp_iti_ft1ucr ttt
                 on ft2.carrier                     = ttt.ucr_second_operating_carrier 
@@ -379,41 +420,41 @@ begin
                 first_flight_id, 
                 second_flight_id)
         select 
-                ft.year,
-                ft.ft1_quarter,
-                ft.ft1_month,
-                ft.ft1_day_of_month,
+                ti2.ft1_year,
+                ti2.ft1_quarter,
+                ti2.ft1_month,
+                ti2.ft1_day_of_month,
                 
-                ft.ft1_day_of_week,
-                ft.ft1_hour_of_day,
-                ft.minutes_of_hour,
+                ti2.ft1_day_of_week,
+                ti2.ft1_hour_of_day,
+                ti2.ft1_minutes_of_hour,
                 2,
-                ft.multi_carrier_flag,
+                ti2.multi_carrier_flag,
                 
-                ft.ft1_carrier,
-                ft.carrier,
-                ft.ucr_origin,
-                ft.ucr_connection,
-                ft.ucr_destination,
+                ti2.ft1_carrier,
+                ti2.ft2_carrier,
+                ti2.ucr_origin,
+                ti2.ucr_connection,
+                ti2.ucr_destination,
                 
-                ft.planned_departure_time,
-                ft.planned_departure_tz,
-                ft.planned_departure_local_hour,
+                ti2.planned_departure_time,
+                ti2.planned_departure_tz,
+                ti2.planned_departure_local_hour,
                 
-                ft.planned_arrival_time,
-                ft.planned_arrival_tz,
-                ft.planned_arrival_local_hour,
+                ti2.planned_arrival_time,
+                ti2.planned_arrival_tz,
+                ti2.planned_arrival_local_hour,
                 
-                ft.layover_duration,
-                ft.ft1_id,
-                ft.second_flight_id
-        from temp_iti_2 ft;
+                ti2.layover_duration,
+                ti2.ft1_id,
+                ti2.ft2_id
+        from temp_iti_2 ti2;
 -- !STEP 2
           
-/*        drop table if exists temp_iti_1;
-        drop table if exists temp_iti_2;
-        drop table if exists temp_iti_ft1ucr;
-*/  
+--         drop table if exists temp_iti_1;
+/*        drop table if exists temp_iti_2;
+        drop table if exists temp_iti_ft1ucr;*/
+  
     end loop;
     
     close rdcursor;
@@ -428,6 +469,7 @@ drop procedure if exists populate_itineraries;
 -- !PROCEDURE
 
 -- General indices for querying itineraries
+/*
 create index idx_itineraries_ft1ft2
   on itineraries(first_flight_id, second_flight_id);
   
@@ -450,3 +492,6 @@ create index idx_itineraries_c1c2ymdm
 
 create index bmx_itineraries_ymdm
   on itineraries(year, month, day_of_month);
+*/
+
+select now();

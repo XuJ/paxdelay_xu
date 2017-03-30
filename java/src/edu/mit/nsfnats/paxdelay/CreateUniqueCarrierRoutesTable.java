@@ -70,6 +70,12 @@ public class CreateUniqueCarrierRoutesTable {
 	      		"  on unique_carrier_routes(first_operating_carrier, year, origin, connection,  second_operating_carrier, destination)");
 	      sql.add("create index idx_unique_carrier_routes\n" + 
 	      		"  on unique_carrier_routes(year, origin, connection, destination, first_operating_carrier, second_operating_carrier)");
+	      sql.add("create index idx_unique_carrier_routes_c1oc\n" +
+                        "  on unique_carrier_routes(first_operating_carrier, origin, connection)");
+ 	      sql.add("create index idx_unique_carrier_routes_yc1\n" +
+                        "  on unique_carrier_routes(year, first_operating_carrier)");
+
+
 	     
 	     for(Object s:sql){
 	    	  stmt.addBatch(s.toString());

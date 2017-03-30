@@ -277,8 +277,7 @@ public class ItineraryGenerator {
 			query.append("from unique_carrier_routes").append(NEWLINE);
 			query.append("where year = ").append(m_year).append(NEWLINE);
 			query.append("  and num_flights = 2").append(NEWLINE);
-			query
-					.append("order by first_operating_carrier, origin, connection");
+			query.append("order by first_operating_carrier, origin, connection");
 
 			logger.trace("Valid connections query:");
 			logger.trace(query.toString());

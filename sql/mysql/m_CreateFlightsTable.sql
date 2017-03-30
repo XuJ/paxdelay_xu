@@ -206,6 +206,8 @@ on flights(carrier, origin, destination, planned_departure_time, planned_arrival
 create index idx_flights_4_id 
 on flights(id);
 
+create index idx_flights_5_yqc 
+on flights(year,quarter,carrier);
 
 select dups.flight_id, tfs.number_of_seats
 from temp_flight_seats tfs
