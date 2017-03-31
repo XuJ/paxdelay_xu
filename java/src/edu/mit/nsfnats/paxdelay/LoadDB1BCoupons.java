@@ -2,6 +2,8 @@
 //create db1b_coupons table
 //XuJiao
 //That took 11 minutes 
+//input: /mdsg/bts_raw_csv/DB1B_COUPONS_20(06~15)_QX.csv
+//Records: 34,443,171 (MIT: 34,462,861)
 
 package edu.mit.nsfnats.paxdelay;
 
@@ -17,7 +19,7 @@ public class LoadDB1BCoupons {
 	   
 	   //SUKITJANUPARP
 	   //input link to database here
-	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay_xu?allowMultiQueries=true";
+	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay?allowMultiQueries=true";
 	   
 	   //  Database credentials
 	   //SUKITJANUPARP

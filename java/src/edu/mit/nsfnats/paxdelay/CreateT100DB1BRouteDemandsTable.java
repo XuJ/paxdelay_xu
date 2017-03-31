@@ -2,6 +2,8 @@
 //create table t100_db1b_route_demands
 //XuJiao
 //That took 1 minute 
+//another input: db1b_route_demands from CreateDB1BRouteDemandsTable.java
+//records: 3,432,652 (MIT: 3,436,912)
 
 package edu.mit.nsfnats.paxdelay;
 
@@ -18,7 +20,7 @@ public class CreateT100DB1BRouteDemandsTable {
 	   
 	   //SUKITJANUPARP
 	   //input link to database here
-	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay_xu?allowMultiQueries=true";
+	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay?allowMultiQueries=true";
 	   
 	   //  Database credentials
 	   //SUKITJANUPARP
@@ -43,13 +45,15 @@ public class CreateT100DB1BRouteDemandsTable {
 	      stmt = conn.createStatement();
 	      ArrayList<String> sql = new ArrayList<String>();
 	      
-	      	//If running for the second time, remember to comment these:
+		//Move the indexing to CreateDB1BT100SegmentComparisons.java
+/*      
+		//If running for the second time, remember to comment these:
 	      sql.add("create index idx_db1b_t100_qcod\n" + 
 	      		"  on db1b_t100_segment_comparisons(quarter, carrier, origin, destination)");
 	      sql.add("create index idx_db1b_t100_qmcod\n" + 
 	      		"  on db1b_t100_segment_comparisons(quarter, month, carrier, origin, destination)");
-	      
-	      	      sql.add("drop table if exists t100_db1b_route_demands");
+*/	      
+      	      sql.add("drop table if exists t100_db1b_route_demands");
 	      sql.add("create table t100_db1b_route_demands\n" + 
 	      		"(\n" + 
 	      		"  year numeric(4) not null,\n" + 

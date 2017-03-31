@@ -2,6 +2,9 @@
 //create db1b_markets table
 //XuJiao
 //That took 3 minutes 
+//input: /mdsg/bts_raw_csv/DB1B_MARKETS_20(06~15)_QX.csv
+//Records: 20,778,751 (MIT: 20,778,751)
+//This file is not used in the process, maybe can be eliminated
 
 package edu.mit.nsfnats.paxdelay;
 
@@ -17,7 +20,7 @@ public class LoadDB1BMarket {
 	   
 	   //SUKITJANUPARP
 	   //input link to database here
-	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay_xu?allowMultiQueries=true";
+	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay?allowMultiQueries=true";
 	   
 	   //  Database credentials
 	   //SUKITJANUPARP

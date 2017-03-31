@@ -1,8 +1,8 @@
--- use paxdelay_xu;
 -- XuJiao
 -- That took 0 min
-
--- set sql_mode="";
+-- Record: 299,006 (MIT: 237,332)
+-- because our data contains international flights
+-- which will be eliminated in the following steps
 
 drop table if exists temp_1;
 create table temp_1

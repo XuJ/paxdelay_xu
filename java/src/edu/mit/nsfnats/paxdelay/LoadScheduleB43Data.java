@@ -1,5 +1,7 @@
 //SUKITJANUPARP
 //create table airline_inventories
+//input: /mdsg/bts_raw_csv/SCHEDULE_B43_20(06~15).csv
+//Records: 7,585 (MIT: 7,512)
 
 package edu.mit.nsfnats.paxdelay;
 
@@ -15,7 +17,7 @@ public class LoadScheduleB43Data {
 	   
 	   //SUKITJANUPARP
 	   //input link to database here
-	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay_xu?allowMultiQueries=true";
+	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay?allowMultiQueries=true";
 	   
 	   //  Database credentials
 	   //SUKITJANUPARP
@@ -118,7 +120,9 @@ public class LoadScheduleB43Data {
 	      		"	(carrier, year,	serial_number, tail_number,	aircraft_status, operating_status, number_of_seats, manufacturer, model, capacity_in_pounds, acquisition_date)\n" + 
 	      		"select carrier, year, serial_number, tail_number,	aircraft_status, operating_status, number_of_seats, manufacturer, model, capacity_in_pounds, STR_TO_DATE(acquisition_date,'%Y-%m-%d') as acquisition_date\n" + 
 	      		"from tmp_load_airline_inventories");
-	      sql.add("drop table if exists tmp_load_airline_inventories;");
+	      sql.add("drop table if exists tmp_load_airline_inventories");
+	      sql.add("create index idx_ai_ct on airline_inventories(carrier, tail_number);");
+
 	      for(Object s:sql){
 	    	  stmt.addBatch(s.toString());
 	      }

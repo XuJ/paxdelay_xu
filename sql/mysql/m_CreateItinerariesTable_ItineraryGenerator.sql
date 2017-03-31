@@ -1,12 +1,13 @@
-drop table if exists itineraries;
 -- OPHASWONGSE
 -- Remove suffix "_UTC" from all column
 -- Change data type of planned_departure_tz and planned_arrival_tz from char(15) to char(25)
 -- XuJiao
 -- This file uses ItineraryGenerator.java, CreateTempItinerariesTable.java, 
 -- and CreateItinerariesTable_load.java to create itineraries tabla
--- That took 45 minutes
+-- That took 5 hour 6 min 57.32 sec
+-- Records: 274,176,576 (MIT: 273,473,424)
 
+drop table if exists itineraries;
 create table itineraries
 (
   id integer not null auto_increment, primary key (id),
@@ -84,7 +85,6 @@ from temp_itineraries ti
 join flights ft 
 on ft.id = ti.first_flight_id
 where ti.num_flights = 1;
--- 4467804
 
 
 -- Insert all one stop itineraries
@@ -137,7 +137,9 @@ from temp_itineraries ti
 join flights ft1 on ft1.id = ti.first_flight_id
 join flights ft2 on ft2.id = ti.second_flight_id
 where ti.num_flights = 2;
--- 161848110
+
+/*
+-- The following stored procedure is another way to create itineraries table without temp_itineraries table and ItineraryGenerator
 
 -- Status tracking table
 drop table if exists itineraries_status;
@@ -146,9 +148,6 @@ create table itineraries_status (
 	start_time datetime
 );
 
-
--- The following stored procedure is another way to create itineraries table without temp_itineraries table and ItineraryGenerator
-/*
 -- PROCEDURE
 -- It is extremely recommended to use command line to run this query!
 drop procedure if exists populate_itineraries;
@@ -421,6 +420,7 @@ drop procedure if exists populate_itineraries;
 -- !PROCEDURE
 */
 
+
 -- General indices for querying itineraries
 create index idx_itineraries_ft1ft2
   on itineraries(first_flight_id, second_flight_id);
@@ -444,3 +444,5 @@ create index idx_itineraries_c1c2ymdm
 
 create index bmx_itineraries_ymdm
   on itineraries(year, month, day_of_month);
+
+

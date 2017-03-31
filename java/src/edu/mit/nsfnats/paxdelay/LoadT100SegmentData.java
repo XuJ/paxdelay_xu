@@ -1,5 +1,9 @@
 //XuJiao
 //That took 0 minutes
+//input: /mdsg/bts_raw_csv/T100_SEGMENTS_20(06~15).csv
+//Records: 454,438 (MIT: 372,714)
+//because oUr raw data contains international flights
+//these will be eliminated automatically in the following steps
 
 package edu.mit.nsfnats.paxdelay;
 
@@ -9,7 +13,7 @@ import java.util.ArrayList;
 public class LoadT100SegmentData {
 	// JDBC driver name and database URL
 	   static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay_xu?allowMultiQueries=true";
+	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay?allowMultiQueries=true";
 	   //  Database credentials
 	   static final String USER = "root";
 	   static final String PASS = "paxdelay";

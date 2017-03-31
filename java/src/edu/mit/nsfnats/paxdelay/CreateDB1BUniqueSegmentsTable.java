@@ -2,6 +2,9 @@
 //create table db1b_unique_carrier_segments
 //XuJiao
 //That took 0 minutes 
+//This is not independent, run LoadDB1BCoupons.java first
+//Records: 156,168 (MIT: 156,209)
+
 
 package edu.mit.nsfnats.paxdelay;
 
@@ -17,7 +20,7 @@ public class CreateDB1BUniqueSegmentsTable {
 	 
 	   //SUKITJANUPARP
 	   //input link to database here
-	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay_xu?allowMultiQueries=true";
+	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay?allowMultiQueries=true";
 	   
 	   //  Database credentials
 	   //SUKITJANUPARP

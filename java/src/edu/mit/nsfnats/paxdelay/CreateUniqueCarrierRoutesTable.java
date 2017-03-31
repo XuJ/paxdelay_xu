@@ -1,5 +1,6 @@
 //SUKITJANUPARP
 //create table unique_carrier_routes
+//records: 386,421 (MIT: 386,487)
 
 package edu.mit.nsfnats.paxdelay;
 
@@ -15,7 +16,7 @@ public class CreateUniqueCarrierRoutesTable {
 
 	   //SUKITJANUPARP
 	   //input link to database here
-	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay_xu?allowMultiQueries=true";
+	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay?allowMultiQueries=true";
 	   //  Database credentials
 	   //SUKITJANUPARP
 	   //input username and password here

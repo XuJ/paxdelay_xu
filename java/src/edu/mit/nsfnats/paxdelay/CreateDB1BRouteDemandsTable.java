@@ -2,6 +2,8 @@
 //create table db1b_ticketed_route_demands, db1b_route_demands
 //XuJiao
 //That took 12 minutes
+//db1b_ticketed_route_demands: 1,603,147 (MIT: 1,604,797)
+//db1b_route_demands: 1,497,798 (MIT: 1,499,404)
 
 package edu.mit.nsfnats.paxdelay;
 
@@ -17,7 +19,7 @@ public class CreateDB1BRouteDemandsTable {
 	   
 	   //SUKITJANUPARP
 	   //input link to database here
-	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay_xu?allowMultiQueries=true";
+	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay?allowMultiQueries=true";
 	   
 	   //  Database credentials
 	   //SUKITJANUPARP

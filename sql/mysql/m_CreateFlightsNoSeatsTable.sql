@@ -2,6 +2,7 @@
 -- Modified to exclude the use of offerings table
 -- XuJiao
 -- That took 27 minutes
+-- Records: 7,455,428 (MIT: 7,455,428)
 
 drop table if exists temp_flights_aotp;
 
@@ -361,6 +362,10 @@ on tfs.flight_id = tf.id;
 -- General index for searching for flights
 create index idx_flights_cymdmodh
 on flights_no_seats(carrier, year, month, day_of_month, origin, destination, hour_of_day);
+
+create index idx_flights_icfodepphm
+  on flights_no_seats(id, carrier, flight_number, origin, destination, exponent_planned_departure_time_local,
+  planned_departure_time_local, hour_of_day, minutes_of_hour);
 
 -- The following index is used to support PAP
 create index idx_flights_cymdm

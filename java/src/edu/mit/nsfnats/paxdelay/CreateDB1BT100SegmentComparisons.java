@@ -2,6 +2,8 @@
 //create table db1b_t100_segment_comparisons
 //XuJiao
 //That took 0 minute 
+//Records: 118,574 (MIT: 118,892)
+//Move indexing here from CreateT100DB1BRouteDemandsTable.java
 
 package edu.mit.nsfnats.paxdelay;
 
@@ -17,7 +19,7 @@ public class CreateDB1BT100SegmentComparisons {
 	   
 	   //SUKITJANUPARP
 	   //input link to database here
-	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay_xu?allowMultiQueries=true";
+	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay?allowMultiQueries=true";
 	   
 	   //  Database credentials
 	   //SUKITJANUPARP
@@ -193,6 +195,20 @@ public class CreateDB1BT100SegmentComparisons {
 	      stmt.executeBatch();
 	      stmt.clearBatch();
 	      sql.clear();
+
+//	      Add indexes for creating t100_db1b_route_demands table
+              sql.add("create index idx_db1b_t100_qcod\n" +
+                        "  on db1b_t100_segment_comparisons(quarter, carrier, origin, destination)");
+              sql.add("create index idx_db1b_t100_qmcod\n" +
+                        "  on db1b_t100_segment_comparisons(quarter, month, carrier, origin, destination)");
+
+             for(Object s:sql){
+                  stmt.addBatch(s.toString());
+                  System.out.println("hey");
+              }
+              stmt.executeBatch();
+              stmt.clearBatch();
+              sql.clear();
 	      stmt.close();
 	      conn.close();
 	   }catch(SQLException se){

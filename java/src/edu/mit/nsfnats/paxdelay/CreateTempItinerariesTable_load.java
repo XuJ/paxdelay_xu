@@ -1,8 +1,8 @@
 //SUKITJANUPARP
 //load data into table temp_itineraries
 //XuJiao
-//That took 19 minutes
-
+//That took 30 minutes
+//Records: 274,176,576 (MIT:273,473,424)
 
 package edu.mit.nsfnats.paxdelay;
 

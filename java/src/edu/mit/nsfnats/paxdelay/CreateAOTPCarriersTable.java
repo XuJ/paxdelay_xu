@@ -1,5 +1,7 @@
 //SUKITJANUPARP
 //create table asqp_carriers
+//XuJiao
+//records: 20 (MIT: 20)
 
 package edu.mit.nsfnats.paxdelay;
 
@@ -16,7 +18,7 @@ public class CreateAOTPCarriersTable {
 
 	   //SUKITJANUPARP
 	   //input link to database here
-	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay_xu?allowMultiQueries=true";
+	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay?allowMultiQueries=true";
 	   
 	   //  Database credentials
 	   //SUKITJANUPARP

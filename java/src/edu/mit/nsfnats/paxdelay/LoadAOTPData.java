@@ -1,5 +1,8 @@
 //XuJiao
 //That took 1 minutes 
+//input: /mdsg/bts_raw_csv/AOTP_20(06~15)_(1~12).csv
+//need to change the year 2007 in the load syntax or add int year=2007 in the first
+//Records: 7,455,458 (MIT: 7,445,458)
 
 package edu.mit.nsfnats.paxdelay;
 
@@ -12,7 +15,7 @@ import java.util.ArrayList;
 public class LoadAOTPData {
 	// JDBC driver name and database URL
 	   static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay_xu?allowMultiQueries=true";
+	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay?allowMultiQueries=true";
 	   //  Database credentials
 	   static final String USER = "root";
 	   static final String PASS = "paxdelay";

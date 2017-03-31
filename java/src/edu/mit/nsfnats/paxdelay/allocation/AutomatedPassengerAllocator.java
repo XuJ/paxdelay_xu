@@ -2,6 +2,11 @@
 //to generate .txt file that will be used in CreateItineraryLoad_Alldata.java
 //need to add properties file in arguments before start running: AutomatedPassengerAllocator and DefaultLogger
 //this code was modified from the original version by changing from sql syntax to mysql syntax
+//XuJiao
+//Change the default maximum connection time from 180 min to 300 min
+//Ignore the LoadAircraftFleetType in the java and NUMBER_ALLOCATION_PARAMETERS in the properties
+//Run for 01/2007
+
 
 package edu.mit.nsfnats.paxdelay.allocation;
 
@@ -73,8 +78,9 @@ public class AutomatedPassengerAllocator {
 	public static final double DEFAULT_DEVIATION_CAPACITY_COEFFICIENT = 1.0;
 
 	public static final String PROPERTY_MAXIMUM_CONNECTION_TIME = "MAXIMUM_CONNECTION_TIME";
-	public static final int DEFAULT_MAXIMUM_CONNECTION_TIME = 180;
-
+//	public static final int DEFAULT_MAXIMUM_CONNECTION_TIME = 180;
+	public static final int DEFAULT_MAXIMUM_CONNECTION_TIME = 300;
+	
 	public static final double MAXIMUM_DEFAULT_SEATING_CAPACITY = 999.0;
 
 	public static final String NEWLINE = "\n";

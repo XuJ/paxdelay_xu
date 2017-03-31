@@ -1,5 +1,6 @@
 //SUKITJANUPARP
 //create table aircraft_code_mappings
+//Record: 325 (MIT: 325)
 
 package edu.mit.nsfnats.paxdelay;
 
@@ -15,7 +16,7 @@ public class CreateAircraftCodeMappingsTable_load {
 	   
 	   //SUKITJANUPARP
 	   //input link to database here
-	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay_xu?allowMultiQueries=true";
+	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay?allowMultiQueries=true";
 	   
 	   //  Database credentials
 	   //SUKITJANUPARP
