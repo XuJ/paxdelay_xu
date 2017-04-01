@@ -5,7 +5,8 @@
 //XuJiao
 //Change the default maximum connection time from 180 min to 300 min
 //Ignore the LoadAircraftFleetType in the java and NUMBER_ALLOCATION_PARAMETERS in the properties
-//Run for 01/2007
+//Comment unnecessary printing and external files writing
+//Run for 01/2007 it took 22 min for one month
 
 
 package edu.mit.nsfnats.paxdelay.allocation;
@@ -456,7 +457,7 @@ public class AutomatedPassengerAllocator {
 			query.append("on scaled_db1b.quarter = seg.quarter")
 					.append(NEWLINE);
 			query.append("order by seg.quarter");
-            System.out.println(query);
+            //System.out.println(query);
 			logger.trace("Scaling factors query:");
 			logger.trace(query.toString());
 			rset = stmt.executeQuery(query.toString());
@@ -1262,18 +1263,19 @@ public class AutomatedPassengerAllocator {
 		itineraryLoadFile.append(File.separator);
 		itineraryLoadFile.append("ItineraryLoad_");
 		itineraryLoadFile.append(identifierString).append(".txt");
-
-		StringBuffer itineraryExternalFile = new StringBuffer(
-				m_allocationOutputDirectory);
-		itineraryExternalFile.append(File.separator);
-		itineraryExternalFile.append("ItineraryExternal_");
-		itineraryExternalFile.append(identifierString).append(".txt");
+		
+//		XuJ: 04/01/17. Because we don't need external files to create the database
+//		StringBuffer itineraryExternalFile = new StringBuffer(
+//				m_allocationOutputDirectory);
+//		itineraryExternalFile.append(File.separator);
+//		itineraryExternalFile.append("ItineraryExternal_");
+//		itineraryExternalFile.append(identifierString).append(".txt");
 
 		FileWriter lfw = null;
-		FileWriter efw = null;
+//		FileWriter efw = null;
 		try {
 			lfw = new FileWriter(itineraryLoadFile.toString());
-			efw = new FileWriter(itineraryExternalFile.toString());
+//			efw = new FileWriter(itineraryExternalFile.toString());
 		}
 		catch (IOException e) {
 			logger.fatal("Unable to load files to write "
@@ -1285,15 +1287,15 @@ public class AutomatedPassengerAllocator {
 			lfw
 					.write("First_Operating_Carrier\tSecond_Operating_Carrier\tFirst_Flight_ID\tSecond_Flight_ID\tPassengers\n");
 
-			efw
-					.write("First_Flight_ID\tFirst_Operating_Carrier\tFirst_Origin\tFirst_Destination\t");
-			efw
-					.write("First_Month\tFirst_Day\tFirst_Departure\tFirst_Arrival\tFirst_Capacity\t");
-			efw
-					.write("Second_Flight_ID\tSecond_Operating_Carrier\tSecond_Origin\tSecond_Destination\t");
-			efw
-					.write("Second_Month\tSecond_Day\tSecond_Departure\tSecond_Arrival\tSecond_Capacity\t");
-			efw.write("Number_Passengers\n");
+//			efw
+//					.write("First_Flight_ID\tFirst_Operating_Carrier\tFirst_Origin\tFirst_Destination\t");
+//			efw
+//					.write("First_Month\tFirst_Day\tFirst_Departure\tFirst_Arrival\tFirst_Capacity\t");
+//			efw
+//					.write("Second_Flight_ID\tSecond_Operating_Carrier\tSecond_Origin\tSecond_Destination\t");
+//			efw
+//					.write("Second_Month\tSecond_Day\tSecond_Departure\tSecond_Arrival\tSecond_Capacity\t");
+//			efw.write("Number_Passengers\n");
 
 			InternalRoute[] nonStopRoutes = routeSet.getNonStopRoutes();
 			InternalRoute[] oneStopRoutes = routeSet.getOneStopRoutes();
@@ -1347,76 +1349,76 @@ public class AutomatedPassengerAllocator {
 					}
 
 					// Write the long format for external usage
-					efw.write(firstFlightID);
-					efw.write("\t");
-					efw.write(firstCarrier);
-					efw.write("\t");
-					efw.write(firstFlight.getOrigin());
-					efw.write("\t");
-					efw.write(firstFlight.getDestination());
-					efw.write("\t");
-					efw.write(String.format("%1$02d", firstFlight.getMonth()));
-					efw.write("\t");
-					efw.write(String.format("%1$02d", firstFlight
-							.getDayOfMonth()));
-					efw.write("\t");
-					efw.write(firstFlight.getDepartureTime());
-					efw.write("\t");
-					efw.write(firstFlight.getArrivalTime());
-					efw.write("\t");
-					efw
-							.write(Double.toString(firstFlight
-									.getAllocationCapacity()));
-					efw.write("\t");
-
-					if (secondFlight != null) {
-						efw.write(secondFlightID);
-						efw.write("\t");
-						efw.write(secondCarrier);
-						efw.write("\t");
-						efw.write(secondFlight.getOrigin());
-						efw.write("\t");
-						efw.write(secondFlight.getDestination());
-						efw.write("\t");
-						efw.write(String.format("%1$02d", secondFlight
-								.getMonth()));
-						efw.write("\t");
-						efw.write(String.format("%1$02d", secondFlight
-								.getDayOfMonth()));
-						efw.write("\t");
-						efw.write(secondFlight.getDepartureTime());
-						efw.write("\t");
-						efw.write(secondFlight.getArrivalTime());
-						efw.write("\t");
-						efw.write(Double.toString(secondFlight
-								.getAllocationCapacity()));
-						efw.write("\t");
-					} else {
-						// Flight ID
-						efw.write("\t");
-						// Carrier
-						efw.write("\t");
-						// Origin
-						efw.write("\t");
-						// Destination
-						efw.write("\t");
-						// Month
-						efw.write("\t");
-						// Day of Month
-						efw.write("\t");
-						// Departure Time
-						efw.write("\t");
-						// Arrival Time
-						efw.write("\t");
-						// Seating Capacity
-						efw.write("\t");
-					}
-					efw.write(passengersString);
-					efw.write("\n");
+//					efw.write(firstFlightID);
+//					efw.write("\t");
+//					efw.write(firstCarrier);
+//					efw.write("\t");
+//					efw.write(firstFlight.getOrigin());
+//					efw.write("\t");
+//					efw.write(firstFlight.getDestination());
+//					efw.write("\t");
+//					efw.write(String.format("%1$02d", firstFlight.getMonth()));
+//					efw.write("\t");
+//					efw.write(String.format("%1$02d", firstFlight
+//							.getDayOfMonth()));
+//					efw.write("\t");
+//					efw.write(firstFlight.getDepartureTime());
+//					efw.write("\t");
+//					efw.write(firstFlight.getArrivalTime());
+//					efw.write("\t");
+//					efw
+//							.write(Double.toString(firstFlight
+//									.getAllocationCapacity()));
+//					efw.write("\t");
+//
+//					if (secondFlight != null) {
+//						efw.write(secondFlightID);
+//						efw.write("\t");
+//						efw.write(secondCarrier);
+//						efw.write("\t");
+//						efw.write(secondFlight.getOrigin());
+//						efw.write("\t");
+//						efw.write(secondFlight.getDestination());
+//						efw.write("\t");
+//						efw.write(String.format("%1$02d", secondFlight
+//								.getMonth()));
+//						efw.write("\t");
+//						efw.write(String.format("%1$02d", secondFlight
+//								.getDayOfMonth()));
+//						efw.write("\t");
+//						efw.write(secondFlight.getDepartureTime());
+//						efw.write("\t");
+//						efw.write(secondFlight.getArrivalTime());
+//						efw.write("\t");
+//						efw.write(Double.toString(secondFlight
+//								.getAllocationCapacity()));
+//						efw.write("\t");
+//					} else {
+//						// Flight ID
+//						efw.write("\t");
+//						// Carrier
+//						efw.write("\t");
+//						// Origin
+//						efw.write("\t");
+//						// Destination
+//						efw.write("\t");
+//						// Month
+//						efw.write("\t");
+//						// Day of Month
+//						efw.write("\t");
+//						// Departure Time
+//						efw.write("\t");
+//						// Arrival Time
+//						efw.write("\t");
+//						// Seating Capacity
+//						efw.write("\t");
+//					}
+//					efw.write(passengersString);
+//					efw.write("\n");
 				}
 			}
 			lfw.flush();
-			efw.flush();
+//			efw.flush();
 		} catch (IOException e) {
 			logger.fatal("Unable to write "
 					+ (multiCarrier ? "multiple carrier" : "single carrier")
@@ -1425,7 +1427,7 @@ public class AutomatedPassengerAllocator {
 		finally {
 			try {
 				lfw.close();
-				efw.close();
+//				efw.close();
 			}
 			catch (IOException e) {
 				// Just eat the exception at this point...

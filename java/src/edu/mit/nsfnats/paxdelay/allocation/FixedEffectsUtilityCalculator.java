@@ -122,7 +122,7 @@ public class FixedEffectsUtilityCalculator implements ItineraryUtilityCalculator
 			dayIndex = (dayIndex + 6) % 7;
 			timeIndex = 5;
 		}
-		System.out.println("Day Index:" + dayIndex);
+		//System.out.println("Day Index:" + dayIndex);
 		double utility = m_dayCoefficients[dayIndex];
 		utility += m_dayCoefficients[timeIndex];
 		utility += m_dayTimeCoefficients[dayIndex][timeIndex];

@@ -1,3 +1,6 @@
+//XuJiao
+//It took 97 seconds for one month
+
 package edu.mit.nsfnats.paxdelay;
 
 import java.io.File;
@@ -12,12 +15,12 @@ public class CreateItineraryLoadAllData {
 		long startTime = System.nanoTime();
 		
 		String[] carriers = {"YV","XE","WN","US","UA","OO","OH","NW","MQ","HA","FL","F9","EV","DL","CO","B6","AS","AQ","AA","9E"};
-		String[] prefixes = {"Load", "External"};
+		String[] prefixes = {"Load"}; //{"Load", "External"}; VV: Mar 31st 2017. Because we don't need external files to create the database 
 		String[] ms = {"Multiple","Single"};
 		boolean first = true;
 		FileWriter fw = null;
 		try {
-			fw = new FileWriter("/mdsg/paxdelay_general_Xu/ItineraryLoad_AllData.csv");
+			fw = new FileWriter("/mdsg/paxdelay_general_Xu/Allocation_Output/ItineraryLoad_AllData.csv");
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -28,7 +31,7 @@ public class CreateItineraryLoadAllData {
 					String fileName = "Itinerary"+p+"_Month_01_"+m+"_"+c+".txt";
 					System.out.println(fileName);
 					try {
-						Scanner in = new Scanner(new File("input/"+fileName));
+						Scanner in = new Scanner(new File("/mdsg/paxdelay_general_Xu/Allocation_Output/"+fileName));
 						String line = "";
 						if(!first){
 							line = in.nextLine(); // To discard the header row
@@ -36,7 +39,9 @@ public class CreateItineraryLoadAllData {
 						if(first) first = false;
 						while (in.hasNextLine()) {
 							line = in.nextLine();
+//							System.out.println(line);
 							String[] temp = line.split("\t");
+							
 							
 							try {
 								

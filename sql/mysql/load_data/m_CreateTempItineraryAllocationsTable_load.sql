@@ -1,4 +1,6 @@
-LOAD DATA LOCAL INFILE '/mdsg/paxdelay_general_Xu/ItineraryLoad_AllData.csv'
+-- XuJiao
+-- It took 3 min 38 sec for one month
+LOAD DATA LOCAL INFILE '/mdsg/paxdelay_general_Xu/Allocation_Output/ItineraryLoad_AllData.csv'
 INTO TABLE temp_itinerary_allocations
 FIELDS TERMINATED BY ','
 OPTIONALLY ENCLOSED BY '"'
@@ -11,4 +13,10 @@ IGNORE 1 LINES
   second_flight_id,
   passengers
 );
--- 132704
+-- XuJ: 04/01/17. Change blank value to null value.
+update temp_itinerary_allocations set second_carrier = NULL where second_carrier = '';
+update temp_itinerary_allocations set second_flight_id = NULL where second_flight_id = '';
+
+create index idx_ita_ftid
+  on temp_itinerary_allocations(first_flight_id, second_flight_id);
+

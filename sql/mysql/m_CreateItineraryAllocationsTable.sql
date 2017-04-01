@@ -1,3 +1,7 @@
+-- XuJiao
+-- It took 13 min 52 sec for one month
+-- Record: 27,938,722 for one month
+
 drop table if exists itinerary_allocations;
 
 create table itinerary_allocations
