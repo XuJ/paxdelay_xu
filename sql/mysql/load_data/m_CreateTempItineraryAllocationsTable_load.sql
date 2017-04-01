@@ -1,5 +1,6 @@
 -- XuJiao
--- It took 3 min 38 sec for one month
+-- It took 12 min
+-- Record 82,777,269
 LOAD DATA LOCAL INFILE '/mdsg/paxdelay_general_Xu/Allocation_Output/ItineraryLoad_AllData.csv'
 INTO TABLE temp_itinerary_allocations
 FIELDS TERMINATED BY ','

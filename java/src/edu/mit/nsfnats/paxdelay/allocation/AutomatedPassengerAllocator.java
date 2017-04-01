@@ -6,7 +6,7 @@
 //Change the default maximum connection time from 180 min to 300 min
 //Ignore the LoadAircraftFleetType in the java and NUMBER_ALLOCATION_PARAMETERS in the properties
 //Comment unnecessary printing and external files writing
-//Run for 01/2007 it took 22 min for one month
+//It took 262 min
 
 
 package edu.mit.nsfnats.paxdelay.allocation;
