@@ -53,6 +53,8 @@ public class CreateDB1BT100SegmentComparisons {
 	      		"  carrier varchar(3) not null,\n" + 
 	      		"  origin char(3) not null,\n" + 
 	      		"  destination char(3) not null,\n" + 
+	      		"  db1b_passengers decimal(6,0) not null,\n" +
+	      		"  t100_passegners decimal (6,0) not null,\n" +
 	      		"  scaling_factor decimal(10, 4)\n" + 
 	      		")\n");
 	      
@@ -64,6 +66,7 @@ public class CreateDB1BT100SegmentComparisons {
 	      stmt.clearBatch();
 	      sql.clear();
 	      
+	      //Fix the error in three union creation by XuJ 04/07/17
 	      sql.add("drop table if exists temp_three_union\n");
 	      sql.add("create table temp_three_union\n" + 
 	      		"select \n" + 
@@ -83,23 +86,27 @@ public class CreateDB1BT100SegmentComparisons {
 	      		"	quarter, \n" + 
 	      		"	first_operating_carrier as carrier,\n" + 
 	      		"	origin, \n" + 
-	      		"	connection, \n" + 
+	      		//"	connection, \n" + ; XuJ, 04/07/17
+	      		"	connection as destination, \n" +
 	      		"	sum(passengers) as passengers\n" + 
 	      		"from db1b_route_demands\n" + 
 	      		"where num_flights = 2\n" + 
-	      		"group by year, quarter, first_operating_carrier, origin, destination\n" + 
+	      		//"group by year, quarter, first_operating_carrier, origin, destination\n" + ; XuJ, 04/07/17
+	      		"group by year, quarter, first_operating_carrier, origin, connection\n" + 
 	      		"\n" + 
 	      		"union	\n" + 
 	      		"select \n" + 
 	      		"	year, \n" + 
 	      		"	quarter, \n" + 
 	      		"	second_operating_carrier as carrier,\n" + 
-	      		"	connection, \n" + 
+	      		//"	connection, \n" + XuJ, 04/07/17
+	      		"	connection as origin, \n" + 
 	      		"	destination, \n" + 
 	      		"	sum(passengers) as passengers\n" + 
 	      		"from db1b_route_demands\n" + 
 	      		"where num_flights = 2\n" + 
-	      		"group by year, quarter, second_operating_carrier, origin, destination\n");
+	      		//"group by year, quarter, second_operating_carrier, origin, destination\n"); XuJ, 04/07/17
+	  			"group by year, quarter, second_operating_carrier, connection, destination\n");
 	      //748,700
 	      //748,252 XuJiao
 	      
@@ -145,7 +152,7 @@ public class CreateDB1BT100SegmentComparisons {
 	      		"	destination,\n" + 
 	      		"	sum(passengers) as passengers\n" + 
 	      		"from t100_segments\n" + 
-	      		"group by year, quarter, month, carrier, origin, destination\n");
+	    		"group by year, quarter, month, carrier, origin, destination\n");
 	      //237,560
 	      //299,235 XuJiao
 	      
@@ -175,6 +182,8 @@ public class CreateDB1BT100SegmentComparisons {
 	      		"	db1b.carrier, \n" + 
 	      		"	db1b.origin, \n" + 
 	      		"	db1b.destination,\n" + 
+	      		"   db1b.passengers,\n" +
+	      		"   t100.passengers,\n" +
 	      		"	t100.passengers / db1b.passengers as scaling_factor\n" + 
 	      		"from temp_db1b_1 db1b\n" + 
 	      		"join temp_t100_1 t100\n" + 

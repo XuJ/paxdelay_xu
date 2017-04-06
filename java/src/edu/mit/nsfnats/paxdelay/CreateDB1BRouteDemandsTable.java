@@ -177,7 +177,7 @@ public class CreateDB1BRouteDemandsTable {
 	      sql.add("drop table if exists temp_db1b_route_demands\n");
 	      
 	      
-//	      System.out.println(sql);
+	      System.out.println(sql);
 	      
 	     
 	     for(Object s:sql){

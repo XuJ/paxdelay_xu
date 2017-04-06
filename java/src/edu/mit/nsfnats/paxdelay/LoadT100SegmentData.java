@@ -153,6 +153,8 @@ public class LoadT100SegmentData {
 	      		"distance_group,\n" + 
 	      		"service_class);");
 		   
+//    		XuJ: 04/05/17: exclude the international flights
+	      sql.add("delete from t100_segments where origin_country_name != 'United States' or destination_country_name != 'United States';");
 	      
 	      sql.add("update t100_segments\n" + 
 	      		"set carrier = 'US'\n" + 

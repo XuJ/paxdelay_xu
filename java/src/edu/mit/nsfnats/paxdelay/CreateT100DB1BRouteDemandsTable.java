@@ -100,7 +100,7 @@ public class CreateT100DB1BRouteDemandsTable {
 	      		"  and dtc2.origin = drd.connection\n" + 
 	      		"  and dtc2.destination = drd.destination\n" + 
 	      		"where drd.num_flights = 2");
-	      
+//	      	System.out.println(sql);
 	      
 	      
 	      
