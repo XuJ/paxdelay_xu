@@ -2,7 +2,7 @@
 -- change the AirportTimeZones file which includes the state and timezone as well
 
 
-LOAD DATA LOCAL INFILE '/mdsg/AirportTimeZones.csv'
+LOAD DATA LOCAL INFILE '/mdsg/AirportTimeZones_MIT.csv'
 INTO TABLE airports
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
