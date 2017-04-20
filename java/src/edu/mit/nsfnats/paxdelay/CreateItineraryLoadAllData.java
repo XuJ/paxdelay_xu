@@ -1,6 +1,6 @@
 //XuJiao
 //Expand to whole year
-//It took 2 min 24 sec
+//It took 2 min
 
 package edu.mit.nsfnats.paxdelay;
 

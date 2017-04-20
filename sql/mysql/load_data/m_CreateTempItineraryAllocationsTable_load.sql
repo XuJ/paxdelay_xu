@@ -1,6 +1,6 @@
 -- XuJiao
 -- It took 12 min
--- Record 82,777,269
+-- Record 80,930,146
 LOAD DATA LOCAL INFILE '/mdsg/paxdelay_general_Xu/Allocation_Output/ItineraryLoad_AllData.csv'
 INTO TABLE temp_itinerary_allocations
 FIELDS TERMINATED BY ','

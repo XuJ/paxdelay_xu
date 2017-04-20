@@ -1,6 +1,6 @@
 -- XuJiao
--- It took 41 min 26 sec for one month
--- Record: 82,777,169 (MIT: 69,302,114)
+-- It took 37 min 26 sec
+-- Record: 80,930,146 (MIT: 69,302,114)
 
 drop table if exists itinerary_allocations;
 

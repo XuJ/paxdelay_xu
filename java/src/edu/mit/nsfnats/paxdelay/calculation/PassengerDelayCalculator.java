@@ -1,6 +1,8 @@
 //Xu Jiao 02202017
 //Remember add the following sql syntax before running loadaircraftfleet()
 //ALTER TABLE airline_inventories CONVERT TO CHARACTER SET latin1 COLLATE 'latin1_swedish_ci'
+//That took 125 minutes 
+
 package edu.mit.nsfnats.paxdelay.calculation;
 
 import java.io.File;
@@ -149,6 +151,7 @@ public class PassengerDelayCalculator {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		long startTime = System.nanoTime();
 //		if (args.length != 3) {
 //			System.err
 //					.println("Usage: java edu.mit.nsfnats.paxdelay.calculation.PassengerDelayCaculator "
@@ -210,6 +213,10 @@ public class PassengerDelayCalculator {
 		main(calculatorProperties, outputDirectory);
 		logger
 				.info("Execution of PassengerDelayCalculator.main(Properties properties) complete");
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000/1000/60;
+		System.out.println("That took " + duration + " minutes ");
 	}
 
 	public static void main(Properties properties, String outputDirectory) {
@@ -462,6 +469,7 @@ public class PassengerDelayCalculator {
 		try {
 			stmt = createStatement();
 			StringBuffer query = new StringBuffer();
+//			04122017 XuJ: executeQuery() cannot handle sql alter table syntax
 //			query.append("ALTER TABLE airline_inventories CONVERT TO CHARACTER SET latin1 COLLATE 'latin1_swedish_ci';").append(NEWLINE);
 			query.append("select distinct ai.carrier, acm.icao_code,").append(NEWLINE);
 			query.append("  ai.number_of_seats").append(NEWLINE);

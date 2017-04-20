@@ -1,3 +1,6 @@
+-- XuJiao 041217
+-- That took 70 min
+
 drop table if exists passenger_delays;
 
 create table passenger_delays
