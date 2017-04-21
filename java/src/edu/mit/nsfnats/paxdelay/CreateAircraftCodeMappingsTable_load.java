@@ -44,17 +44,27 @@ public class CreateAircraftCodeMappingsTable_load {
 	    //SUKITJANUPARP
 	    //do not forget to change the path to AircraftCodeMappings.csv
 	    //changed the original code from load data infile to load data local infile
+	    //042117 XuJ: read empty value in csv as NULL value
 	      sql.add("LOAD DATA LOCAL INFILE '/mdsg/paxdelay_general_Xu/AircraftCodeMappings.csv'\n" + 
 	      		"INTO TABLE aircraft_code_mappings\n" + 
 	      		"FIELDS TERMINATED BY ','\n" + 
 	      		"LINES TERMINATED BY '\\n'\n" + 
 	      		"IGNORE 1 LINES\n" + 
 	      		"(iata_code,\n" + 
-	      		"icao_code,\n" + 
+//	      		"icao_code,\n" + 
+	      		"@vicao_code,\n" + 
 	      		"manufacturer_and_model,\n" + 
-	      		"inventory_manufacturer,\n" + 
-	      		"inventory_model,\n" + 
-	      		"wake_category)");
+//	      		"inventory_manufacturer,\n" + 
+//	      		"inventory_model,\n" + 
+//	      		"wake_category)"
+	      		"@vinventory_manufacturer,\n" + 
+	      		"@vinventory_model,\n" + 
+	      		"@vwake_category)\n" + 
+	      		"set \n" + 
+	      		"icao_code = nullif(@vicao_code,''),\n" + 
+	      		"inventory_manufacturer = nullif(@vinventory_manufacturer,''),\n" + 
+	      		"inventory_model = nullif(@vinventory_model,''),\n" + 
+	    	 "wake_category = nullif(@vwake_category,'')");
 	    
 	     
 	     for(Object s:sql){

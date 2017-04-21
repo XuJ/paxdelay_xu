@@ -1,8 +1,6 @@
 -- XuJiao
 -- That took 0 min
--- Record: 299,006 (MIT: 237,332)
--- because our data contains international flights
--- which will be eliminated in the following steps
+-- Record: 240,687 (MIT: 237,332)
 
 drop table if exists temp_1;
 create table temp_1

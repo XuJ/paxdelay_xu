@@ -46,6 +46,7 @@ public class CreateTempItinerariesTable_load {
 		   //SUKITJANUPARP
 		   //change the path to GeneratedItineraries.csv here
 	      sql.add("LOAD DATA LOCAL INFILE '/mdsg/paxdelay_general_Xu/GeneratedItineraries.csv'\n" + 
+	    		 //042117 XuJ: read empty value in csv as NULL value
 	      		"INTO TABLE temp_itineraries\n" + 
 	      		"FIELDS TERMINATED BY ','\n" + 
 	      		"OPTIONALLY ENCLOSED BY '\"'\n" + 
@@ -53,7 +54,9 @@ public class CreateTempItinerariesTable_load {
 	      		"IGNORE 1 LINES\n" + 
 	      		"(num_flights,\n" + 
 	      		"first_flight_id,\n" + 
-	      		"second_flight_id)");
+	      		"@vsecond_flight_id)" + 
+	      		"set \n" + 
+	      		"second_flight_id = nullif(@vsecond_flight_id,'')");
 	      sql.add("create index idx_temp_itineraries\n" + 
 	      		"  on temp_itineraries(num_flights, first_flight_id, second_flight_id)");
 	     

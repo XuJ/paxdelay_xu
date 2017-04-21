@@ -4,8 +4,13 @@ FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES
 (iata_code,
-icao_code,
+@vicao_code,
 manufacturer_and_model,
-inventory_manufacturer,
-inventory_model,
-wake_category);
+@vinventory_manufacturer,
+@vinventory_model,
+@vwake_category)
+set 
+icao_code = nullif(@vicao_code,''),
+inventory_manufacturer = nullif(@vinventory_manufacturer,''),
+inventory_model = nullif(@vinventory_model,''),
+wake_category = nullif(@vwake_category,'');

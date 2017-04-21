@@ -76,6 +76,7 @@ public class LoadScheduleB43Data {
 	      //SUKITJANUPARP
 	      //input path to the csv file here
 	      String filename = "/mdsg/bts_raw_csv/SCHEDULE_B43_"+year+".csv";
+	      //042117 XuJ: read empty value in csv as NULL value
 	      stmt.execute("LOAD DATA LOCAL INFILE '"+filename+"'\n" + 
 	      		"INTO TABLE tmp_load_airline_inventories\n" + 
 	      		"FIELDS TERMINATED BY ','\n" + 
@@ -83,21 +84,36 @@ public class LoadScheduleB43Data {
 	      		"IGNORE 1 LINES\n" + 
 	      		"(year,\n" + 
 	      		"carrier,\n" + 
-	      		"carrier_name,\n" + 
-	      		"year_of_first_delivery,\n" + 
-	      		"unique_carrier_name,\n" + 
+//	      		"carrier_name,\n" + 
+//	      		"year_of_first_delivery,\n" + 
+//	      		"unique_carrier_name,\n" + 
+				"@vcarrier_name,\n" + 
+				"@vyear_of_first_delivery,\n" + 
+				"@vunique_carrier_name,\n" + 
 	      		"serial_number,\n" + 
 	      		"tail_number,\n" + 
 	      		"aircraft_status,\n" + 
 	      		"operating_status,\n" + 
-	      		"number_of_seats,\n" + 
+//	      		"number_of_seats,\n" + 
+	      		"@vnumber_of_seats,\n" + 
 	      		"manufacturer,\n" + 
 	      		"model,\n" + 
-	      		"capacity_in_pounds,\n" + 
+//	      		"capacity_in_pounds,\n" + 
+	      		"@vcapacity_in_pounds,\n" + 
 	      		"acquisition_date,\n" + 
-	      		"airline_id,\n" + 
-	      		"unique_carrier\n" + 
-	      		");");
+//	      		"airline_id,\n" + 
+//	      		"unique_carrier\n" + 
+				"@vairline_id,\n" + 
+				"@vunique_carrier)\n" + 
+				"set \n" + 
+				"carrier_name = nullif(@vcarrier_name,''),\n" + 
+				"year_of_first_delivery = nullif(@vyear_of_first_delivery,''),\n" + 
+				"unique_carrier_name = nullif(@vunique_carrier_name,''),\n" + 
+				"number_of_seats = nullif(@vnumber_of_seats,''),\n" + 
+				"capacity_in_pounds = nullif(@vcapacity_in_pounds,''),\n" + 
+				"airline_id = nullif(@vairline_id,''),\n" + 
+				"unique_carrier = nullif(@vunique_carrier,'');"			
+	      		);
 		  
 	      sql.add("drop table if exists airline_inventories");
 	      sql.add("create table airline_inventories\n" +

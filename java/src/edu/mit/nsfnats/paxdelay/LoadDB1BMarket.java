@@ -4,7 +4,6 @@
 //That took 3 minutes 
 //input: /mdsg/bts_raw_csv/DB1B_MARKETS_20(06~15)_QX.csv
 //Records: 20,778,751 (MIT: 20,778,751)
-//This file is not used in the process, maybe can be eliminated
 
 package edu.mit.nsfnats.paxdelay;
 
@@ -56,22 +55,14 @@ public class LoadDB1BMarket {
 	      		"(\n" + 
 	      		"	itinerary_id	numeric(16, 0) not null,\n" + 
 	      		"	market_id	numeric(16, 0) not null,\n" + 
-	      		
 	      		"	number_coupons	numeric(2, 0) not null,\n" + 
 	      		"	year	numeric(4) not null,\n" + 
 	      		"	quarter	int not null,\n" + 
-	      		
-	      		
-	      		
 	      		"	origin	char(3) not null,\n" + 
-	      		
-	      		
-	      		
 	      		"	destination	char(3) not null,\n" + 
 	      		"	reporting_carrier	varchar(3) not null,\n" +
 	      		"	ticketing_carrier	varchar(3) not null,\n" + 
 	      		"	operating_carrier	varchar(3) not null,\n" + 
-	      		 
 	      		"	passengers	numeric(4, 0) not null,\n" + 
 	      		"   fare numeric(7, 2) not null,\n"+
 	      	    "   miles_flown numeric(5) not null,\n"+
@@ -100,7 +91,6 @@ public class LoadDB1BMarket {
 	      		"(\n" + 
 	      		"	itinerary_id	numeric(16, 0) not null,\n" + 
 	      		"	market_id	numeric(16, 0) not null,\n" + 
-	      		
 	      		"	number_coupons	numeric(2, 0) not null,\n" + 
 	      		"	year	numeric(4) not null,\n" + 
 	      		"	quarter	int not null,\n" + 
@@ -141,7 +131,6 @@ public class LoadDB1BMarket {
 			   		"		(\n" + 
 			   		"	itinerary_id,\n" + 
 		      		"	market_id	,\n" + 
-		      		
 		      		"	number_coupons	,\n" + 
 		      		"	year	,\n" + 
 		      		"	quarter	,\n" + 
@@ -169,18 +158,14 @@ public class LoadDB1BMarket {
 	    		  "		(\n" + 
 	    		  "	itinerary_id,\n" + 
 		      		"	market_id	,\n" + 
-		      		
 		      		"	number_coupons	,\n" + 
 		      		"	year	,\n" + 
 		      		"	quarter	,\n" + 
-		      		
 		      		"	origin	,\n" + 
-		      		
 		      		"	destination	,\n" + 
 		      		"	reporting_carrier	,\n" +
 		      		"	ticketing_carrier	,\n" + 
 		      		"	operating_carrier	,\n" + 
-		      		
 		      		"	passengers	,\n" + 
 		      		"   fare ,\n"+
 		      	    "   miles_flown ,\n"+
@@ -190,18 +175,14 @@ public class LoadDB1BMarket {
 	      		"select  "+
 	      		"	itinerary_id,\n" + 
 	      		"	market_id	,\n" + 
-	      		
 	      		"	number_coupons	,\n" + 
 	      		"	year	,\n" + 
 	      		"	quarter	,\n" + 
-	      		
 	      		"	origin	,\n" + 
-	      		
 	      		"	destination	,\n" + 
 	      		"	reporting_carrier	,\n" +
 	      		"	ticketing_carrier	,\n" + 
 	      		"	operating_carrier	,\n" + 
-	      		
 	      		"	passengers	,\n" + 
 	      		"   fare ,\n"+
 	      	    "   miles_flown ,\n"+

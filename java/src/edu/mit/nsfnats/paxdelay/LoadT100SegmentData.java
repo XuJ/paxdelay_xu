@@ -1,9 +1,8 @@
 //XuJiao
 //That took 0 minutes
 //input: /mdsg/bts_raw_csv/T100_SEGMENTS_20(06~15).csv
-//Records: 454,438 (MIT: 372,714)
-//because oUr raw data contains international flights
-//these will be eliminated automatically in the following steps
+//Records: 376,511 (MIT: 372,714)
+
 
 package edu.mit.nsfnats.paxdelay;
 
@@ -97,6 +96,7 @@ public class LoadT100SegmentData {
 	      sql.clear();
 	      
 	      String filename = "/mdsg/bts_raw_csv/T100_SEGMENTS_"+year+".csv";
+		  //042117 XuJ: read empty value in csv as NULL value
 	      stmt.execute("LOAD DATA LOCAL INFILE '"+filename+"'\n" + 
 	      		"INTO TABLE t100_segments\n" + 
 	      		"FIELDS TERMINATED BY ','\n" + 
@@ -122,27 +122,35 @@ public class LoadT100SegmentData {
 	      		"carrier_name,\n" + 
 	      		"carrier_group,\n" + 
 	      		"carrier_group_new,\n" + 
-	      		"origin_airport_id,\n" + 
-	      		"origin_airport_seq_id,\n" + 
+//	      		"origin_airport_id,\n" + 
+//	      		"origin_airport_seq_id,\n" + 
+	      		"@vorigin_airport_id,\n" + 
+	      		"@vorigin_airport_seq_id,\n" + 
 	      		"origin_city_code,\n" + 
 	      		"origin,\n" + 
 	      		"origin_city_name,\n" + 
 	      		"origin_state,\n" + 
 	      		"origin_state_fips,\n" + 
 	      		"origin_state_name,\n" + 
-	      		"origin_country,\n" + 
-	      		"origin_country_name,\n" + 
+//	      		"origin_country,\n" + 
+//	      		"origin_country_name,\n" + 
+	      		"@vorigin_country,\n" + 
+	      		"@vorigin_country_name,\n" + 
 	      		"origin_wac,\n" + 
-	      		"dest_airport_id,\n" + 
-	      		"dest_airport_seq_id,\n" + 
+//	      		"dest_airport_id,\n" + 
+//	      		"dest_airport_seq_id,\n" + 
+	      		"@vdest_airport_id,\n" + 
+	      		"@vdest_airport_seq_id,\n" + 
 	      		"destination_city_code,\n" + 
 	      		"destination,\n" + 
 	      		"destination_city_name,\n" + 
 	      		"destination_state,\n" + 
 	      		"destination_state_fips,\n" + 
 	      		"destination_state_name,\n" + 
-	      		"destination_country,\n" + 
-	      		"destination_country_name,\n" + 
+//	      		"destination_country,\n" + 
+//	      		"destination_country_name,\n" + 
+	      		"@vdestination_country,\n" + 
+	      		"@vdestination_country_name,\n" + 
 	      		"destination_wac,\n" + 
 	      		"aircraft_group,\n" + 
 	      		"aircraft_type,\n" + 
@@ -151,10 +159,20 @@ public class LoadT100SegmentData {
 	      		"quarter,\n" + 
 	      		"month,\n" + 
 	      		"distance_group,\n" + 
-	      		"service_class);");
+	      		"service_class)" +
+	      		"set \n" + 
+	      		"origin_airport_id = nullif(@vorigin_airport_id,''),\n" + 
+	      		"origin_airport_seq_id = nullif(@vorigin_airport_seq_id,''),\n" + 
+	      		"origin_country = nullif(@vorigin_country,''),\n" + 
+	      		"origin_country_name = nullif(@vorigin_country_name,''),\n" + 
+	      		"dest_airport_id = nullif(@vdest_airport_id,''),\n" + 
+	      		"dest_airport_seq_id = nullif(@vdest_airport_seq_id,''),\n" + 
+	      		"destination_country = nullif(@vdestination_country,''),\n" + 
+	      		"destination_country_name = nullif(@vdestination_country_name,'');\n" 
+	      		);
 		   
-//    		XuJ: 04/05/17: exclude the international flights
-	      sql.add("delete from t100_segments where origin_country_name != 'United States' or destination_country_name != 'United States';");
+//    		040517 XuJ: exclude the international flights
+	      sql.add("delete from t100_segments where origin_country_name != 'United States' or destination_country_name != 'United States'");
 	      
 	      sql.add("update t100_segments\n" + 
 	      		"set carrier = 'US'\n" + 

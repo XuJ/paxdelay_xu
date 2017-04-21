@@ -1,5 +1,5 @@
 //XuJiao
-//That took 1 minutes 
+//That took 2 minutes 
 //input: /mdsg/bts_raw_csv/AOTP_20(06~15)_(1~12).csv
 //need to change the year 2007 in the load syntax or add int year=2007 in the first
 //Records: 7,455,458 (MIT: 7,445,458)
@@ -115,6 +115,7 @@ public class LoadAOTPData {
 	      sql.clear();
 		   for(int i = 1;i<=12;i++){
 			   String filename = "/mdsg/bts_raw_csv/AOTP_2007_"+i+".csv";
+			   //042117 XuJ: read empty value in csv as NULL value
 			   stmt.execute("LOAD DATA LOCAL INFILE '"+filename+"'\n" + 
 			   		"		INTO TABLE tmp_load_aotp\n" +
 			   		"		FIELDS TERMINATED BY ','\n" + 
@@ -131,59 +132,140 @@ public class LoadAOTPData {
 			   		"			unique_carrier,\n" + 
 			   		"			airline_id,\n" + 
 			   		"			carrier,\n" + 
-			   		"			tail_number,\n" + 
+//			   		"			tail_number,\n" + 
+			   		"			@vtail_number,\n" + 
 			   		"			flight_number,\n" + 
-			   		"				origin_airportid,\n" + 
-			   		"				origin_airportseqid,\n" + 
-			   		"				origin_citymarketid,\n" + 
+//			   		"				origin_airportid,\n" + 
+//			   		"				origin_airportseqid,\n" + 
+//			   		"				origin_citymarketid,\n" + 
 			   		"			origin,\n" + 
-			   		"			origin_city_name,\n" + 
-			   		"			origin_state,\n" + 
-			   		"			origin_state_fips,\n" + 
-			   		"			origin_state_name,\n" + 
-			   		"			origin_wac,\n" + 
-			   		"				dest_airportid,\n" + 
-			   		"				dest_airportseqid,\n" + 
-			   		"				dest_citymarketid,\n" + 
+//			   		"			origin_city_name,\n" + 
+//			   		"			origin_state,\n" + 
+//			   		"			origin_state_fips,\n" + 
+//			   		"			origin_state_name,\n" + 
+//			   		"			origin_wac,\n" + 
+					"				@vorigin_airportid,\n" + 
+					"				@vorigin_airportseqid,\n" + 
+					"				@vorigin_citymarketid,\n" + 
+			   		"			@vorigin_city_name,\n" + 
+			   		"			@vorigin_state,\n" + 
+			   		"			@vorigin_state_fips,\n" + 
+			   		"			@vorigin_state_name,\n" + 
+			   		"			@vorigin_wac,\n" + 
+//			   		"				dest_airportid,\n" + 
+//			   		"				dest_airportseqid,\n" + 
+//			   		"				dest_citymarketid,\n" + 
 			   		"			destination,\n" + 
-			   		"			destination_city_name,\n" + 
-			   		"			destination_state,\n" + 
-			   		"			destination_state_fips,\n" + 
-			   		"			destination_state_name,\n" + 
-			   		"			destination_wac,\n" + 
+//			   		"			destination_city_name,\n" + 
+//			   		"			destination_state,\n" + 
+//			   		"			destination_state_fips,\n" + 
+//			   		"			destination_state_name,\n" + 
+//			   		"			destination_wac,\n" + 
+			   		"				@vdest_airportid,\n" + 
+			   		"				@vdest_airportseqid,\n" + 
+			   		"				@vdest_citymarketid,\n" + 
+			   		"			@vdestination_city_name,\n" + 
+			   		"			@vdestination_state,\n" + 
+			   		"			@vdestination_state_fips,\n" + 
+			   		"			@vdestination_state_name,\n" + 
+			   		"			@vdestination_wac,\n" + 
 			   		"			planned_departure_time,\n" + 
-			   		"			actual_departure_time,\n" + 
-			   		"			departure_offset,\n" + 
-			   		"			departure_delay,\n" + 
-			   		"			departure_delay_15,\n" + 
-			   		"			departure_delay_group,\n" + 
-			   		"			departure_time_block,\n" + 
-			   		"			taxi_out_duration,\n" + 
-			   		"			wheels_off_time,\n" + 
-			   		"			wheels_on_time,\n" + 
-			   		"			taxi_in_duration,\n" + 
+//			   		"			actual_departure_time,\n" + 
+//			   		"			departure_offset,\n" + 
+//			   		"			departure_delay,\n" + 
+//			   		"			departure_delay_15,\n" + 
+//			   		"			departure_delay_group,\n" + 
+//			   		"			departure_time_block,\n" + 
+//			   		"			taxi_out_duration,\n" + 
+//			   		"			wheels_off_time,\n" + 
+//			   		"			wheels_on_time,\n" + 
+//			   		"			taxi_in_duration,\n" + 
+			   		"			@vactual_departure_time,\n" + 
+			   		"			@vdeparture_offset,\n" + 
+			   		"			@vdeparture_delay,\n" + 
+			   		"			@vdeparture_delay_15,\n" + 
+			   		"			@vdeparture_delay_group,\n" + 
+			   		"			@vdeparture_time_block,\n" + 
+			   		"			@vtaxi_out_duration,\n" + 
+			   		"			@vwheels_off_time,\n" + 
+			   		"			@vwheels_on_time,\n" + 
+			   		"			@vtaxi_in_duration,\n" + 
 			   		"			planned_arrival_time,\n" + 
-			   		"			actual_arrival_time,\n" + 
-			   		"			arrival_offset,\n" + 
-			   		"			arrival_delay,\n" + 
-			   		"			arrival_delay_15,\n" + 
-			   		"			arrival_delay_group,\n" + 
-			   		"			arrival_time_block,\n" + 
+//			   		"			actual_arrival_time,\n" + 
+//			   		"			arrival_offset,\n" + 
+//			   		"			arrival_delay,\n" + 
+//			   		"			arrival_delay_15,\n" + 
+//			   		"			arrival_delay_group,\n" + 
+//			   		"			arrival_time_block,\n" + 
+			   		"			@vactual_arrival_time,\n" + 
+			   		"			@varrival_offset,\n" + 
+			   		"			@varrival_delay,\n" + 
+			   		"			@varrival_delay_15,\n" + 
+			   		"			@varrival_delay_group,\n" + 
+			   		"			@varrival_time_block,\n" + 
 			   		"			cancelled,\n" + 
-			   		"			cancellation_code,\n" + 
+//			   		"			cancellation_code,\n" + 
+			   		"			@vcancellation_code,\n" + 
 			   		"			diverted,\n" + 
-			   		"			planned_elapsed_time,\n" + 
-			   		"			actual_elapsed_time,\n" + 
-			   		"			in_air_duration,\n" + 
-			   		"			number_flights,\n" + 
-			   		"			flight_distance,\n" + 
-			   		"			distance_group,\n" + 
+//			   		"			planned_elapsed_time,\n" + 
+//			   		"			actual_elapsed_time,\n" + 
+//			   		"			in_air_duration,\n" + 
+//			   		"			number_flights,\n" + 
+//			   		"			flight_distance,\n" + 
+//			   		"			distance_group,\n" + 
+			   		"			@vplanned_elapsed_time,\n" + 
+			   		"			@vactual_elapsed_time,\n" + 
+			   		"			@vin_air_duration,\n" + 
+			   		"			@vnumber_flights,\n" + 
+			   		"			@vflight_distance,\n" + 
+			   		"			@vdistance_group,\n" + 
 			   		"			carrier_delay,\n" + 
 			   		"			weather_delay,\n" + 
 			   		"			nas_delay,\n" + 
 			   		"			security_delay,\n" + 
-			   		"			late_aircraft_delay\n" + 
-			   		"		);");
+			   		"			late_aircraft_delay)\n" + 
+			   		"		set \n" +
+			   		"			tail_number = nullif(@vtail_number,''),\n" +
+			   		"			origin_airportid = nullif(@vorigin_airportid,''),\n" +
+			   		"			origin_airportseqid = nullif(@vorigin_airportseqid,''),\n" +
+			   		"			origin_citymarketid = nullif(@vorigin_citymarketid,''),\n" +
+			   		"			origin_city_name = nullif(@vorigin_city_name,''),\n" +
+			   		"			origin_state = nullif(@vorigin_state,''),\n" +
+			   		"			origin_state_fips = nullif(@vorigin_state_fips,''),\n" +
+			   		"			origin_state_name = nullif(@vorigin_state_name,''),\n" +
+			   		"			origin_wac = nullif(@vorigin_wac,''),\n" +
+			   		"			dest_airportid = nullif(@vdest_airportid,''),\n" +
+			   		"			dest_airportseqid = nullif(@vdest_airportseqid,''),\n" +
+			   		"			dest_citymarketid = nullif(@vdest_citymarketid,''),\n" +
+			   		"			destination_city_name = nullif(@vdestination_city_name,''),\n" +
+			   		"			destination_state = nullif(@vdestination_state,''),\n" +
+			   		"			destination_state_fips = nullif(@vdestination_state_fips,''),\n" +
+			   		"			destination_state_name = nullif(@vdestination_state_name,''),\n" +
+			   		"			destination_wac = nullif(@vdestination_wac,''),\n" +
+			   		"			actual_departure_time = nullif(@vactual_departure_time,''),\n" + 
+			   		"			departure_offset = nullif(@vdeparture_offset,''),\n" + 
+			   		"			departure_delay = nullif(@vdeparture_delay,''),\n" + 
+			   		"			departure_delay_15 = nullif(@vdeparture_delay_15,''),\n" + 
+			   		"			departure_delay_group = nullif(@vdeparture_delay_group,''),\n" + 
+			   		"			departure_time_block = nullif(@vdeparture_time_block,''),\n" + 
+			   		"			taxi_out_duration = nullif(@vtaxi_out_duration,''),\n" + 
+			   		"			wheels_off_time = nullif(@vwheels_off_time,''),\n" + 
+			   		"			wheels_on_time = nullif(@vwheels_on_time,''),\n" + 
+			   		"			taxi_in_duration = nullif(@vtaxi_in_duration,''),\n" + 
+			   		"			actual_arrival_time = nullif(@vactual_arrival_time,''),\n" + 
+			   		"			arrival_offset = nullif(@varrival_offset,''),\n" + 
+			   		"			arrival_delay = nullif(@varrival_delay,''),\n" + 
+			   		"			arrival_delay_15 = nullif(@varrival_delay_15,''),\n" + 
+			   		"			arrival_delay_group = nullif(@varrival_delay_group,''),\n" + 
+			   		"			arrival_time_block = nullif(@varrival_time_block,''),\n" + 
+			   		"			cancellation_code = nullif(@vcancellation_code,''),\n" + 
+			   		"			planned_elapsed_time = nullif(@vplanned_elapsed_time,''),\n" + 
+			   		"			actual_elapsed_time = nullif(@vactual_elapsed_time,''),\n" + 
+			   		"			in_air_duration = nullif(@vin_air_duration,''),\n" + 
+			   		"			number_flights = nullif(@vnumber_flights,''),\n" + 
+			   		"			flight_distance = nullif(@vflight_distance,''),\n" + 
+			   		"			distance_group = nullif(@vdistance_group,'');\n" 
+			   		);
 		   }
 		   
 		   

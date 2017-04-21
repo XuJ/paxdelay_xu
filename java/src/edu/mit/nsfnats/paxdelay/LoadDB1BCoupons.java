@@ -122,6 +122,7 @@ public class LoadDB1BCoupons {
 			   //SUKITJANUPARP
 			   //input path to the csv file here /mdsg/bts_raw_csv/
 			   String filename = "/mdsg/bts_raw_csv/DB1B_COUPONS_"+year+"_Q"+i+".csv";
+			   //042117 XuJ: read empty value in csv as NULL value
 			   stmt.execute("LOAD DATA LOCAL INFILE '"+filename+"'\n" + 
 			   		"		INTO TABLE tmp_load_db1b_coupons\n" +
 			   		"		FIELDS TERMINATED BY ','\n" + 
@@ -141,14 +142,18 @@ public class LoadDB1BCoupons {
 		      		"   temp_d_id,\n" +
 		      		"   temp_d_sq_id,\n" +
 		      		"	destination	,\n" + 
-		      		
 		      		"	ticketing_carrier	,\n" + 
 		      		"	operating_carrier	,\n" + 
 		      		"	reporting_carrier	,\n" + 
 		      		"	passengers	,\n" + 
-		      		"	fare_class,\n" + 
-		      		"	distance\n" + 
-			   		"		)");
+//		      		"	fare_class,\n" + 
+//		      		"	distance\n" + 
+		      		"	@vfare_class,\n" + 
+		      		"	@vdistance)\n" + 
+		      		"   set \n" + 
+		      		"	fare_class = nullif(@vfare_class,''),\n" + 
+		      		"	distance = nullif(@vdistance,'');\n"  
+			   		);
 			   System.out.println("done");
 		   }
 		   
@@ -162,7 +167,6 @@ public class LoadDB1BCoupons {
 		      		"	quarter,\n" + 
 		      		"	origin	,\n" + 
 		      		"	destination	,\n" + 
-		      		 
 		      		"	ticketing_carrier	,\n" + 
 		      		"	operating_carrier	,\n" + 
 		      		"	reporting_carrier	,\n" + 
