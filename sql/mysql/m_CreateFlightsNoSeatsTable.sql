@@ -139,12 +139,13 @@ from aotp ot
 join airports orig on orig.code = ot.origin
 join airports dest on dest.code = ot.destination;
 
+-- 042017 XuJ: Delete duplicate records in aotp (30 records)
 delete 
 from temp_flights_aotp 
 using temp_flights_aotp
 join (select max(id) as max_id, count(id)
 				from temp_flights_aotp
-				group by carrier, flight_number, origin, destination, planned_departure_time_UTC
+				group by carrier, flight_number, origin, destination, month, day_of_month, planned_departure_time_UTC
 				having count(id) > 1) t on id = t.max_id;
 
 
