@@ -5,6 +5,7 @@
 //That took 27 minutes
 //Change the name of the output file and comment the maximum_connections_time
 // and maximum_number_connections in the property files
+//Console outputs are located in ~/paxdelay_general_Xu/Itinerary_Generator_Console_Log.txt
 
 
 package edu.mit.nsfnats.paxdelay.data;

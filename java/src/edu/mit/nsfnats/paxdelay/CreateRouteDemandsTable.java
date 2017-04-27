@@ -1,7 +1,7 @@
 //SUKITJANUPARP
 //create table ticketed_route_demands ,route_demands
 //XuJiao
-//That took 12 minutes
+//That took 15 minutes
 //ticketed_route_demands: 1,603,147 (MIT: 1,604,797)
 //route_demands: 1,497,798 (MIT: 1,499,404)
 

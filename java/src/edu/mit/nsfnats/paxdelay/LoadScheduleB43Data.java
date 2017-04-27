@@ -137,7 +137,7 @@ public class LoadScheduleB43Data {
 	      		"select carrier, year, serial_number, tail_number,	aircraft_status, operating_status, number_of_seats, manufacturer, model, capacity_in_pounds, STR_TO_DATE(acquisition_date,'%Y-%m-%d') as acquisition_date\n" + 
 	      		"from tmp_load_airline_inventories");
 	      sql.add("drop table if exists tmp_load_airline_inventories");
-	      sql.add("create index idx_ai_ct on airline_inventories(carrier, tail_number);");
+//	      sql.add("create index idx_ai_ct on airline_inventories(carrier, tail_number);");
 
 	      for(Object s:sql){
 	    	  stmt.addBatch(s.toString());

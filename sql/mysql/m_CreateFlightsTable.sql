@@ -4,13 +4,12 @@
 -- That took 117 minutes
 -- Records: 7,455,428  (MIT: 7,455,428)
 -- Drop two other temp tables: temp_t100_flights_seats, temp_flight_seats
--- Move indexing to other files
 
 alter table flights_no_seats convert to character set latin1 collate latin1_general_cs;
 alter table airline_inventories convert to character set latin1 collate latin1_general_cs;
 
-/*create index idx_ai_ct
- on airline_inventories(carrier, tail_number);*/
+create index idx_ai_ct
+ on airline_inventories(carrier, tail_number);
 
 alter table flights_no_seats add planned_departure_time_local 	datetime;
 alter table flights_no_seats add year_local 					integer;
@@ -32,9 +31,9 @@ add exponent_planned_departure_time_local integer;
 update flights_no_seats 
 set exponent_planned_departure_time_local = power(2, dayofweek(planned_departure_time_local)-1);
 
-/*create index idx_flights_icfodepphm
+create index idx_flights_icfodepphm
   on flights_no_seats(id, carrier, flight_number, origin, destination, exponent_planned_departure_time_local,
-  planned_departure_time_local, hour_of_day, minutes_of_hour);*/
+  planned_departure_time_local, hour_of_day, minutes_of_hour);
 
 -- alter table t100_seats convert to character set latin1 collate latin1_general_cs;
 -- 

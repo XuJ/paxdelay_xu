@@ -1,7 +1,7 @@
 //SUKITJANUPARP
 //create db1b_coupons table
 //XuJiao
-//That took 11 minutes 
+//That took 12 minutes 
 //input: /mdsg/bts_raw_csv/DB1B_COUPONS_20(06~15)_QX.csv
 //Records: 34,443,171 (MIT: 34,462,861)
 

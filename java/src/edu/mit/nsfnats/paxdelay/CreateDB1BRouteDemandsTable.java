@@ -1,7 +1,7 @@
 //SUKITJANUPARP
 //create table db1b_ticketed_route_demands, db1b_route_demands
 //XuJiao
-//That took 12 minutes
+//That took 15 minutes
 //db1b_ticketed_route_demands: 1,603,147 (MIT: 1,604,797)
 //db1b_route_demands: 1,497,798 (MIT: 1,499,404)
 
@@ -177,7 +177,7 @@ public class CreateDB1BRouteDemandsTable {
 	      sql.add("drop table if exists temp_db1b_route_demands\n");
 	      
 	      
-	      System.out.println(sql);
+//	      System.out.println(sql);
 	      
 	     
 	     for(Object s:sql){

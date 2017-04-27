@@ -138,15 +138,15 @@ public class LoadAOTPData {
 //			   		"				origin_airportid,\n" + 
 //			   		"				origin_airportseqid,\n" + 
 //			   		"				origin_citymarketid,\n" + 
+					"				@vorigin_airportid,\n" + 
+					"				@vorigin_airportseqid,\n" + 
+					"				@vorigin_citymarketid,\n" + 
 			   		"			origin,\n" + 
 //			   		"			origin_city_name,\n" + 
 //			   		"			origin_state,\n" + 
 //			   		"			origin_state_fips,\n" + 
 //			   		"			origin_state_name,\n" + 
 //			   		"			origin_wac,\n" + 
-					"				@vorigin_airportid,\n" + 
-					"				@vorigin_airportseqid,\n" + 
-					"				@vorigin_citymarketid,\n" + 
 			   		"			@vorigin_city_name,\n" + 
 			   		"			@vorigin_state,\n" + 
 			   		"			@vorigin_state_fips,\n" + 
@@ -154,16 +154,16 @@ public class LoadAOTPData {
 			   		"			@vorigin_wac,\n" + 
 //			   		"				dest_airportid,\n" + 
 //			   		"				dest_airportseqid,\n" + 
-//			   		"				dest_citymarketid,\n" + 
+//			   		"				dest_citymarketid,\n" +
+					"				@vdest_airportid,\n" + 
+					"				@vdest_airportseqid,\n" + 
+					"				@vdest_citymarketid,\n" + 
 			   		"			destination,\n" + 
 //			   		"			destination_city_name,\n" + 
 //			   		"			destination_state,\n" + 
 //			   		"			destination_state_fips,\n" + 
 //			   		"			destination_state_name,\n" + 
 //			   		"			destination_wac,\n" + 
-			   		"				@vdest_airportid,\n" + 
-			   		"				@vdest_airportseqid,\n" + 
-			   		"				@vdest_citymarketid,\n" + 
 			   		"			@vdestination_city_name,\n" + 
 			   		"			@vdestination_state,\n" + 
 			   		"			@vdestination_state_fips,\n" + 
