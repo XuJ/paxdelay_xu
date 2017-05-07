@@ -5,7 +5,7 @@
 -- This file uses ItineraryGenerator.java, CreateTempItinerariesTable.java, 
 -- and CreateItinerariesTable_load.java to create itineraries tabla
 -- That took 5 hour 6 min 57.32 sec
--- Records: 274,176,576 (MIT: 273,473,424)
+-- Records:  274,152,198 (MIT: 273,473,424)
 
 drop table if exists itineraries;
 create table itineraries

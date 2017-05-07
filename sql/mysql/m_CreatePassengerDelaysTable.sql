@@ -1,5 +1,6 @@
 -- XuJiao 041217
 -- That took 70 min
+-- Records: 81,254,021
 
 drop table if exists passenger_delays;
 

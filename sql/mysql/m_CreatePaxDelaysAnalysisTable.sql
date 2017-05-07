@@ -65,11 +65,14 @@ select pd.year, pd.quarter, pd.month, pd.day_of_month,
   pd.planned_origin, pd.planned_connection, pd.planned_destination,
 
 	case when ft2.planned_departure_time is null then null
-		else TIMESTAMPDIFF(minute, ft2.planned_departure_time, ft1.planned_arrival_time)
+		-- XuJ 05/01/2017: Change the sequence of times so that layover_duration is positive
+		-- else TIMESTAMPDIFF(minute, ft2.planned_departure_time, ft1.planned_arrival_time)
+		else TIMESTAMPDIFF(minute, ft1.planned_arrival_time, ft2.planned_departure_time)
 		end as planned_layover_duration,
 
 	case when ft2.actual_departure_time is null then null
-			else TIMESTAMPDIFF(minute, ft2.actual_departure_time, ft1.actual_arrival_time)
+			-- else TIMESTAMPDIFF(minute, ft2.actual_departure_time, ft1.actual_arrival_time)
+			else TIMESTAMPDIFF(minute, ft1.actual_arrival_time, ft2.actual_departure_time)
 			end as actual_layover_duration,
 
 	pd.planned_departure_time as planned_departure_time,

@@ -1,6 +1,7 @@
 -- XuJiao 041217 
 -- Add index
 -- That took 11 min
+-- Record: 81,254,021
 LOAD DATA LOCAL INFILE '/mdsg/paxdelay_general_Xu/ProcessedItineraryDelays.csv'
 INTO TABLE temp_passenger_delays
 FIELDS TERMINATED BY ','
@@ -10,15 +11,22 @@ IGNORE 1 LINES
 (
 num_passengers,
 original_first_flight_id,
-original_second_flight_id,
+@voriginal_second_flight_id,
 first_disruption_cause,
-first_disruption_hour,
+@vfirst_disruption_hour,
 num_disruptions,
-disruption_origin_sequence,
-disruption_cause_sequence,
-last_flown_flight_id,
+@vdisruption_origin_sequence,
+@vdisruption_cause_sequence,
+@vlast_flown_flight_id,
 trip_delay
-);
+)
+set 
+original_second_flight_id = nullif(@voriginal_second_flight_id,''), 
+first_disruption_hour = nullif(@vfirst_disruption_hour,''), 
+disruption_origin_sequence = nullif(@vdisruption_origin_sequence,''), 
+disruption_cause_sequence = nullif(@vdisruption_cause_sequence,''), 
+last_flown_flight_id = nullif(@vlast_flown_flight_id,'')
+;
 
 -- 041217 XuJ: Create index
 create index idx_temp_passenger_delays_ft1ft2 
