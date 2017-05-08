@@ -54,7 +54,9 @@ public class CreateDB1BT100SegmentComparisons {
 	      		"  origin char(3) not null,\n" + 
 	      		"  destination char(3) not null,\n" + 
 	      		"  db1b_passengers decimal(6,0) not null,\n" +
-	      		"  t100_passegners decimal (6,0) not null,\n" +
+//	      		"  t100_passegners decimal (6,0) not null,\n" +
+//	      		050517 XuJ: fix typo
+	      		"  t100_passengers decimal (6,0) not null,\n" +
 	      		"  scaling_factor decimal(10, 4)\n" + 
 	      		")\n");
 	      

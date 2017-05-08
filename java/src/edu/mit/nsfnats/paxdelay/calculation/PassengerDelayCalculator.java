@@ -1,7 +1,5 @@
 //Xu Jiao 02202017
-//Remember add the following sql syntax before running loadaircraftfleet()
-//ALTER TABLE airline_inventories CONVERT TO CHARACTER SET latin1 COLLATE 'latin1_swedish_ci'
-//That took 125 minutes 
+//That took 204 minutes 
 
 package edu.mit.nsfnats.paxdelay.calculation;
 

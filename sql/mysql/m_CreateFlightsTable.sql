@@ -97,7 +97,9 @@ insert into temp_flight_seats
 select t100fs.flight_id, t100fs.seats
 from temp_t100_flight_seats t100fs
 left join temp_flight_seats tfs on tfs.flight_id = t100fs.flight_id
-where t100fs.coeff_var <= 0.02 and tfs.flight_id is null;
+-- XuJ 050717: according to the paper, low coeff_var criteria is 0.025
+-- where t100fs.coeff_var <= 0.02 and tfs.flight_id is null;
+where t100fs.coeff_var <= 0.025 and tfs.flight_id is null;
 
 drop table if exists flights;
 create table flights

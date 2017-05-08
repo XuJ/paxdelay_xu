@@ -80,6 +80,7 @@ public class LoadScheduleB43Data {
 	      stmt.execute("LOAD DATA LOCAL INFILE '"+filename+"'\n" + 
 	      		"INTO TABLE tmp_load_airline_inventories\n" + 
 	      		"FIELDS TERMINATED BY ','\n" + 
+	      		"OPTIONALLY ENCLOSED BY '\"'\n" + 
 	      		"LINES TERMINATED BY '\\n'\n" + 
 	      		"IGNORE 1 LINES\n" + 
 	      		"(year,\n" + 
@@ -124,7 +125,7 @@ public class LoadScheduleB43Data {
 					"tail_number		varchar(7) not null,\n" +
 					"aircraft_status	char(1) not null,\n" +
 					"operating_status	char(1) not null,\n" +
-					"number_of_seats		numeric(3, 0) not null,\n" +
+					"number_of_seats		numeric(3, 0),\n" +
 					"manufacturer	varchar(50) not null,\n" +
 					"model			varchar(16) not null,\n" +
 					"capacity_in_pounds	numeric(6, 0),\n" +
@@ -138,6 +139,19 @@ public class LoadScheduleB43Data {
 	      		"from tmp_load_airline_inventories");
 	      sql.add("drop table if exists tmp_load_airline_inventories");
 //	      sql.add("create index idx_ai_ct on airline_inventories(carrier, tail_number);");
+	      
+	      //050717 XuJ: Check duplicate records which may cause problems in m_CreateFlightsTable.sql
+//	      sql.add("select carrier, tail_number, count(*) from airline_inventories group by carrier, tail_number having count(*)>1 order by carrier, tail_number");
+	      //050717 XuJ: Keep the records with larger serial_number
+	      sql.add("delete\n" + 
+	    		  "from airline_inventories\n" + 
+	    		  "using airline_inventories\n" + 
+	    		  "join\n" + 
+	    		  "(select min(serial_number) as min_serial_number, count(*)\n" + 
+	    		  "from airline_inventories group by carrier, tail_number\n" + 
+	    		  "having count(*)>1) t\n" + 
+	    		  "on serial_number = t.min_serial_number");
+	      
 
 	      for(Object s:sql){
 	    	  stmt.addBatch(s.toString());
