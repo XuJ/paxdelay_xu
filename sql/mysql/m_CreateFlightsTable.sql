@@ -66,7 +66,8 @@ alter table t100_seats convert to character set latin1 collate latin1_general_cs
 drop table if exists temp_t100_flight_seats;
 create table temp_t100_flight_seats
 select 
-fto.id as flight_id, t100s.seats_mean as seats, t100s.seats_coeff_var as coeff_var
+fto.id as flight_id, t100s.seats_mean as seats, t100s.seats_coeff_var as coeff_var, 
+t100s.seats_std_dev as std_dev -- XuJ 050817: add std_dev
 from t100_seats t100s
 join flights_no_seats fto
   on fto.year_local = t100s.year
@@ -79,7 +80,7 @@ join flights_no_seats fto
 drop table if exists temp_flight_seats;
 create table temp_flight_seats
 select distinct fns.id as flight_id,
-  ai.number_of_seats
+  ai.number_of_seats as number_of_seats
 from flights_no_seats fns
 join airline_inventories ai
   on ai.carrier = fns.carrier
@@ -94,12 +95,20 @@ create index idx_temp_fs_i
   on temp_flight_seats(flight_id);
 
 insert into temp_flight_seats
-select t100fs.flight_id, t100fs.seats
+select t100fs.flight_id as flight_id, t100fs.seats as number_of_seats
 from temp_t100_flight_seats t100fs
 left join temp_flight_seats tfs on tfs.flight_id = t100fs.flight_id
 -- XuJ 050717: according to the paper, low coeff_var criteria is 0.025
 -- where t100fs.coeff_var <= 0.02 and tfs.flight_id is null;
 where t100fs.coeff_var <= 0.025 and tfs.flight_id is null;
+
+-- XuJ 050817: add big coeff_var situation (mean+ 1 sd)
+insert into temp_flight_seats
+select t100fs.flight_id as flight, (t100fs.seats+t100fs.std_dev) as number_of_seats 
+from temp_t100_flight_seats t100fs
+left join temp_flight_seats tfs on tfs.flight_id = t100fs.flight_id
+where t100fs.coeff_var > 0.025 and tfs.flight_id is null;
+
 
 drop table if exists flights;
 create table flights
@@ -206,6 +215,7 @@ on flights(id);
 create index idx_flights_5_yqc 
 on flights(year,quarter,carrier);
 
+-- XuJ: check the duplicates
 select dups.flight_id, tfs.number_of_seats
 from temp_flight_seats tfs
 join
