@@ -129,8 +129,10 @@ select
 	ft2.planned_arrival_time as planned_arrival_time,
 	ft2.planned_arrival_tz as planned_arrival_tz,
 	ft2.planned_arrival_local_hour as planned_arrival_local_hour,
-
-	TIMESTAMPDIFF(minute, ft2.planned_departure_time, ft1.planned_arrival_time) as layover_duration,
+	
+	-- XuJ 050817: TIMESTAMPDIFF(unit,datetime_expr1,datetime_expr2) returns datetime_expr2 − datetime_expr1
+	-- TIMESTAMPDIFF(minute, ft2.planned_departure_time, ft1.planned_arrival_time) as layover_duration,
+	TIMESTAMPDIFF(minute, ft1.planned_arrival_time, ft2.planned_departure_time) as layover_duration,
 	ft1.id as first_flight_id, 
 	ft2.id as second_flight_id
 from temp_itineraries ti

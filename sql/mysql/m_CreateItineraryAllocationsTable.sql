@@ -24,6 +24,9 @@ create table itinerary_allocations
   planned_arrival_tz char(25),
   planned_arrival_local_hour numeric(2),
 
+-- XuJ 050817: add layover_duration for debugging
+  layover_duration numeric(4),
+
   first_flight_id numeric(12) not null,
   second_flight_id numeric(12),
   passengers numeric(4) not null
@@ -44,6 +47,9 @@ select ft1.year as year, ft1.quarter as quarter, ft1.month as month, ft1.day_of_
   ft1.planned_departure_time as planned_departure_time, ft1.planned_departure_tz as planned_departure_tz, ft1.planned_departure_local_hour as planned_departure_local_hour,
   ft1.planned_arrival_time as planned_arrival_time, ft1.planned_arrival_tz as planned_arrival_tz, ft1.planned_arrival_local_hour as planned_arrival_local_hour,
 
+-- XuJ 050817: add layover_duration for debugging
+  null as layover_duration, 
+
   tia.first_flight_id as first_flight_id, null as second_flight_id,
   tia.passengers as passengers
 from temp_itinerary_allocations tia
@@ -56,6 +62,9 @@ select ft1.year as year, ft1.quarter as quarter, ft1.month as month, ft1.day_of_
 
   ft1.planned_departure_time as planned_departure_time, ft1.planned_departure_tz as planned_departure_tz, ft1.planned_departure_local_hour as planned_departure_local_hour,
   ft2.planned_arrival_time as planned_arrival_time, ft2.planned_arrival_tz as planned_arrival_tz, ft2.planned_arrival_local_hour as planned_arrival_local_hour,
+ 
+-- XuJ 050817: add layover_duration for debugging
+  TIMESTAMPDIFF(minute, ft1.planned_arrival_time, ft2.planned_departure_time) as layover_duration,
  
   tia.first_flight_id as first_flight_id, tia.second_flight_id as second_flight_id,
   tia.passengers as passengers
