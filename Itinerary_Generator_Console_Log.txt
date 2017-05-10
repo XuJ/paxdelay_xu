@@ -1,7 +1,3 @@
 0      [main    ] INFO : Beginning ItineraryGenerator.main(Properties properties) execution
-properties {CARRIER.10=FL, DATABASE_PASSWORD=paxdelay, DATABASE_USERNAME=root, JDBC_URL=jdbc:mysql://localhost:3306/paxdelay?zeroDateTimeBehavior=convertToNull, FIRST_DATE=01/01/2007, CARRIER.20=YV, CARRIER.09=F9, CARRIER.08=EV, CARRIER.07=DL, CARRIER.06=CO, CARRIER.05=B6, CARRIER.04=AS, CARRIER.03=AQ, CARRIER.02=AA, LAST_DATE=12/31/2007, CARRIER.01=9E, CARRIER.19=XE, CARRIER.18=WN, CARRIER.17=US, CARRIER.16=UA, CARRIER.15=OO, CARRIER.14=OH, CARRIER.13=NW, CARRIER.12=MQ, OUTPUT_DIRECTORY=/mdsg/paxdelay_general_Xu/, CARRIER.11=HA}
 url: jdbc:mysql://localhost:3306/paxdelay?zeroDateTimeBehavior=convertToNull
 username: root
-output_directory: /mdsg/paxdelay_general_Xu/
-Connecting to database...
-jdbc:mysql://localhost:3306/paxdelay?zeroDateTimeBehavior=convertToNull

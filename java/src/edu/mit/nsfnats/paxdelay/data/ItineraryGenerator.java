@@ -213,9 +213,9 @@ public class ItineraryGenerator {
 
 	public void initialize(Properties properties) throws InvalidFormatException {
 		m_jdbcURL = properties.getProperty(PROPERTY_JDBC_URL);
-		System.out.println("url "+m_jdbcURL);
+		System.out.println("url: "+m_jdbcURL);
 		m_dbUsername = properties.getProperty(PROPERTY_DATABASE_USERNAME);
-		System.out.println("username "+m_dbUsername);
+		System.out.println("username: "+m_dbUsername);
 		m_dbPassword = properties.getProperty(PROPERTY_DATABASE_PASSWORD);
 
 		m_flightsTable = properties.getProperty(PROPERTY_FLIGHTS_TABLE, DEFAULT_FLIGHTS_TABLE);
@@ -242,8 +242,8 @@ public class ItineraryGenerator {
 		m_carriers = PropertiesReader.readStrings(properties,
 				PROPERTY_CARRIER_PREFIX);
 		m_outputDirectory = properties.getProperty(PROPERTY_OUTPUT_DIRECTORY);
-        System.out.println(m_outputDirectory);
-        System.out.println(PROPERTY_OUTPUT_DIRECTORY);
+        System.out.println("output_directory: "+m_outputDirectory);
+//        System.out.println(PROPERTY_OUTPUT_DIRECTORY);
 		try {
 			String filename = m_outputDirectory + File.separator
 					+ properties.getProperty(PROPERTY_OUTPUT_FILENAME, 
@@ -281,9 +281,9 @@ public class ItineraryGenerator {
 			query.append("where year = ").append(m_year).append(NEWLINE);
 			query.append("  and num_flights = 2").append(NEWLINE);
 			query.append("order by first_operating_carrier, origin, connection");
-
-			logger.trace("Valid connections query:");
-			logger.trace(query.toString());
+			//XuJ 050917 comment unneccessary print
+//			logger.trace("Valid connections query:");
+//			logger.trace(query.toString());
 			rset = stmt.executeQuery(query.toString());
 			String prevKey = null;
 			List<String> connectionList = null;
@@ -405,9 +405,10 @@ public class ItineraryGenerator {
 			query.append("  and carrier in").append(NEWLINE);
 			query.append("    ").append(getCarrierSetString()).append(NEWLINE);
 			query.append("order by planned_arrival_time");
-
-			logger.trace("Flight data query:");
-			logger.trace(query.toString());
+			
+			//XuJ 050817 comment this query print
+//			logger.trace("Flight data query:");
+//			logger.trace(query.toString());
 			rset = stmt.executeQuery(query.toString());
 
 			while (rset.next()) {
@@ -635,7 +636,7 @@ public class ItineraryGenerator {
 //		}
 		
 		Connection conn = null;
-		   Statement stmt = null;
+//		   Statement stmt = null;
 		   try{
 		      //STEP 2: Register JDBC driver
 		      try {

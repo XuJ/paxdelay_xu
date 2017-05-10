@@ -20,11 +20,14 @@ create table passenger_delays
   planned_connection char(3),
   planned_destination char(3) not null,
 
-  planned_departure_time date not null,
+  -- XuJ 051017: change time format from date to datetime
+  -- planned_departure_time date not null,
+  planned_departure_time datetime not null,
   planned_departure_tz char(15),
   planned_departure_local_hour numeric(2),
 
-  planned_arrival_time date not null,
+  -- planned_arrival_time date not null,
+  planned_arrival_time datetime not null,
   planned_arrival_tz char(15),
   planned_arrival_local_hour numeric(2),
 
@@ -32,7 +35,8 @@ create table passenger_delays
   num_disruptions numeric(1) not null,
   first_disruption_cause numeric(1) not null,
 
-  first_disruption_time date,
+  -- first_disruption_time date,
+  first_disruption_time datetime,
 
   first_disruption_hour numeric(2),
   disruption_origin_sequence varchar(40),

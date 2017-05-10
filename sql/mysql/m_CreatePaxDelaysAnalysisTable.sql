@@ -22,19 +22,24 @@ create table pax_delay_analysis
   planned_layover_duration numeric(4),
   actual_layover_duration numeric(4),
 
-	planned_departure_time date,
+	-- XuJ 051017: change time format from date to datetime
+	-- planned_departure_time date,
+	planned_departure_time datetime,
 	planned_departure_tz char(19),
 	planned_departure_local_hour numeric(2),
 
-	planned_connection_time date,
+	-- planned_connection_time date,
+	planned_connection_time datetime,
 	planned_connection_tz char(19),	
 	planned_connection_local_hour numeric(2),
 
-	actual_connection_time date,
+	-- actual_connection_time date,
+	actual_connection_time datetime,
 	actual_connection_tz char(19),
 	actual_connection_local_hour numeric(2),
 
-	planned_arrival_time date,
+	-- planned_arrival_time date,
+	planned_arrival_time datetime,
 	planned_arrival_tz char(19),
 	planned_arrival_local_hour numeric(2),
 
@@ -42,7 +47,8 @@ create table pax_delay_analysis
   num_disruptions numeric(1) not null,
   first_disruption_cause numeric(1) not null,
 
-	first_disruption_time date,
+	-- first_disruption_time date,
+	first_disruption_time datetime,
   first_disruption_hour numeric(2),
   disruption_origin_sequence varchar(40),
   disruption_cause_sequence varchar(20),
