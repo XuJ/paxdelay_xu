@@ -1,6 +1,6 @@
 -- XuJiao
 -- It took 37 min 26 sec
--- Record: 80,930,146 (MIT: 69,302,114)
+-- Record:  69,758,649 (MIT: 69,302,114)
 
 drop table if exists itinerary_allocations;
 

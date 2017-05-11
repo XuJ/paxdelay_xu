@@ -189,7 +189,8 @@ public class ItineraryGenerator {
 	public static void main(Properties properties) {
 		ItineraryGenerator generator = new ItineraryGenerator();
 		try {
-			System.out.println("properties "+properties);
+//			XuJ 051017: remove properties printing
+//			System.out.println("properties "+properties);
 			generator.initialize(properties);
 		} catch (InvalidFormatException e) {
 			exit(
@@ -213,9 +214,9 @@ public class ItineraryGenerator {
 
 	public void initialize(Properties properties) throws InvalidFormatException {
 		m_jdbcURL = properties.getProperty(PROPERTY_JDBC_URL);
-		System.out.println("url: "+m_jdbcURL);
+//		System.out.println("url: "+m_jdbcURL);
 		m_dbUsername = properties.getProperty(PROPERTY_DATABASE_USERNAME);
-		System.out.println("username: "+m_dbUsername);
+//		System.out.println("username: "+m_dbUsername);
 		m_dbPassword = properties.getProperty(PROPERTY_DATABASE_PASSWORD);
 
 		m_flightsTable = properties.getProperty(PROPERTY_FLIGHTS_TABLE, DEFAULT_FLIGHTS_TABLE);
@@ -281,7 +282,7 @@ public class ItineraryGenerator {
 			query.append("where year = ").append(m_year).append(NEWLINE);
 			query.append("  and num_flights = 2").append(NEWLINE);
 			query.append("order by first_operating_carrier, origin, connection");
-			//XuJ 050917 comment unneccessary print
+			//XuJ 050917 comment unnecessary print
 //			logger.trace("Valid connections query:");
 //			logger.trace(query.toString());
 			rset = stmt.executeQuery(query.toString());
