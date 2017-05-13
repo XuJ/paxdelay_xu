@@ -1,6 +1,6 @@
 -- XuJiao 041217
 -- That took 70 min
--- Records: 81,254,021
+-- Records: 70,104,050 
 
 drop table if exists passenger_delays;
 
@@ -23,12 +23,14 @@ create table passenger_delays
   -- XuJ 051017: change time format from date to datetime
   -- planned_departure_time date not null,
   planned_departure_time datetime not null,
-  planned_departure_tz char(15),
+  -- planned_departure_tz char(15),
+  planned_departure_tz char(25),
   planned_departure_local_hour numeric(2),
 
   -- planned_arrival_time date not null,
   planned_arrival_time datetime not null,
-  planned_arrival_tz char(15),
+  -- planned_arrival_tz char(15),
+  planned_arrival_tz char(25),
   planned_arrival_local_hour numeric(2),
 
   num_passengers numeric(8, 4) not null,
