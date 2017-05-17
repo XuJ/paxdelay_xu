@@ -1,9 +1,9 @@
 -- XuJiao052017
 -- create pax_delay_analysis_MIT table
 
-drop table if exists temp_pax_delay_analysis_MIT;
+drop table if exists pax_delay_analysis_MIT;
 
-create table temp_pax_delay_analysis_MIT 
+create table pax_delay_analysis_MIT 
 (
   year numeric(4) not null,
   quarter int not null,
@@ -44,7 +44,7 @@ partition by list (quarter)
 
 
 LOAD DATA LOCAL INFILE '/mdsg/paxdelay_general_Xu/bts_raw_csv/pax_delay_analysis_MIT.csv'
-INTO TABLE temp_pax_delay_analysis_MIT 
+INTO TABLE pax_delay_analysis_MIT 
 FIELDS TERMINATED BY ','
 OPTIONALLY ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
@@ -96,43 +96,6 @@ disruption_cause_sequence = nullif(@vdisruption_cause_sequence,''),
 last_flown_flight_id = nullif(@vlast_flown_flight_id,''),
 random_num = nullif(@vrandom_num,'');
 
-
-drop table if exists pax_delay_analysis_MIT
-
-create table pax_delay_analysis_MIT 
-select 
-  tmp.year,
-  tmp.quarter,
-  tmp.month,
-  tmp.day_of_month,
-  tmp.planned_num_flights,
-  tmp.planned_multi_carrier,
-  tmp.planned_first_flight_id,
-  tmp.planned_second_flight_id,
-  tmp.planned_first_carrier,
-  tmp.planned_second_carrier,
-  tmp.planned_origin,
-  tmp.planned_connection,
-  tmp.planned_destination,
-  tmp.planned_layover_duration,
-  tmp.actual_layover_duration,
-  tmp.planned_departure_time,
-  tmp.planned_connection_time,
-  tmp.actual_connection_time,
-  tmp.planned_arrival_time,
-  tmp.num_passengers,
-  tmp.num_disruptions,
-  tmp.first_disruption_cause,
-  tmp.first_disruption_time,
-  tmp.first_disruption_hour,
-  tmp.disruption_origin_sequence,
-  tmp.disruption_cause_sequence,
-  tmp.last_flown_flight_id,
-  tmp.trip_delay,
-  tmp.random_num 
-from temp_pax_delay_analysis_MIT tmp;
-
-drop table if exists temp_pax_delay_anlaysis_MIT;
 
 -- XuJ 051217: change oracle timestamp with timezone into mysql datetime and timezone (maybe need to convert_tz to UTC)
 -- select str_to_date(concat(substr('10-JAN-07 07.55.00.000000000 PM AMERICA/CHICAGO',1,18),substr('10-JAN-07 07.55.00.000000000 PM AMERICA/CHICAGO',29,3)),'%d-%b-%y %h.%i.%s %p');

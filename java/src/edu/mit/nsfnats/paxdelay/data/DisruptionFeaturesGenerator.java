@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -37,7 +38,8 @@ public class DisruptionFeaturesGenerator {
 	public static final String PROPERTY_DATABASE_PASSWORD = "DATABASE_PASSWORD";
 
 	public static final String PROPERTY_PASSENGER_DELAYS_TABLE = "PASSENGER_DELAYS_TABLE";
-	public static final String DEFAULT_PASSENGER_DELAYS_TABLE = "passenger_delays";
+//	public static final String DEFAULT_PASSENGER_DELAYS_TABLE = "passenger_delays";
+	public static final String DEFAULT_PASSENGER_DELAYS_TABLE = "pax_delay_analysis_MIT";
 	
 	public static final int DEFAULT_FETCH_SIZE = 10000;
 	public static final String NEWLINE = "\n";
@@ -88,16 +90,48 @@ public class DisruptionFeaturesGenerator {
 	}
 	
 	public static void main(String[] args) {
-		if (args.length != 3) {
-			System.err
-					.println("Usage: java edu.mit.nsfnats.paxdelay.data.ItineraryGenerator " +
-							" <logger_properties_file> <generator_properties_file>" +
-							" <outputDirectory>");
-			System.exit(-1);
-		}
+		
+		long startTime = System.nanoTime();
+		
+//		if (args.length != 3) {
+//			System.err
+//					.println("Usage: java edu.mit.nsfnats.paxdelay.data.ItineraryGenerator " +
+//							" <logger_properties_file> <generator_properties_file>" +
+//							" <outputDirectory>");
+//			System.exit(-1);
+//		}
+//		Properties loggerProperties = null;
+//		try {
+//			loggerProperties = PropertiesReader.loadProperties(args[0]);
+//		} catch (FileNotFoundException e) {
+//			exit("Logger properties file not found.", e, -1);
+//		} catch (IOException e) {
+//			exit("Received IO exception while reading logger properties file.",
+//					e, -1);
+//		}
+//		PropertyConfigurator.configure(loggerProperties);
+//
+//		Properties generatorProperties = null;
+//		try {
+//			generatorProperties = PropertiesReader.loadProperties(args[1]);
+//		} catch (FileNotFoundException e) {
+//			exit("Itinerary generator properties file not found.", e, -1);
+//		} catch (IOException e) {
+//			exit(
+//					"Received IO exception while reading itinerary generator properties file.",
+//					e, -1);
+//		}
+//		String outputDirectory = args[2];
+//		logger
+//				.info("Beginning DisruptionFeaturesGenerator.main(...) execution");
+//		main(generatorProperties, outputDirectory);
+//		logger
+//				.info("Execution of ItineraryGenerator.main(...) complete");
+//		
+		
 		Properties loggerProperties = null;
 		try {
-			loggerProperties = PropertiesReader.loadProperties(args[0]);
+			loggerProperties = PropertiesReader.loadProperties("resources/config/desktop/DefaultLogger.properties");
 		} catch (FileNotFoundException e) {
 			exit("Logger properties file not found.", e, -1);
 		} catch (IOException e) {
@@ -108,7 +142,7 @@ public class DisruptionFeaturesGenerator {
 
 		Properties generatorProperties = null;
 		try {
-			generatorProperties = PropertiesReader.loadProperties(args[1]);
+			generatorProperties = PropertiesReader.loadProperties("resources/config/desktop/DisruptionFeaturesGenerator.properties");
 		} catch (FileNotFoundException e) {
 			exit("Itinerary generator properties file not found.", e, -1);
 		} catch (IOException e) {
@@ -116,12 +150,16 @@ public class DisruptionFeaturesGenerator {
 					"Received IO exception while reading itinerary generator properties file.",
 					e, -1);
 		}
-		String outputDirectory = args[2];
+		String outputDirectory = "/mdsg/paxdelay_analysis/";
 		logger
 				.info("Beginning DisruptionFeaturesGenerator.main(...) execution");
 		main(generatorProperties, outputDirectory);
 		logger
 				.info("Execution of ItineraryGenerator.main(...) complete");
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000/1000/60;
+		System.out.println("That took " + duration + " minutes ");
 	}
 	
 	public static void main(Properties properties, String outputDirectory) {
@@ -185,8 +223,8 @@ public class DisruptionFeaturesGenerator {
 			StringBuffer query = new StringBuffer();
 			query.append("select asqp.code as primary_carrier,").append(NEWLINE);
 			query.append("  rc.secondary_carrier").append(NEWLINE);
-			query.append("from asqp_carriers asqp").append(NEWLINE);
-			query.append("left join related_carriers rc").append(NEWLINE);
+			query.append("from asqp_carriers_MIT asqp").append(NEWLINE);
+			query.append("left join related_carriers_MIT rc").append(NEWLINE);
 			query.append("  on rc.primary_carrier = asqp.code").append(NEWLINE);
 			query.append("order by asqp.code, rc.secondary_carrier");			
 			
@@ -245,7 +283,7 @@ public class DisruptionFeaturesGenerator {
 			stmt = createStatement();
 			StringBuffer query = new StringBuffer();
 			query.append("select carrier, airport, percent_operations").append(NEWLINE);
-			query.append("from carrier_operations").append(NEWLINE);
+			query.append("from carrier_operations_MIT").append(NEWLINE);
 			query.append("order by carrier asc, percent_operations desc");
 			
 			logger.trace("Carrier hubs query:");
@@ -397,13 +435,13 @@ public class DisruptionFeaturesGenerator {
 			query.append("    as non_stop_itineraries,").append(NEWLINE);
 			query.append("  sum(seg.passengers) / sum(seg.seats) as load_factor")
 				.append(NEWLINE);
-			query.append("from itineraries it").append(NEWLINE);
+			query.append("from itineraries_MIT it").append(NEWLINE);
 			query.append("join ").append(NEWLINE);
 			query.append("(").append(NEWLINE);
 			query.append(" select carrier, origin, destination, ").append(NEWLINE);
 			query.append("   sum(passengers) as passengers,").append(NEWLINE);
 			query.append("   sum(seats) as seats").append(NEWLINE);
-			query.append(" from t100_segments").append(NEWLINE);
+			query.append(" from t100_segments_MIT").append(NEWLINE);
 			query.append(" where year = ").append(m_year).append(NEWLINE);
 			query.append("   and quarter = ").append(quarter).append(NEWLINE);
 			query.append("   and month = ").append(month).append(NEWLINE);
@@ -488,13 +526,13 @@ public class DisruptionFeaturesGenerator {
 			query.append("      seg1.passengers / seg1.seats,").append(NEWLINE);
 			query.append("      seg2.passengers / seg2.seats)) / count(*) ").append(NEWLINE);
 			query.append("    as emptiest_load_factor").append(NEWLINE);
-			query.append("from itineraries it").append(NEWLINE);
+			query.append("from itineraries_MIT it").append(NEWLINE);
 			query.append("join ").append(NEWLINE);
 			query.append("(").append(NEWLINE);
 			query.append(" select carrier, origin, destination, ").append(NEWLINE);
 			query.append("   sum(passengers) as passengers,").append(NEWLINE);
 			query.append("   sum(seats) as seats").append(NEWLINE);
-			query.append(" from t100_segments").append(NEWLINE);
+			query.append(" from t100_segments_MIT").append(NEWLINE);
 			query.append(" where year = ").append(m_year).append(NEWLINE);
 			query.append("   and quarter = ").append(quarter).append(NEWLINE);
 			query.append("   and month = ").append(month).append(NEWLINE);
@@ -510,7 +548,7 @@ public class DisruptionFeaturesGenerator {
 			query.append(" select carrier, origin, destination, ").append(NEWLINE);
 			query.append("   sum(passengers) as passengers,").append(NEWLINE);
 			query.append("   sum(seats) as seats").append(NEWLINE);
-			query.append(" from t100_segments").append(NEWLINE);
+			query.append(" from t100_segments_MIT").append(NEWLINE);
 			query.append(" where year = ").append(m_year).append(NEWLINE);
 			query.append("   and quarter = ").append(quarter).append(NEWLINE);
 			query.append("   and month = ").append(month).append(NEWLINE);
@@ -602,7 +640,7 @@ public class DisruptionFeaturesGenerator {
 			query.append("  sum(decode(diverted_flag + cancelled_flag, 0, 0, 1)) / count(*)")
 				.append(NEWLINE);
 			query.append("    as cancelation_rate").append(NEWLINE);
-			query.append("from flights").append(NEWLINE);
+			query.append("from flights_MIT").append(NEWLINE);
 			query.append("where year = ").append(m_year).append(NEWLINE);
 			query.append("  and quarter = ").append(quarter).append(NEWLINE);
 			query.append("  and month = ").append(month).append(NEWLINE);
@@ -671,8 +709,8 @@ public class DisruptionFeaturesGenerator {
 			query.append("    as second_departure_hour,").append(NEWLINE);
 			query.append("  pd.first_disruption_hour as disruption_hour,").append(NEWLINE);
 			query.append("  pd.num_passengers, pd.trip_delay").append(NEWLINE);
-			query.append("from passenger_delays_6124 pd").append(NEWLINE);
-			query.append("join flights ft1").append(NEWLINE);
+			query.append("from pax_delay_analysis_MIT pd").append(NEWLINE);
+			query.append("join flights_MIT ft1").append(NEWLINE);
 			query.append("  on ft1.id = pd.planned_first_flight_id").append(NEWLINE);
 			query.append("left join flights ft2").append(NEWLINE);
 			query.append("  on ft2.id = pd.planned_second_flight_id").append(NEWLINE);
@@ -902,9 +940,16 @@ public class DisruptionFeaturesGenerator {
 
 	protected void connectToDatabase() {
 		try {
-			m_datasource = new OracleDataSource();
-			m_datasource.setURL(m_jdbcURL);
-			m_dbConnection = m_datasource.getConnection(m_dbUsername,
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+//			m_datasource = new OracleDataSource();
+//			m_datasource.setURL(m_jdbcURL);
+//			m_dbConnection = m_datasource.getConnection(m_dbUsername,
+//					m_dbPassword);
+			m_dbConnection = DriverManager.getConnection(m_jdbcURL,m_dbUsername,
 					m_dbPassword);
 		} catch (SQLException e) {
 			exit("Unable to connect to database " + m_jdbcURL
