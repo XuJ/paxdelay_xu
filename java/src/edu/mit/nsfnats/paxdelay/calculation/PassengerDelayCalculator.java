@@ -1,5 +1,5 @@
 //Xu Jiao 02202017
-//That took 354 minutes 
+//That took 499 minutes 
 
 package edu.mit.nsfnats.paxdelay.calculation;
 
@@ -692,9 +692,16 @@ public class PassengerDelayCalculator {
 //							"      to_number(to_char(nvl(actual_arrival_time, planned_arrival_time), 'HH24'))))")
 //					.append(NEWLINE);
 //			query.append("    as local_disruption_hour").append(NEWLINE);
-			query.append(" case cancelled_flag when 1 then  cast(date_format(planned_departure_time, 'HH24') as unsigned)").append(NEWLINE);
-			query.append(" else case diverted_flag when 1 then cast(date_format(planned_departure_time, 'HH24') as unsigned)").append(NEWLINE);
-			query.append("     else cast(date_format(ifnull(actual_arrival_time, planned_arrival_time), 'HH24') as unsigned)").append(NEWLINE);
+			
+			// XuJ 051817 local_disruption_hour should be local hour instead of UTC hour because all the flight time are in UTC timezone
+//			query.append(" case cancelled_flag when 1 then  cast(date_format(planned_departure_time, 'HH24') as unsigned)").append(NEWLINE);
+//			query.append(" else case diverted_flag when 1 then cast(date_format(planned_departure_time, 'HH24') as unsigned)").append(NEWLINE);
+//			query.append("     else cast(date_format(ifnull(actual_arrival_time, planned_arrival_time), 'HH24') as unsigned)").append(NEWLINE);
+//			query.append("     end").append(NEWLINE);
+//			query.append(" end as local_disruption_hour").append(NEWLINE);
+			query.append(" case cancelled_flag when 1 then  planned_departure_local_hour").append(NEWLINE);
+			query.append(" else case diverted_flag when 1 then planned_departure_local_hour").append(NEWLINE);
+			query.append("     else ifnull(actual_arrival_local_hour, planned_arrival_local_hour)").append(NEWLINE);
 			query.append("     end").append(NEWLINE);
 			query.append(" end as local_disruption_hour").append(NEWLINE);
 			query.append("from paxdelay.").append(m_flightsTable).append(NEWLINE);

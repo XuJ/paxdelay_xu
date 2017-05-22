@@ -1,6 +1,7 @@
 -- XuJiao022017
 -- Remove all _UTC
 -- That took 63 min
+-- Records: 70,089,204
 
 drop table if exists pax_delay_analysis;
 

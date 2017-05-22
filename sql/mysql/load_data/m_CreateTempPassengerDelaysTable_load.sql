@@ -1,7 +1,7 @@
 -- XuJiao 041217 
 -- Add index
 -- That took 11 min
--- Records: 70,104,050 
+-- Records: 70,089,204 
 LOAD DATA LOCAL INFILE '/mdsg/paxdelay_general_Xu/ProcessedItineraryDelays.csv'
 INTO TABLE temp_passenger_delays
 FIELDS TERMINATED BY ','
