@@ -1,0 +1,57 @@
+Create roles SCHEMA_USER and READONLY_DEVELOPER
+Create users PAXDELAY (SCHEMA_USER), DFEARING (DBA), and VIKRANTV (READONLY_DEVELOPER)
+Assign PAXDELAY unlimited quota on Users tablespace
+
+Create table from CreateT100SegementsTable.sql
+Load data from T100D_Segment_US_Carrier.ctl
+Create indices from CreateT100SegmentsTable.sql
+
+Create table from CreateT100MarketsTable.sql
+Load data from T100D_Market_US_Carrier.ctl
+Create indices from CreateT100MarketsTable.sql
+
+Create table from CreateDB1BCouponsTable.sql
+Load data from Origin_and_Destination_Survey_DB1BCoupon.ctl
+Create indices from CreateDB1BCouponsTable.sql
+
+Create table from CreateAOTPTable.sql
+Load data from On_Time_On_Time_Performance_2007.ctl
+Create indices from CreateAOTPTable.sql
+
+Create table from CreateInnovataTable.sql
+Load data from Innovata_Global_Sample.ctl
+
+Create table from CreateAirportsTable.sql
+Load data from AirportTimeZones.ctl
+
+Create table from CreateIATASeatsTable.sql
+Load data from CarrierAircraftCodePairsSeats.ctl
+
+Create table from CreateT100SeatsTable.sql
+Load data from T100DefaultSeatingCapacities.ctl
+
+Create table from CreateContinentalItinerariesTable.sql
+Load data from ContinentalItineraries.ctl
+
+Create table from CreateContinentalFlightLegsTable.sql
+Load data from ContinentalFlightLegs.ctl
+Create indices from CreateContinentalFlightLegsTable.sql
+
+Create sequence and table from CreateOfferingsTable.sql
+Populate offerings table from PopulateOfferingsTable.sql
+Create indices from PopulateOfferingsTable.sql
+
+Create tables from CreateFlightsTable.sql
+Create indices from CreateFlightsTable.sql
+Drop temporary tables from CreateFlightsTable.sql
+
+Create table from CreateDB1BUniqueSegmentsTable.sql
+Create indices from CreateDB1BUniqueSegmentsTable.sql
+
+Create tables from CreateRouteDemandsTable.sql
+Create indices from CreateRouteDemandsTable.sql
+Drop temporary tables from CreateRouteDemandsTable.sql
+
+Create table from CreateItinerariesTable.sql
+Populate table from PopulateItinerariesTable.sql
+

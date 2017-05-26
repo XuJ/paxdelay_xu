@@ -1,5 +1,5 @@
--- Add RelatedCarriers.csv in the root directory 021417
-LOAD DATA LOCAL INFILE '/mdsg/paxdelay_general_Xu/RelatedCarriers.csv'
+-- 052217 XuJ: use related_carriers.R in /mdsg/ to create related_carriers_20xx.csv in /mdsg/bts_raw_csv/
+LOAD DATA LOCAL INFILE '/mdsg/bts_raw_csv/related_carriers_2008.csv'
 INTO TABLE related_carriers
 FIELDS TERMINATED BY ','
 OPTIONALLY ENCLOSED BY '"'
