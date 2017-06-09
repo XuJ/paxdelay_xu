@@ -27,7 +27,7 @@ public class LoadScheduleB43Data {
 	   
 	   //SUKITJANUPARP
 	   //change the value of int year if want to run the data from other year
-	   static int year = 2007;
+	   static int year = 2013;
 	   
 	   public static void main(String[] args) {
 	   long startTime = System.nanoTime();

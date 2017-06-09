@@ -53,7 +53,7 @@ public class PassengerDelayCalculator {
 	public static final String PROPERTY_YEAR = "YEAR";
 	public static final String PROPERTY_FIRST_DATE = "FIRST_DATE";
 	public static final String PROPERTY_LAST_DATE = "LAST_DATE";
-	public static final int DEFAULT_YEAR = 2007;
+	public static final int DEFAULT_YEAR = 2013;
 
 	public static final String PROPERTY_ITINERARIES_TABLE = "ITINERARIES_TABLE";
 	public static final String DEFAULT_ITINERARIES_TABLE = "itineraries";
@@ -153,7 +153,7 @@ public class PassengerDelayCalculator {
 //		if (args.length != 3) {
 //			System.err
 //					.println("Usage: java edu.mit.nsfnats.paxdelay.calculation.PassengerDelayCaculator "
-//							+ "<logger_properties_file> <calculator_properties_file> <output_directory");
+//							+ "<logger_properties_file> <calculator_properties_file> <output_directory>");
 //			System.exit(-1);
 //		}
 //		Properties loggerProperties = null;
@@ -186,7 +186,7 @@ public class PassengerDelayCalculator {
 		
 		Properties loggerProperties = null;
 		try {
-			loggerProperties = PropertiesReader.loadProperties("resources/config/desktop/DefaultLogger.properties");
+			loggerProperties = PropertiesReader.loadProperties("/thayerfs/home/f002bmp/workspace/paxdelay_general_Xu/resources/config/desktop/DefaultLogger.properties");
 		} catch (FileNotFoundException e) {
 			exit("Logger properties file not found.", e, -1);
 		} catch (IOException e) {
@@ -197,7 +197,7 @@ public class PassengerDelayCalculator {
 
 		Properties calculatorProperties = null;
 		try {
-			calculatorProperties = PropertiesReader.loadProperties("resources/config/desktop/PassengerDelayCalculatorTest.properties");
+			calculatorProperties = PropertiesReader.loadProperties("/thayerfs/home/f002bmp/workspace/paxdelay_general_Xu/resources/config/desktop/PassengerDelayCalculatorTest.properties");
 		} catch (FileNotFoundException e) {
 			exit("Delay calculator properties file not found.", e, -1);
 		} catch (IOException e) {
@@ -406,7 +406,7 @@ public class PassengerDelayCalculator {
 			query.append("select carrier, origin, destination,")
 					.append(NEWLINE);
 			query.append("  seats_mean, seats_std_dev, departures_performed").append(NEWLINE);
-			query.append("from paxdelay.t100_seats").append(NEWLINE);
+			query.append("from t100_seats").append(NEWLINE);
 			query.append("where year = ").append(m_year).append(NEWLINE);
 			query.append("  and month >= ").append(m_firstMonth).append(NEWLINE);
 			query.append("  and month <= ").append(m_lastMonth).append(NEWLINE);
@@ -704,7 +704,7 @@ public class PassengerDelayCalculator {
 			query.append("     else ifnull(actual_arrival_local_hour, planned_arrival_local_hour)").append(NEWLINE);
 			query.append("     end").append(NEWLINE);
 			query.append(" end as local_disruption_hour").append(NEWLINE);
-			query.append("from paxdelay.").append(m_flightsTable).append(NEWLINE);
+			query.append("from ").append(m_flightsTable).append(NEWLINE);
 			query.append("where year = ").append(m_year).append(NEWLINE);
 			query.append("  and quarter = ").append(quarter).append(NEWLINE);
 			query.append("  and month = ").append(month).append(NEWLINE);
@@ -960,7 +960,7 @@ public class PassengerDelayCalculator {
 			query.append("  origin, destination,").append(NEWLINE);
 			query.append("  planned_departure_time,").append(NEWLINE);
 			query.append("  planned_arrival_time").append(NEWLINE);
-			query.append("from paxdelay.").append(m_itinerariesTable).append(NEWLINE);
+			query.append("from ").append(m_itinerariesTable).append(NEWLINE);
 			query.append("where year = ").append(m_year).append(NEWLINE);
 			query.append("  and quarter = ").append(quarter).append(NEWLINE);
 			query.append("  and month = ").append(monthToLoad).append(NEWLINE);

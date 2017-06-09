@@ -15,7 +15,7 @@ public class CreateItineraryLoadAllData {
 		
 		long startTime = System.nanoTime();
 		
-		String[] carriers = {"YV","XE","WN","US","UA","OO","OH","NW","MQ","HA","FL","F9","EV","DL","CO","B6","AS","AQ","AA","9E"};
+		String[] carriers = {"YV","XE","WN","US","UA","OO","OH","NW","MQ","HA","FL","F9","EV","DL","CO","B6","AS","AQ","AA","9E","VX"};
 		String[] prefixes = {"Load"}; //{"Load", "External"}; VV: Mar 31st 2017. Because we don't need external files to create the database 
 		String[] ms = {"Multiple","Single"};
 		String[] month = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};//XuJ: 04/01/17. Expand to whole year

@@ -59,7 +59,7 @@ public class ItineraryGenerator {
 	public static final String PROPERTY_YEAR = "YEAR";
 	public static final String PROPERTY_FIRST_DATE = "FIRST_DATE";
 	public static final String PROPERTY_LAST_DATE = "LAST_DATE";
-	public static final int DEFAULT_YEAR = 2007;
+	public static final int DEFAULT_YEAR = 2013;
 
 	public static final String NEWLINE = "\n";
 
@@ -155,7 +155,7 @@ public class ItineraryGenerator {
 		
 		Properties loggerProperties = null;
 		try {
-			loggerProperties = PropertiesReader.loadProperties("resources/config/desktop/DebugLogger.properties");
+			loggerProperties = PropertiesReader.loadProperties("/thayerfs/home/f002bmp/workspace/paxdelay_general_Xu/resources/config/desktop/DebugLogger.properties");
 		} catch (FileNotFoundException e) {
 			exit("Logger properties file not found.", e, -1);
 		} catch (IOException e) {
@@ -166,7 +166,7 @@ public class ItineraryGenerator {
 
 		Properties generatorProperties = null;
 		try {
-			generatorProperties = PropertiesReader.loadProperties("resources/config/desktop/ItineraryGeneratorTest.properties");
+			generatorProperties = PropertiesReader.loadProperties("/thayerfs/home/f002bmp/workspace/paxdelay_general_Xu/resources/config/desktop/ItineraryGeneratorTest.properties");
 		} catch (FileNotFoundException e) {
 			exit("Itinerary generator properties file not found.", e, -1);
 		} catch (IOException e) {

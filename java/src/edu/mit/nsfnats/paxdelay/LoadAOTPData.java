@@ -1,7 +1,7 @@
 //XuJiao
 //That took 2 minutes 
 //input: /mdsg/bts_raw_csv/AOTP_20(06~15)_(1~12).csv
-//need to change the year 2007 in the load syntax or add int year=2007 in the first
+//need to change the year 2013 in the load syntax or add int year=2013 in the first
 //Records: 7,455,458 (MIT: 7,445,458)
 
 package edu.mit.nsfnats.paxdelay;
@@ -114,7 +114,7 @@ public class LoadAOTPData {
 	      stmt.clearBatch();
 	      sql.clear();
 		   for(int i = 1;i<=12;i++){
-			   String filename = "/mdsg/bts_raw_csv/AOTP_2007_"+i+".csv";
+			   String filename = "/mdsg/bts_raw_csv/AOTP_2013_"+i+".csv";
 			   //042117 XuJ: read empty value in csv as NULL value
 			   stmt.execute("LOAD DATA LOCAL INFILE '"+filename+"'\n" + 
 			   		"		INTO TABLE tmp_load_aotp\n" +

@@ -71,7 +71,7 @@ public class AutomatedPassengerAllocator {
 	public static final String PROPERTY_ALLOCATION_YEAR = "ALLOCATION_YEAR";
 	public static final String PROPERTY_ALLOCATION_FIRST_MONTH = "ALLOCATION_FIRST_MONTH";
 	public static final String PROPERTY_ALLOCATION_LAST_MONTH = "ALLOCATION_LAST_MONTH";
-	public static final int DEFAULT_ALLOCATION_YEAR = 2007;
+	public static final int DEFAULT_ALLOCATION_YEAR = 2013;
 
 	public static final String PROPERTY_ALLOCATION_CARRIER_PREFIX = "ALLOCATION_CARRIER";
 
@@ -178,7 +178,7 @@ public class AutomatedPassengerAllocator {
 		
 		Properties loggerProperties = null;
 		try {
-			loggerProperties = PropertiesReader.loadProperties("resources/config/desktop/DefaultLogger.properties");
+			loggerProperties = PropertiesReader.loadProperties("/thayerfs/home/f002bmp/workspace/paxdelay_general_Xu/resources/config/desktop/DefaultLogger.properties");
 		} catch (FileNotFoundException e) {
 			exit("Logger properties file not found.", e, -1);
 		} catch (IOException e) {
@@ -189,7 +189,7 @@ public class AutomatedPassengerAllocator {
 
 		Properties allocationProperties = null;
 		try {
-			allocationProperties = PropertiesReader.loadProperties("resources/config/desktop/AutomatedPassengerAllocator.properties");
+			allocationProperties = PropertiesReader.loadProperties("/thayerfs/home/f002bmp/workspace/paxdelay_general_Xu/resources/config/desktop/AutomatedPassengerAllocator.properties");
 		} catch (FileNotFoundException e) {
 			exit("Allocation properties file not found.", e, -1);
 		} catch (IOException e) {
@@ -322,7 +322,7 @@ public class AutomatedPassengerAllocator {
 		try {
 			stmt = createStatement();
 			StringBuffer query = new StringBuffer();
-			query.append("select code from paxdelay.asqp_carriers");
+			query.append("select code from asqp_carriers");
 			logger.trace("ASQP carriers query:");
 			logger.trace(query.toString());
 			rset = stmt.executeQuery(query.toString());
@@ -426,7 +426,7 @@ public class AutomatedPassengerAllocator {
 			query.append(
 					" select quarter, sum(passengers) as passenger_segments")
 					.append(NEWLINE);
-			query.append(" from paxdelay.").append(m_segmentDemandTable)
+			query.append(" from ").append(m_segmentDemandTable)
 					.append(NEWLINE);
 			query.append(" group by quarter").append(NEWLINE);
 			query.append(") seg").append(NEWLINE);
@@ -438,7 +438,7 @@ public class AutomatedPassengerAllocator {
 			query.append(
 					"   / sum(num_flights * passengers) as percent_one_stop")
 					.append(NEWLINE);
-			query.append(" from paxdelay.").append(m_oneStopPercentTable)
+			query.append(" from ").append(m_oneStopPercentTable)
 					.append(NEWLINE);
 			query.append(" where passengers > 0").append(NEWLINE);
 			query.append(" group by quarter").append(NEWLINE);
@@ -449,7 +449,7 @@ public class AutomatedPassengerAllocator {
 			query.append(
 					"   sum(num_flights * passengers) as one_stop_segments")
 					.append(NEWLINE);
-			query.append(" from paxdelay.").append(m_scaledRouteDemandTable)
+			query.append(" from ").append(m_scaledRouteDemandTable)
 					.append(NEWLINE);
 			query.append(" where num_flights > 1").append(NEWLINE);
 			query.append(" group by quarter").append(NEWLINE);
@@ -560,7 +560,7 @@ public class AutomatedPassengerAllocator {
 			query.append("select carrier, origin, destination,").append(NEWLINE);
 			query.append("  departures_performed, seats_mean,").append(NEWLINE);
 			query.append("  seats_squared_mean, seats_std_dev").append(NEWLINE);
-			query.append("from paxdelay.t100_seats").append(NEWLINE);
+			query.append("from t100_seats").append(NEWLINE);
 			query.append("where year = ").append(m_year).append(NEWLINE);
 			query.append("  and month = ").append(month);
 
@@ -629,7 +629,7 @@ public class AutomatedPassengerAllocator {
 							"  DATE_FORMAT(planned_arrival_time, '%h:%i:%s') as arrival_time,")
 					.append(NEWLINE);
 			query.append("  cancelled_flag").append(NEWLINE);
-			query.append("from paxdelay.").append(m_flightsTable).append(NEWLINE);
+			query.append("from ").append(m_flightsTable).append(NEWLINE);
 			query.append("where year = ").append(m_year).append(NEWLINE);
 			query.append("  and quarter = ").append(quarter).append(NEWLINE);
 			query.append("  and month = ").append(month);
@@ -650,12 +650,38 @@ public class AutomatedPassengerAllocator {
 								"  DATE_FORMAT(planned_arrival_time, '%h:%i:%s') as arrival_time,")
 						.append(NEWLINE);
 				query.append("  cancelled_flag").append(NEWLINE);
-				query.append("from paxdelay.").append(m_flightsTable).append(NEWLINE);
+				query.append("from ").append(m_flightsTable).append(NEWLINE);
 				query.append("where year = ").append(m_year).append(NEWLINE);
 				query.append("  and quarter = ").append(nextQuarter).append(
 						NEWLINE);
 				query.append("  and month = ").append(month + 1);
 				query.append("  and day_of_month = 1");
+			}
+				// XuJ 060417: Add the last day of previous month, because there are some circumstances that the itineraries go from 02/01/10 to 01/31/10 and then 02/01/10
+				// XuJ 060417: To decrease the coding difficulties, instead defining the last date of the month (28,29,30, or 31), add the date after 28th
+			if (month > 1) {
+				int previousQuarter = getQuarterForMonth(month - 1);
+				query.append(NEWLINE);
+				query.append("union all").append(NEWLINE);
+				query.append("select id, carrier, month, day_of_month,")
+						.append(NEWLINE);
+				query.append("  origin, destination,  seating_capacity,")
+						.append(NEWLINE);
+				query
+						.append(
+								"  DATE_FORMAT(planned_departure_time, '%h:%i:%s') as departure_time,")
+						.append(NEWLINE);
+				query
+						.append(
+								"  DATE_FORMAT(planned_arrival_time, '%h:%i:%s') as arrival_time,")
+						.append(NEWLINE);
+				query.append("  cancelled_flag").append(NEWLINE);
+				query.append("from ").append(m_flightsTable).append(NEWLINE);
+				query.append("where year = ").append(m_year).append(NEWLINE);
+				query.append("  and quarter = ").append(previousQuarter).append(
+						NEWLINE);
+				query.append("  and month = ").append(month - 1);
+				query.append("  and day_of_month >= 28");
 			}
 			
 			logger.trace("Flight seating capacities query:");
@@ -787,7 +813,7 @@ public class AutomatedPassengerAllocator {
 			query.append("select carrier, origin, destination,")
 					.append(NEWLINE);
 			query.append("  sum(passengers) as passengers").append(NEWLINE);
-			query.append("from paxdelay.").append(m_segmentDemandTable).append(
+			query.append("from ").append(m_segmentDemandTable).append(
 					NEWLINE);
 			query.append("where year = ").append(m_year).append(NEWLINE);
 			query.append("  and quarter = ").append(quarter).append(NEWLINE);
@@ -859,7 +885,7 @@ public class AutomatedPassengerAllocator {
 					.append(NEWLINE);
 			query.append(" HOUR(planned_departure_time) as origin_tz, ").append(NEWLINE);
 			query.append(" HOUR(planned_arrival_time) as destination_tz ").append(NEWLINE);
-			query.append("from paxdelay.").append(m_itinerariesTable).append(NEWLINE);
+			query.append("from ").append(m_itinerariesTable).append(NEWLINE);
 			query.append("where year = ").append(m_year).append(NEWLINE);
 			query.append("  and quarter = ").append(quarter).append(NEWLINE);
 			query.append("  and month = ").append(month).append(NEWLINE);
@@ -918,7 +944,7 @@ public class AutomatedPassengerAllocator {
 				InternalFlight firstFlight = m_idFlightMap.get(firstFlightID);
 				if (firstFlight == null) {
 					logger
-							.error("Unable to retrieve flight information for flight ID "
+							.error("Unable to retrieve flight information for first flight ID "
 									+ firstFlightID);
 				}
 				boolean cancelledFlag = firstFlight.isCancelledFlag();
@@ -931,7 +957,7 @@ public class AutomatedPassengerAllocator {
 					secondFlight = m_idFlightMap.get(secondFlightID);
 					if (secondFlight == null) {
 						logger
-								.error("Unable to retrieve flight information for flight ID "
+								.error("Unable to retrieve flight information for second flight ID "
 										+ secondFlightID);
 					}
 					cancelledFlag = cancelledFlag || secondFlight.isCancelledFlag();
@@ -1017,7 +1043,7 @@ public class AutomatedPassengerAllocator {
 					.append(NEWLINE);
 			query.append("  origin, connection, destination, passengers")
 					.append(NEWLINE);
-			query.append("from paxdelay.").append(m_scaledRouteDemandTable)
+			query.append("from ").append(m_scaledRouteDemandTable)
 					.append(NEWLINE);
 			query.append("where year = ").append(m_year).append(NEWLINE);
 			query.append("  and quarter = ").append(quarter).append(NEWLINE);
@@ -1035,14 +1061,14 @@ public class AutomatedPassengerAllocator {
 								"      and second_operating_carrier != first_operating_carrier")
 						.append(NEWLINE);
 				query.append("      and exists(").append(NEWLINE);
-				query.append("        select * from paxdelay.asqp_carriers")
+				query.append("        select * from asqp_carriers")
 						.append(NEWLINE);
 				query.append("        where code = second_operating_carrier))")
 						.append(NEWLINE);
 				query.append("    or (second_operating_carrier = '").append(
 						carrierCode).append("'").append(NEWLINE);
 				query.append("      and not exists(").append(NEWLINE);
-				query.append("        select * from paxdelay.asqp_carriers")
+				query.append("        select * from asqp_carriers")
 						.append(NEWLINE);
 				query.append("        where code = first_operating_carrier)))")
 						.append(NEWLINE);
