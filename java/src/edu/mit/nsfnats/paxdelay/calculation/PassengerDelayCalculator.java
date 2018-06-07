@@ -53,7 +53,6 @@ public class PassengerDelayCalculator {
 	public static final String PROPERTY_YEAR = "YEAR";
 	public static final String PROPERTY_FIRST_DATE = "FIRST_DATE";
 	public static final String PROPERTY_LAST_DATE = "LAST_DATE";
-	public static final int DEFAULT_YEAR = 2016;
 
 	public static final String PROPERTY_ITINERARIES_TABLE = "ITINERARIES_TABLE";
 	public static final String DEFAULT_ITINERARIES_TABLE = "itineraries";
@@ -256,8 +255,7 @@ public class PassengerDelayCalculator {
 		m_dbUsername = properties.getProperty(PROPERTY_DATABASE_USERNAME);
 		m_dbPassword = properties.getProperty(PROPERTY_DATABASE_PASSWORD);
 
-		m_year = PropertiesReader.readInt(properties, PROPERTY_YEAR,
-				DEFAULT_YEAR);
+		m_year = PropertiesReader.readInt(properties, PROPERTY_YEAR);
 		try {
 			Date tempDate = PropertiesReader.readDate(properties,
 					PROPERTY_FIRST_DATE);

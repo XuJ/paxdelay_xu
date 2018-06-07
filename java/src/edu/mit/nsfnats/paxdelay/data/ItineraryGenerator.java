@@ -5,7 +5,6 @@
 //That took 27 minutes
 //Change the name of the output file and comment the maximum_connections_time
 // and maximum_number_connections in the property files
-//Console outputs are located in ~/paxdelay_general_Xu/Itinerary_Generator_Console_Log.txt
 
 
 package edu.mit.nsfnats.paxdelay.data;
@@ -59,7 +58,6 @@ public class ItineraryGenerator {
 	public static final String PROPERTY_YEAR = "YEAR";
 	public static final String PROPERTY_FIRST_DATE = "FIRST_DATE";
 	public static final String PROPERTY_LAST_DATE = "LAST_DATE";
-	public static final int DEFAULT_YEAR = 2016;
 
 	public static final String NEWLINE = "\n";
 
@@ -221,8 +219,7 @@ public class ItineraryGenerator {
 
 		m_flightsTable = properties.getProperty(PROPERTY_FLIGHTS_TABLE, DEFAULT_FLIGHTS_TABLE);
 		
-		m_year = PropertiesReader.readInt(properties, PROPERTY_YEAR,
-				DEFAULT_YEAR);
+		m_year = PropertiesReader.readInt(properties, PROPERTY_YEAR);
 		try {
 			Date tempDate = PropertiesReader.readDate(properties,
 					PROPERTY_FIRST_DATE);

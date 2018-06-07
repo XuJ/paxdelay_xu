@@ -1,7 +1,7 @@
 //XuJiao
 //That took 2 minutes 
 //input: /mdsg/bts_raw_csv/AOTP_20(06~15)_(1~12).csv
-//need to change the year 2016 in the load syntax or add int year=2016 in the first
+//need to change the year 2016 
 //Records: 7,455,458 (MIT: 7,445,458)
 
 package edu.mit.nsfnats.paxdelay;
@@ -16,9 +16,15 @@ public class LoadAOTPData {
 	// JDBC driver name and database URL
 	   static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	   static final String DB_URL = "jdbc:mysql://localhost:3306/paxdelay?allowMultiQueries=true";
+	   
 	   //  Database credentials
 	   static final String USER = "root";
 	   static final String PASS = "paxdelay";
+
+	   //XuJ
+	   //change the value of int year if want to run the data from other year
+	   static int year = 2016;
+
 	   public static void main(String[] args) {
 	   long startTime = System.nanoTime();
 	   Connection conn = null;
@@ -114,7 +120,7 @@ public class LoadAOTPData {
 	      stmt.clearBatch();
 	      sql.clear();
 		   for(int i = 1;i<=12;i++){
-			   String filename = "/mdsg/bts_raw_csv/AOTP_2016_"+i+".csv";
+			   String filename = "/mdsg/bts_raw_csv/AOTP_"+year+"_"+i+".csv";
 			   //042117 XuJ: read empty value in csv as NULL value
 			   stmt.execute("LOAD DATA LOCAL INFILE '"+filename+"'\n" + 
 			   		"		INTO TABLE tmp_load_aotp\n" +
