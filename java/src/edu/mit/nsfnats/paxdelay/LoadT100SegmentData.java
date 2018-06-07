@@ -16,7 +16,7 @@ public class LoadT100SegmentData {
 	   //  Database credentials
 	   static final String USER = "root";
 	   static final String PASS = "paxdelay";
-	   static int year = 2013;
+	   static int year = 2016;
 	   public static void main(String[] args) {
 	   long startTime = System.nanoTime();
 	   Connection conn = null;

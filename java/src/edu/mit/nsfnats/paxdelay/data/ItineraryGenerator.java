@@ -59,7 +59,7 @@ public class ItineraryGenerator {
 	public static final String PROPERTY_YEAR = "YEAR";
 	public static final String PROPERTY_FIRST_DATE = "FIRST_DATE";
 	public static final String PROPERTY_LAST_DATE = "LAST_DATE";
-	public static final int DEFAULT_YEAR = 2013;
+	public static final int DEFAULT_YEAR = 2016;
 
 	public static final String NEWLINE = "\n";
 

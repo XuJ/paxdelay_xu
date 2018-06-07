@@ -71,7 +71,7 @@ public class AutomatedPassengerAllocator {
 	public static final String PROPERTY_ALLOCATION_YEAR = "ALLOCATION_YEAR";
 	public static final String PROPERTY_ALLOCATION_FIRST_MONTH = "ALLOCATION_FIRST_MONTH";
 	public static final String PROPERTY_ALLOCATION_LAST_MONTH = "ALLOCATION_LAST_MONTH";
-	public static final int DEFAULT_ALLOCATION_YEAR = 2013;
+	public static final int DEFAULT_ALLOCATION_YEAR = 2016;
 
 	public static final String PROPERTY_ALLOCATION_CARRIER_PREFIX = "ALLOCATION_CARRIER";
 

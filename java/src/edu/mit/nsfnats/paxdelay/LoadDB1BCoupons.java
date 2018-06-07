@@ -29,7 +29,7 @@ public class LoadDB1BCoupons {
 	   
 	   //SUKITJANUPARP
 	   //change the value of int year if want to run the data from other year
-	   static int year = 2013;
+	   static int year = 2016;
 	   
 	   public static void main(String[] args) {
 	   long startTime = System.nanoTime();
@@ -69,14 +69,14 @@ public class LoadDB1BCoupons {
 	      		"	passengers	numeric(4, 0) not null,\n" + 
 	      		"	fare_class	char(1),\n" + 
 	      		"	distance	int\n" + 
-	      		")\n" + 
+	      		")\n" /*+ 
 	      		"ENGINE = MyISAM\n" + 
 	      		"partition by list (quarter)\n" + 
 	      		"(	partition p_q1 values in (1),\n" + 
 	      		"	partition p_q2 values in (2),\n" + 
 	      		"	partition p_q3 values in (3),\n" + 
 	      		"	partition p_q4 values in (4)\n" + 
-	      		")");
+	      		")"*/);
 	      
 	     
 	     for(Object s:sql){
