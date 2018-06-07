@@ -30,7 +30,7 @@ source /mdsg/paxdelay_general_Xu/sql/mysql/m_CreatePaxDelaysAnalysisTable.sql;
 
 
 -- Table5Creation
-use paxdelay_2013;
+use paxdelay_2016;
 select count(*) as flights from flights group by carrier order by carrier;
 select avg(arrival_delay) as avg_flight_delay from aotp group by carrier order by carrier;
 select avg(arrival_delay) as avg_flight_delay from aotp;
@@ -42,9 +42,9 @@ select sum(num_passengers*trip_delay) as sum_of_pax_delay_due_to_missed_connecti
 
 
 -- Backup
-create database paxdelay_2013;
-use paxdelay_2013;
-source /mdsg/mysql_backup/paxdelay_2013.sql
+create database paxdelay_2016;
+use paxdelay_2016;
+source /mdsg/mysql_backup/paxdelay_2016.sql
 drop database paxdelay;
 create database paxdelay;
 

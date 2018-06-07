@@ -1,5 +1,5 @@
 -- Table5Creation
-use paxdelay_2013;
+use paxdelay_2016;
 select count(*) as flights from flights group by carrier order by carrier;
 select avg(arrival_delay) as avg_flight_delay from aotp group by carrier order by carrier;
 select avg(arrival_delay) as avg_flight_delay from aotp;
